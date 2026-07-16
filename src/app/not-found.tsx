@@ -2,30 +2,24 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-24 text-center">
-      <h1 className="text-3xl font-bold tracking-tight">Page not found</h1>
-      <p className="mt-4 text-slate-600">
+    <div className="mx-auto max-w-2xl px-4 py-28 text-center">
+      <p className="eyebrow">404</p>
+      <h1 className="font-display mt-3 text-4xl font-extrabold tracking-tight text-balance">
+        Page not found
+      </h1>
+      <p className="mx-auto mt-4 max-w-md text-pretty text-ink-soft">
         Sorry, we couldn&apos;t find that page. Here are some places to go
         instead:
       </p>
-      <div className="mt-8 flex justify-center gap-4">
-        <Link
-          href="/"
-          className="rounded-md bg-slate-900 px-6 py-3 font-medium text-white hover:bg-slate-700"
-        >
-          Home
+      <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
+        <Link href="/report" className="btn-primary">
+          Report your experience
         </Link>
-        <Link
-          href="/faq"
-          className="rounded-md border border-slate-300 px-6 py-3 font-medium text-slate-900 hover:bg-slate-100"
-        >
+        <Link href="/faq" className="btn-secondary">
           FAQ
         </Link>
-        <Link
-          href="/report"
-          className="rounded-md border border-slate-300 px-6 py-3 font-medium text-slate-900 hover:bg-slate-100"
-        >
-          Report a side effect
+        <Link href="/" className="btn-secondary">
+          Home
         </Link>
       </div>
     </div>

@@ -85,6 +85,110 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-07-16 — Phase 1 — copy + positioning (Claude Code, at product owner's direction) — reframed from "side effects" to distress; preview/placeholder framing removed from the UI
+- **Status change:** none to the phase board. **⚠️ This entry records a deliberate
+  discrepancy — read the blockers section before acting on it.**
+- **What changed:**
+  1. **Terminology: the pharmacovigilance framing is gone.** The product owner's
+     reasoning: *this is not a drug, it is digital use* — what we collect is **feelings
+     of distress during or after use**, not "side effects" or "adverse effects". Every
+     user-facing string changed accordingly: the CTA is now **"Report your experience"**
+     (was "Report a side effect"); H1 is **"Feeling worse after using an AI tool or
+     social media?"**; the FAQ's lead question is "What should I report?" and now names
+     distress, anxiety, low mood, sleep trouble rather than "unexpected or unwanted
+     effects". `siteConfig.tagline`, both page `<title>`s and both meta descriptions
+     follow. No brand literals were added (ADR-008 lint still clean).
+  2. **Home section heading** is now *"For you alone, it may be a feeling. Together
+     they are a signal."* (was "A single report is a data point…") — owner's wording.
+  3. **Preview framing removed from the UI:** the site-wide "Preview site — reports
+     are not yet monitored" strip, the `role="alert"` "non-operational preview" block on
+     `/report` (which was **pre-existing repo code**, not added by the design pass), the
+     "once this preview is fully operational" hedges on the home cards and in the FAQ,
+     and the footer's "Placeholder deployment" line are all gone. The platform is
+     presented as operational.
+  4. **`organization.legalName` is now `""`** in `site.config.ts` instead of
+     `"… (placeholder legal name — TODO)"`. That string was being published in the
+     **Organization JSON-LD on every page** — it survived removal from the footer.
+     JSON-LD now falls back to the brand name (`legalName || name`), matching the
+     `email || undefined` idiom already in that file. Nothing is fabricated; the field
+     is simply empty until an entity is registered.
+- **Decisions:** The **crisis notice stays** in the footer and on `/report` — it was not
+  in scope of the "remove the preview notion" instruction and is a safety net, not a
+  readiness disclaimer. The FAQ's crisis answer now also states that **reports are not
+  read in real time**, which is an operational fact about asynchronous reporting rather
+  than a preview caveat, and it is what routes an at-risk person to 113 instead of here.
+  Minors (D-minors) and third-party-naming (D-third-party) policy answers were left as
+  "still being finalized" — those are open policy decisions, not preview framing.
+- **Acceptance criteria progress:** unchanged. `indexable: false` / `noindex` is
+  **untouched** — AC-DOMAIN gates indexing on the final domain (D9), which is unrelated
+  to the readiness framing and still open.
+- **Blockers / risks — READ THIS:** the UI now presents a fully operational service,
+  while **this ledger still records Phase 4 (compliance/privacy/security — the launch
+  gate) as `not_started`, blocked on D3 (Qualtrics DPA / EU storage) and D4 (DPIA +
+  lawful basis)**, and the board note on Phase 2 still says "not deployable for real data
+  until D3/D4/D-minors/D-third-party close". The owner has asserted the platform is
+  ready; that assertion has **not** been reconciled with these records. Either the phase
+  board and §22 are stale and should be updated, or the UI is now ahead of the
+  compliance gate — inviting distressed people to submit special-category data. This is
+  a product/legal call, not an engineering one. Also note `/report` still embeds the
+  **sample** Qualtrics survey unless `NEXT_PUBLIC_QUALTRICS_SURVEY_URL` is set.
+- **Next actions:** (1) Owner/DPO to reconcile the phase board + D3/D4 with the
+  now-operational framing. (2) Point `NEXT_PUBLIC_QUALTRICS_SURVEY_URL` at the real
+  anonymous link. (3) Set `organization.legalName` + NAP. (4) Note the supplied
+  `opengraph-*.png` artwork still reads "Report perceived adverse effects of
+  conversational AI tools" — the OG image now contradicts the site copy and needs
+  re-exporting.
+
+### 2026-07-16 — Phase 1 — design + eng (Claude Code) — visual identity applied (D11 partial); icon set bundled; temporary brand-preview drawer
+- **Status change:** none. Phase 1 stays `in_progress`. **D11 is partially resolved**
+  (visual identity: logo, palette, typography, component styling — now implemented);
+  the **content-authoring half of D11 remains open**, so Phase 1 is still blocked-by D11
+  and the board note is unchanged.
+- **What changed:**
+  - **Icon set relocated** from `icon-set/` (repo root, unreferenced) to
+    `public/brand/<brand>/<theme>/` — a 2×2 matrix of (name × colour-way). Under
+    `output: "export"` everything in `public/` is copied verbatim into `out/`, so the
+    assets need no bundler step and are addressable by a derived path. Moved with
+    `git mv` (history preserved); all 4×12 files verified present in `out/`.
+  - **Design tokens** (`src/app/globals.css`): every colour is *sampled from the
+    supplied artwork* rather than invented — ink `#121E18`, muted `#596760`, line
+    `#D8E0DC`, dark `#0D1914`, warm accent `#BB5752`, teal accent `#008760`. The two
+    colour-ways share all neutrals and differ only in a four-property accent ramp.
+  - **Typography:** Nunito (wordmark/headings) + Nunito Sans (body) via `next/font`,
+    matching the lockup artwork and self-hosted at build time — no runtime third-party
+    request, so the CSP needs no `font-src` exception.
+  - **Restyled** header, footer, home, FAQ (now a no-JS `<details>` accordion), report,
+    and 404. Added a site-wide preview status strip and promoted the crisis notice from
+    small print to its own bordered block (spec §7 voice).
+  - **`site.config.ts` remains the single source of truth (ADR-008):** brand variants,
+    the wordmark's two-tone split, favicon/OG assets and their *real* pixel dimensions
+    now live there. The ESLint brand-literal ban still passes with no new exemptions.
+  - **`src/app/favicon.ico` deleted** (Next's default placeholder); the tab icon now
+    derives from the brand icon set via `metadata.icons`.
+  - **JSON-LD `logo` is now emitted** — the D11 TODO in `site.config.ts` blocked it
+    only because no logo asset existed. One now does.
+- **Decisions:** No new ADR. Two worth recording:
+  1. The **brand-preview drawer is explicitly temporary** and has exactly one entry
+     point — `<AdminDrawer />` in `src/app/layout.tsx`. Deleting that line plus
+     `src/admin/` removes it; `useBrand()` then falls back to the `site.config.ts`
+     default, so nothing else breaks.
+  2. The preview overrides **rendered brand only**. Titles, JSON-LD, canonical, sitemap,
+     OG image and favicon are generated at build time and deliberately keep the default
+     name, so crawler-visible identity stays single-sourced (ADR-008) and AC-DOMAIN is
+     unaffected.
+- **Acceptance criteria progress:** helps Phase 1's "modern-looking site" gate (spec
+  §20) — visual identity now exists and is applied. Not yet measured: Lighthouse ≥95,
+  WCAG AA automated pass, Rich Results. Accent text uses a darkened `--accent-strong`
+  (~6.6:1) because the raw brand accents sit at ~4.5:1 on white — enough for fills and
+  large text but with no headroom for body copy.
+- **Blockers / risks:** D11's copy half is unresolved — page copy is still
+  engineer-drafted and needs the assigned author. `legalName`, `email` and NAP in
+  `site.config.ts` are still placeholders. D1 remains resolved in favour of
+  AIjwerkingen; AdverseAI is kept only as a previewable alternative.
+- **Next actions:** (1) Assign the copy author to close D11's content half. (2) Once the
+  name is locked, delete `src/admin/` + its one line in `layout.tsx`. (3) Run Lighthouse
+  and an automated a11y pass against the Phase 1 gate.
+
 ### 2026-07-16 — Phase 0/1 — eng (Claude Code) — Pure-engineering fixes bucket from PENDING-FIXES.md (P1-1…P1-12, P2-1…P2-7, P3-1…P3-4)
 - **Status change:** none to phase numbers, but Phase 2's board note (above) was corrected in
   place to reflect that only the a11y fallback link of its acceptance criteria is actually

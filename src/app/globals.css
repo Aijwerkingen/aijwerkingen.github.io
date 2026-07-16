@@ -1,9 +1,169 @@
 @import "tailwindcss";
 
-body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
+/* ---------------------------------------------------------------------------
+ * Design tokens (D11 — visual identity, spec §22).
+ *
+ * Every colour below is sampled from the supplied icon set, so the UI and the
+ * artwork cannot drift apart. The two colour-ways share ALL neutrals and differ
+ * only in the accent ramp, which is why theming is four custom properties.
+ *
+ * `--accent` is the fill colour (logo, buttons); it sits at ~4.5:1 on white,
+ * which is fine for large text and UI fills but leaves no headroom for body
+ * copy. `--accent-strong` is the darkened variant (~6.6:1) used for links and
+ * any accent-coloured text, so WCAG AA holds in both colour-ways.
+ * ------------------------------------------------------------------------- */
+
+:root {
+  /* Neutrals — shared by both colour-ways (sampled from the lockup artwork). */
+  --c-ink: #121e18;
+  --c-ink-soft: #596760;
+  --c-line: #d8e0dc;
+  --c-line-soft: #e9efec;
+  --c-canvas: #f5f8f6;
+  --c-surface: #ffffff;
+  --c-inverse: #0d1914;
+
+  /* Caution/notice ramp. Deliberately NOT the brand accent: in the warm
+   * colour-way the accent is red, and a red "warning" next to red buttons
+   * would read as brand chrome rather than a warning. */
+  --c-notice: #7a4f14;
+  --c-notice-soft: #fdf6ec;
+  --c-notice-line: #f0dcbd;
+}
+
+/* Both colour-ways are also declared as scoped selectors, not just as :root
+ * defaults. That lets any subtree opt into a colour-way with
+ * `data-brand-theme` — which the admin drawer's swatches rely on to show warm
+ * and teal side by side. With warm living only on :root, a warm-tagged element
+ * inside a teal document would inherit teal and both swatches would match. */
+:root,
+[data-brand-theme="warm"] {
+  /* Warm colour-way — the default (spec D11). */
+  --accent: #bb5752;
+  --accent-strong: #9a403c;
+  --accent-soft: #fbf3f2;
+  --accent-line: #eed5d4;
+}
+
+[data-brand-theme="teal"] {
+  --accent: #008760;
+  --accent-strong: #006b4c;
+  --accent-soft: #eff7f3;
+  --accent-line: #bfe1d7;
+}
+
+/* `inline` is what makes runtime theming work: utilities compile to
+ * `var(--accent)` rather than a baked hex, so flipping `data-brand-theme` on
+ * <html> restyles the whole page with no re-render and no flash. */
+@theme inline {
+  --color-ink: var(--c-ink);
+  --color-ink-soft: var(--c-ink-soft);
+  --color-line: var(--c-line);
+  --color-line-soft: var(--c-line-soft);
+  --color-canvas: var(--c-canvas);
+  --color-surface: var(--c-surface);
+  --color-inverse: var(--c-inverse);
+
+  --color-notice: var(--c-notice);
+  --color-notice-soft: var(--c-notice-soft);
+  --color-notice-line: var(--c-notice-line);
+
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+
+  --font-display: var(--font-brand-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-brand-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--c-surface);
+    color: var(--c-ink);
+    text-rendering: optimizeLegibility;
+  }
+
+  /* One ring definition for every interactive element — a visible, high-contrast
+   * focus indicator is a WCAG AA requirement the spec gates Phase 1 on. */
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--accent-line);
+    color: var(--c-ink);
+  }
+}
+
+@layer components {
+  /* Shared button base. Tailwind v4's @apply only takes real utilities, not
+     other custom classes, so the base is a selector group rather than a `.btn`
+     the variants compose. `.btn-sm` comes last so it wins on padding. */
+  .btn,
+  .btn-primary,
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3
+      text-base font-semibold transition-colors duration-150;
+  }
+
+  .btn-primary {
+    @apply bg-accent text-white hover:bg-accent-strong;
+  }
+
+  .btn-secondary {
+    @apply border border-line bg-surface text-ink hover:border-accent-line hover:bg-accent-soft;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2 text-sm;
+  }
+
+  .card {
+    @apply rounded-2xl border border-line bg-surface p-6;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold tracking-[0.14em] text-ink-soft uppercase;
+  }
+
+  /* Shared shell for the crisis + preview callouts. */
+  .notice {
+    @apply rounded-xl border px-4 py-3 text-sm leading-relaxed;
+  }
+
+  .link {
+    @apply text-accent-strong underline decoration-accent-line
+      underline-offset-4 transition-colors hover:decoration-accent-strong;
+  }
+}
+
+/* The hero's ECG trace draws itself once on load, echoing the pulse line in the
+ * logo mark. Purely decorative, and the reduced-motion block below stops it.
+ *
+ * Relies on the path carrying pathLength="1", which normalises the dash maths to
+ * a 0..1 scale — hard-coding a length in user units instead would leave the tail
+ * of the path rendered as a gap whenever the real length exceeded the guess. */
+@keyframes brand-trace {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.brand-trace {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: brand-trace 2.4s ease-out forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/site.config";
 
 export const metadata: Metadata = {
-  title: "Report a side effect",
+  title: "Report your experience",
   description:
-    "Report a perceived adverse effect from a conversational AI tool or social media platform. Takes a few minutes; anonymous by default.",
+    "Report distress you felt during or after using a conversational AI tool or social media platform. Takes a few minutes; anonymous by default.",
   alternates: {
     canonical: "/report",
   },
@@ -30,70 +30,87 @@ export default function ReportPage() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
       />
-      <h1 className="text-3xl font-bold tracking-tight">
-        Report a side effect
-      </h1>
 
-      <div
-        role="alert"
-        className="mt-6 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900"
-      >
-        <p className="font-medium">
-          This is a non-operational preview. Reports submitted here are not
-          currently monitored or acted on.
-        </p>
-      </div>
+      <section className="border-b border-line bg-canvas">
+        <div className="mx-auto max-w-3xl px-4 py-14">
+          <p className="eyebrow">Report</p>
+          <h1 className="font-display mt-3 text-4xl font-extrabold tracking-tight text-balance">
+            Report your experience
+          </h1>
+          <p className="mt-4 max-w-xl text-pretty text-ink-soft">
+            Tell us how using an AI tool or social media left you feeling. This
+            takes a few minutes. You don&apos;t need an account, you don&apos;t
+            need proof, and you can stop at any point.
+          </p>
 
-      <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
-        <p>
-          Not a crisis service. If you or someone else is in immediate
-          danger, contact your local emergency number. In the Netherlands,{" "}
+          <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-soft">
+            {[
+              "Anonymous by default",
+              "No account required",
+              "Contact details optional",
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-2">
+                <span
+                  aria-hidden="true"
+                  className="size-1.5 rounded-full bg-accent"
+                />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-3xl px-4 py-12">
+        <aside className="notice border-line bg-canvas text-ink-soft">
+          <p>
+            <span className="font-semibold text-ink">
+              Not a crisis service.
+            </span>{" "}
+            If you or someone else is in immediate danger, contact your local
+            emergency number. In the Netherlands,{" "}
+            <a
+              href="https://www.113.nl"
+              className="link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              113 Zelfmoordpreventie
+            </a>{" "}
+            (call 113 or 0800-0113) offers free, confidential support with
+            suicidal thoughts or crisis.
+          </p>
+        </aside>
+
+        <div className="mt-8 overflow-hidden rounded-2xl border border-line bg-surface shadow-sm">
+          <iframe
+            src={QUALTRICS_SURVEY_URL}
+            title="Experience report form"
+            className="h-[900px] w-full"
+            referrerPolicy="no-referrer"
+            allowFullScreen={false}
+            sandbox="allow-scripts allow-forms allow-same-origin allow-popups"
+          />
+        </div>
+
+        <p className="mt-4 text-sm text-ink-soft">
+          Form not loading, or prefer a full page?{" "}
           <a
-            href="https://www.113.nl"
-            className="underline"
+            href={QUALTRICS_SURVEY_URL}
             target="_blank"
             rel="noopener noreferrer"
+            className="link"
           >
-            113 Zelfmoordpreventie
-          </a>{" "}
-          (call 113 or 0800-0113) offers free, confidential support with
-          suicidal thoughts or crisis.
+            Open it in a new tab
+          </a>
+          .
         </p>
       </div>
-
-      <p className="mt-4 text-slate-600">
-        This takes a few minutes. You don&apos;t need an account, and you can
-        stop at any point.
-      </p>
-
-      <div className="mt-8 overflow-hidden rounded-lg border border-slate-200">
-        <iframe
-          src={QUALTRICS_SURVEY_URL}
-          title="Side effect report form"
-          className="h-[900px] w-full"
-          referrerPolicy="no-referrer"
-          allowFullScreen={false}
-          sandbox="allow-scripts allow-forms allow-same-origin allow-popups"
-        />
-      </div>
-
-      <p className="mt-4 text-sm text-slate-500">
-        Form not loading, or prefer a full page?{" "}
-        <a
-          href={QUALTRICS_SURVEY_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline"
-        >
-          Open it in a new tab
-        </a>
-        .
-      </p>
-    </div>
+    </>
   );
 }

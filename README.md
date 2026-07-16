@@ -27,6 +27,28 @@ The survey layer sits behind a **`SurveyProvider` abstraction** with two impleme
 
 Switching between them is **one config value (`SURVEY_PROVIDER`) + a redeploy** — no rewrite. See spec §8.
 
+## Brand assets & the temporary preview drawer
+
+The icon set lives in **`public/brand/<brand>/<theme>/`** — a 2×2 matrix of name
+(`aijwerkingen`, `adverseai`) × colour-way (`warm`, `teal`). `public/` is copied verbatim
+into the static export, so these need no bundler step; paths are built by `brandAsset()`
+in `src/site.config.ts` rather than written by hand, which keeps brand literals in that
+one file (ADR-008). The UI palette in `src/app/globals.css` is sampled from this artwork,
+so the two cannot drift apart.
+
+The site ships with a **temporary brand-preview drawer** (small handle on the right edge)
+for trying the alternative name and colour-way without a rebuild. It defaults to
+**AIjwerkingen + warm**, matching `defaultBrandKey` / `defaultBrandTheme` in
+`site.config.ts`.
+
+> **To remove it:** delete `src/admin/` and the single `<AdminDrawer />` line in
+> `src/app/layout.tsx`. That is its only entry point. Everything then renders the
+> `site.config.ts` default.
+
+It previews **rendered brand only**. Page titles, JSON-LD, canonical URLs, the sitemap,
+the OG image and the favicon are generated at build time and intentionally keep the
+default name, so crawler-visible identity stays single-sourced.
+
 ## Name & domain are configurable (decide later)
 All brand identity lives in **one file, `src/site.config.ts`** (spec §5.1) — name, domain, logo, NAP. Every SEO artifact (titles, meta, canonical, JSON-LD, sitemap, `robots.txt`, `llms.txt`) derives from it, so picking the final name and buying the final domain later is a **one-file edit**, not a codebase hunt. The **name** can float at zero SEO cost; the **domain** must be final before anything is indexed (spec §5.2, criterion AC-DOMAIN).
 
