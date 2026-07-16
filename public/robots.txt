@@ -1,0 +1,5 @@
+# Placeholder deployment (ADR-010) — not the final domain, kept out of the
+# index until site.config.ts.indexable is flipped true and the final domain
+# is verified in Search Console (spec §5.2, AC-DOMAIN).
+User-agent: *
+Disallow: /

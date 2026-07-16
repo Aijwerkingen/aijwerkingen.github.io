@@ -1,0 +1,109 @@
+# AMC-Larebish — Example survey configuration (Mode B, self-hosted)
+# ---------------------------------------------------------------------------
+# Questions are defined HERE, not in code. Editing this file (and bumping
+# `version`) changes the survey with no code change. Validated against
+# survey.schema.json at build time (CI) and at runtime before rendering.
+#
+# NOTE: The questions below are ILLUSTRATIVE placeholders — the real questions
+# are not yet finalised (spec §9, decision D8). Structure matters here, not the
+# exact wording. Mark any personal-data field with `pii: true` so it drives
+# encryption + retention handling.
+# ---------------------------------------------------------------------------
+
+version: "0.1.0"                 # semver; stored as `survey_version` on each submission
+locale_default: "en"
+locales: ["en", "nl"]
+
+metadata:
+  title: "Report a suspected side effect"
+  description: >
+    Help improve medicine and vaccine safety by reporting a suspected side
+    effect. This is not a medical-advice service; in an emergency contact your
+    local emergency number.
+  estimated_minutes: 6
+
+consent:
+  required: true
+  # Consent text is referenced by i18n key; full copy lives in the content layer.
+  i18n_key: "survey.consent.body"
+  # Explicit consent is a candidate GDPR Art. 9 condition — confirm in the DPIA (spec §13).
+  record_consent_version: true
+
+sections:
+  - id: reporter_type
+    title: "About you"
+    questions:
+      - id: who_is_reporting
+        type: single_choice
+        label: "Who is submitting this report?"
+        required: true
+        options:
+          - { value: "patient", i18n_key: "opt.patient" }
+          - { value: "carer", i18n_key: "opt.carer" }
+          - { value: "healthcare_professional", i18n_key: "opt.hcp" }
+        i18n_key: "q.who_is_reporting"
+
+  - id: the_product
+    title: "The medicine or vaccine"
+    questions:
+      - id: product_name
+        type: short_text
+        label: "Name of the medicine or vaccine"
+        required: true
+        validation: { max_length: 200 }
+        i18n_key: "q.product_name"
+      - id: batch_number
+        type: short_text
+        label: "Batch / lot number (if known)"
+        required: false
+        validation: { max_length: 100 }
+        i18n_key: "q.batch_number"
+
+  - id: the_reaction
+    title: "The suspected side effect"
+    questions:
+      - id: reaction_description
+        type: long_text
+        label: "Describe what happened"
+        required: true
+        pii: true                      # free text may contain personal/health data
+        validation: { max_length: 5000 }
+        i18n_key: "q.reaction_description"
+      - id: start_date
+        type: date
+        label: "When did it start?"
+        required: false
+        i18n_key: "q.start_date"
+      - id: severity
+        type: scale
+        label: "How severe was it?"
+        required: false
+        scale: { min: 1, max: 5, min_label_i18n: "scale.mild", max_label_i18n: "scale.severe" }
+        i18n_key: "q.severity"
+      - id: ongoing
+        type: boolean
+        label: "Is it still ongoing?"
+        required: false
+        i18n_key: "q.ongoing"
+      - id: outcome
+        type: single_choice
+        label: "What was the outcome?"
+        required: false
+        conditional: { when: "ongoing", equals: false }   # show only if not ongoing
+        options:
+          - { value: "recovered", i18n_key: "opt.recovered" }
+          - { value: "recovering", i18n_key: "opt.recovering" }
+          - { value: "not_recovered", i18n_key: "opt.not_recovered" }
+          - { value: "unknown", i18n_key: "opt.unknown" }
+        i18n_key: "q.outcome"
+
+  - id: contact
+    title: "Contact (optional)"
+    description: "Only if you are willing to be contacted for follow-up. Optional."
+    questions:
+      - id: contact_email
+        type: email
+        label: "Email address"
+        required: false
+        pii: true                      # personal data — encrypted; lawful basis required
+        i18n_key: "q.contact_email"
