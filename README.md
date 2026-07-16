@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AIjwerkingen
 
-## Getting Started
+A public-facing pharmacovigilance / adverse-event **survey & data-collection website** — a modern, secure, discoverable site whose core action is "report a side effect", modelled on sites like [lareb.nl](https://www.lareb.nl/en) (NL), VAERS/FAERS (US), MHRA Yellow Card (UK), VigiAccess (WHO), and MotherToBaby (US).
 
-First, run the development server:
+> **AIjwerkingen** is a temporary working name (decision D1, spec §22) and this deploy's
+> domain (`aijwerkingen.github.io`, decision D9) is a placeholder kept `noindex` — see
+> `TECHNICAL_SPEC.md` §5.2 and `CHANGELOG.md`'s **▶ RESUME HERE** block for what changes
+> once both are finalized.
+
+## Read these in order
+1. **`TECHNICAL_SPEC.md`** — the full technical specification. Start here.
+2. **`CHANGELOG.md`** — the authoritative phase-status ledger. **Read this before doing any work** to learn the current state; append to it as you go (protocol in spec §21).
+3. **`REVIEW.md`** — a reusable, phase-agnostic audit protocol for a fresh agent to verify completed work against the spec and the changelog's own claims. Use it any time you want an independent sanity check on the current state, not just after Phase 0.
+
+## Starter / reference artifacts (repo root)
+- `survey.example.yaml` — example config-driven survey (Mode B). **Questions are never hard-coded.**
+- `survey.schema.json` — JSON-Schema that validates the survey config at build & runtime.
+- `robots.example.txt` — starting `robots.txt` (references sitemap; AI-crawler policy is a decision — spec §11.6).
+- `llms.example.txt` — starting `llms.txt` for AEO/GEO discovery.
+- `schema-examples.jsonld` — example JSON-LD (`Organization`, `FAQPage`, `HowTo`).
+- `qualtrics-integration.md` — step-by-step Mode A (Qualtrics embed) runbook, spec §8.3 Appendix G.
+
+## The one idea to internalise
+The survey layer sits behind a **`SurveyProvider` abstraction** with two implementations:
+- **Mode A — `qualtrics`:** questions live in Qualtrics; the app embeds the survey.
+- **Mode B — `native`:** the app renders questions from a **config file** and posts to **our own backend**.
+
+Switching between them is **one config value (`SURVEY_PROVIDER`) + a redeploy** — no rewrite. See spec §8.
+
+## Name & domain are configurable (decide later)
+All brand identity lives in **one file, `src/site.config.ts`** (spec §5.1) — name, domain, logo, NAP. Every SEO artifact (titles, meta, canonical, JSON-LD, sitemap, `robots.txt`, `llms.txt`) derives from it, so picking the final name and buying the final domain later is a **one-file edit**, not a codebase hunt. The **name** can float at zero SEO cost; the **domain** must be final before anything is indexed (spec §5.2, criterion AC-DOMAIN).
+
+## First step / resuming later
+- **Starting fresh:** begin **Phase 0** (spec §20) — scaffold the SSR app + CI, create `site.config.ts`, write the ADR files, initialise environments, then update `CHANGELOG.md`.
+- **Resuming after you've picked the final name & domain:** open `CHANGELOG.md` and follow the **▶ RESUME HERE** block at the top (mirrored in spec §0.1). In short: edit `site.config.ts`, set `NEXT_PUBLIC_SITE_URL`, verify the domain in Search Console, then flip production to indexable.
+
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). This app is built for **static export**
+(`output: "export"` in `next.config.ts`) to deploy on GitHub Pages, which has no server
+runtime — keep that constraint in mind before adding anything that needs a Node server
+(that's Mode B's backend, spec §8.4, which needs different hosting — see ADR-009/010 in
+`CHANGELOG.md`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To check the production build locally:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npx serve out
+```

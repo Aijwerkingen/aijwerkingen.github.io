@@ -82,6 +82,33 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-07-16 — Phase 0 — process (Claude Code) — added REVIEW.md; fixed a README regression
+- **Status change:** none.
+- **What changed:**
+  - Added **`REVIEW.md`** — a reusable, phase-agnostic protocol for a cold agent (no prior
+    session context) to independently audit whatever's been completed at any point in the
+    project. Unlike a one-off review prompt, it derives scope from the live Phase status
+    board in this file rather than hardcoding a phase, so the same file is valid after
+    Phase 0 or after Phase 5. Pointed to it from `README.md`'s "Read these in order" list.
+  - **Found and fixed a regression from the Phase 0 scaffold step** (the entry two below,
+    "first deployable slice"): the `rsync` used to merge the freshly `create-next-app`'d
+    project into the repo root **silently overwrote the original `README.md`**
+    (the one with "Read these in order," the `SurveyProvider` explainer, the starter-artifact
+    list) with `create-next-app`'s generic Next.js boilerplate. This went unnoticed until
+    now. Restored the original content from the conversation record, corrected its
+    starter-artifact paths to match where those files actually live (flat at repo root, not
+    under a `config/` subfolder as the original text assumed — a pre-existing inaccuracy,
+    also now fixed), and folded in a short "Local development" section (`npm run dev`,
+    static-export build check) that's genuinely useful and wasn't in the original.
+  - Confirmed via the original file list that **no other file was affected** by that same
+    `rsync` — `README.md` was the only path that collided between the scaffold output and
+    the pre-existing project files.
+- **Decisions:** none new.
+- **Blockers / risks:** unchanged. Worth noting as a general lesson: a directory-merge step
+  (rsync/cp over an existing tree) can silently clobber files sharing a name with generated
+  scaffolding — worth an explicit diff/conflict check next time this pattern is used.
+- **Next actions:** unchanged.
+
 ### 2026-07-16 — Phase 0 — tooling note (Claude Code) — agents should prefer codegraph over grep/find
 - **Status change:** none.
 - **What changed:** Added a section to `AGENTS.md` (also picked up via `CLAUDE.md`, which
