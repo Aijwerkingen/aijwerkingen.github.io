@@ -232,7 +232,7 @@ interface SurveyProvider {
 
 ### 8.3 Mode A — Qualtrics embedded
 
-> **Step-by-step runbook:** `docs/qualtrics-integration.md` walks the full flow — creating & configuring the survey in Qualtrics, getting the anonymous link, embedding it, origin-checked completion detection, CSP, testing, and the launch checklist. This section is the requirements summary; the runbook is the "how".
+> **Step-by-step runbook:** `qualtrics-integration.md` walks the full flow — creating & configuring the survey in Qualtrics, getting the anonymous link, embedding it, origin-checked completion detection, CSP, testing, and the launch checklist. This section is the requirements summary; the runbook is the "how".
 
 - The Qualtrics survey (all questions/answers authored in Qualtrics) is embedded on `/report` via a **responsive `<iframe>`** using the survey's anonymous link.
 - **Submission/completion detection:** Qualtrics survey posts a message to the parent via `window.parent.postMessage(...)` on the final screen; the parent app listens with `window.addEventListener('message', ...)` and then shows a thank-you state / fires an analytics event. Validate `event.origin` against the Qualtrics domain before acting.
@@ -262,7 +262,7 @@ interface SurveyProvider {
 
 ## 9. Survey configuration model (self-hosted questions)
 
-A **versioned, validated config file** defines questions for Mode B. See `config/survey.example.yaml` for a working example and `config/survey.schema.json` for the machine-validatable schema. Key properties:
+A **versioned, validated config file** defines questions for Mode B. See `survey.example.yaml` for a working example and `survey.schema.json` for the machine-validatable schema. Key properties:
 
 - **Top-level:** `version` (semver, bump on every change — used as `survey_version`), `locale_default`, `metadata` (title, description, estimated time), `consent` block, `sections[]`.
 - **Section:** `id`, `title`, `description?`, `questions[]`.
@@ -421,13 +421,13 @@ Each phase ends with **explicit acceptance criteria** and a **change-log entry**
 - **Acceptance:** all pages SSR & (production-)indexable while non-prod is `noindex`; Lighthouse ≥ 95 (Perf/A11y/BP/SEO) on `/` and `/report` placeholder; sitemap & robots valid and derived from `site.config`; JSON-LD passes Rich Results; header scanner A/A+; WCAG AA automated pass.
 
 ### Phase 2 — Survey abstraction + Mode A (Qualtrics embed)
-- Implement `SurveyProvider` interface and `qualtrics` provider. **Follow `docs/qualtrics-integration.md`** for the concrete steps.
+- Implement `SurveyProvider` interface and `qualtrics` provider. **Follow `qualtrics-integration.md`** for the concrete steps.
 - Responsive iframe embed on `/report`; `postMessage` completion handling with origin validation; thank-you state; analytics conversion event; accessibility fallback link.
 - CSP `frame-src` scoped to Qualtrics; no PII in URLs.
 - **Acceptance:** `/report` renders the Qualtrics survey in Mode A; completion event fires and is tracked; CSP correct; a11y fallback present; integration test for Mode A green. **(Real-data go-live still gated on Phase 4 compliance.)**
 
 ### Phase 3 — Mode B (self-hosted questions + backend), config-driven
-- Survey config schema (`config/survey.schema.json`) + example config; build-time + runtime validation.
+- Survey config schema (`survey.schema.json`) + example config; build-time + runtime validation.
 - `native` provider renders form from config (all field types in Section 9); client+server validation.
 - `POST /api/submissions`: validation, anti-abuse, encrypted EU storage, audit log, submission reference, no PII in logs.
 - Switching test: flipping `SURVEY_PROVIDER` boots either mode; both reach "submitted".
@@ -491,12 +491,12 @@ See `CHANGELOG.md` for the template and the initial entry.
 
 ## 23. Appendices
 
-- **Appendix A — Example survey config:** `config/survey.example.yaml`
-- **Appendix B — Survey config JSON-Schema:** `config/survey.schema.json`
-- **Appendix C — Example `robots.txt` + `llms.txt`:** `config/robots.example.txt`, `config/llms.example.txt`
-- **Appendix D — Example JSON-LD (`Organization`, `FAQPage`, `HowTo`):** `config/schema-examples.jsonld`
+- **Appendix A — Example survey config:** `survey.example.yaml`
+- **Appendix B — Survey config JSON-Schema:** `survey.schema.json`
+- **Appendix C — Example `robots.txt` + `llms.txt`:** `robots.example.txt`, `llms.example.txt`
+- **Appendix D — Example JSON-LD (`Organization`, `FAQPage`, `HowTo`):** `schema-examples.jsonld`
 - **Appendix E — Environment variables:** `.env.example` (repo root, created in Phase 0)
 - **Appendix F — Site identity config:** `site.config.ts` (single source of truth for name/domain/NAP — §5.1; created in Phase 0)
-- **Appendix G — Qualtrics integration runbook:** `docs/qualtrics-integration.md` (step-by-step Mode A: create survey → embed → detect completion → launch)
+- **Appendix G — Qualtrics integration runbook:** `qualtrics-integration.md` (step-by-step Mode A: create survey → embed → detect completion → launch)
 
 _These appendices are provided as starting artifacts alongside this spec so an implementing agent has concrete, valid examples to adapt._

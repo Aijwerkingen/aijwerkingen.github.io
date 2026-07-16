@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "FAQ",
   description:
     "Answers to common questions about reporting a perceived adverse effect from an AI tool or social media platform: what to report, anonymity, what happens next, and who can report.",
+  alternates: {
+    canonical: "/faq",
+  },
 };
 
 const faqs = [

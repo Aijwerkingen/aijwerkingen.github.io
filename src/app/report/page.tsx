@@ -1,21 +1,40 @@
 import type { Metadata } from "next";
+import { siteConfig } from "@/site.config";
 
 export const metadata: Metadata = {
   title: "Report a side effect",
   description:
     "Report a perceived adverse effect from a conversational AI tool or social media platform. Takes a few minutes; anonymous by default.",
+  alternates: {
+    canonical: "/report",
+  },
 };
 
 // Mode A (Qualtrics-embedded), spec §8.3. This is a SAMPLE survey for early
 // preview only — swap for the real anonymous link before any real-data launch,
 // and see qualtrics-integration.md for postMessage completion handling,
 // CSP frame-src hardening, and the launch checklist (Phase 2 work, not yet done).
+// Sourced from env (spec §19, §8.5) rather than hard-coded, so it's per-build
+// config, not a component literal — see .env.example.
 const QUALTRICS_SURVEY_URL =
+  process.env.NEXT_PUBLIC_QUALTRICS_SURVEY_URL ||
   "https://qualtricsxmwdy4hl99w.qualtrics.com/jfe/form/SV_aVpwAHDeyg456No";
 
 export default function ReportPage() {
+  const webPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: metadata.title,
+    description: metadata.description,
+    url: `${siteConfig.canonicalUrl}/report`,
+  };
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
+      />
       <h1 className="text-3xl font-bold tracking-tight">
         Report a side effect
       </h1>
@@ -59,6 +78,7 @@ export default function ReportPage() {
           className="h-[900px] w-full"
           referrerPolicy="no-referrer"
           allowFullScreen={false}
+          sandbox="allow-scripts allow-forms allow-same-origin allow-popups"
         />
       </div>
 

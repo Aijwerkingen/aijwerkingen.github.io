@@ -34,7 +34,7 @@ anything is indexed. This work is scheduled in **Phase 5**.
 |-------|------|--------|-------|
 | 0 | Foundations & scaffolding | in_progress | App scaffolded + builds; ADR files, CI, and the no-hardcoded-brand lint rule still pending |
 | 1 | Informational site + SEO baseline | in_progress | Home + FAQ live; About/How-it-works/Privacy/Terms/Contact/Accessibility not started. Blocked-by: D11 (visual identity & copy, see spec §22) |
-| 2 | Survey abstraction + Mode A (Qualtrics) | in_progress | Iframe embed working end-to-end with a sample survey; `SurveyProvider` interface, postMessage completion, CSP hardening, analytics event not yet built |
+| 2 | Survey abstraction + Mode A (Qualtrics) | in_progress | Bare iframe embed only (of its acceptance criteria — `SurveyProvider` interface, postMessage completion, CSP `frame-src`, analytics event, integration test — only the a11y fallback link is done). Running ahead of the Phase 4 gate that governs real submissions; not deployable for real data until D3/D4/D-minors/D-third-party close |
 | 3 | Mode B (self-hosted, config-driven) | not_started | — |
 | 4 | Compliance, privacy & security (launch gate) | not_started | Blocked-by: D3, D4 (see spec §22) |
 | 5 | AEO/GEO + Search Console + launch | not_started | — |
@@ -63,6 +63,7 @@ anything is indexed. This work is scheduled in **Phase 5**.
 | 008 | Single `site.config` source of truth (name, domain, NAP) | proposed | docs/adr/0008-site-config-source-of-truth.md |
 | 009 | Mode B backend: containerized Node + Postgres everywhere (local/staging/prod) via Docker; standard `DATABASE_URL`; no managed-DB vendor | proposed | docs/adr/0009-modeb-backend-datastore.md |
 | 010 | Hosting topology: GitHub Pages = static `noindex` staging (P0–2); server host running the same Node+Postgres containers for full-stack staging (P3+) | proposed | docs/adr/0010-hosting-topology.md |
+| 011 | CSP/security-header gap on GitHub Pages: interim `<meta>` CSP now; `frame-ancestors`/HSTS/`X-Content-Type-Options` deferred to the Phase 3+ server host; Phase 1/2 header-scanner acceptance criteria scoped accordingly | proposed | docs/adr/0011-csp-header-hosting-contradiction.md |
 
 ---
 
@@ -83,6 +84,112 @@ anything is indexed. This work is scheduled in **Phase 5**.
 ---
 
 ## Entries (newest at top)
+
+### 2026-07-16 — Phase 0/1 — eng (Claude Code) — Pure-engineering fixes bucket from PENDING-FIXES.md (P1-1…P1-12, P2-1…P2-7, P3-1…P3-4)
+- **Status change:** none to phase numbers, but Phase 2's board note (above) was corrected in
+  place to reflect that only the a11y fallback link of its acceptance criteria is actually
+  done (see P3-4 below).
+- **What changed:** Worked through the "pure engineering" bucket flagged as still-open in the
+  prior entry, per `PENDING-FIXES.md`'s suggested order. All items verified with
+  `npx tsc --noEmit`, `npm run lint`, and a clean `npm run build` (static export, all 6 routes
+  prerendered `○`, confirmed by inspecting `out/*.html` directly) unless noted otherwise.
+  - **P1-2:** `.gitignore`'s `.env*` rule was silently swallowing `.env.example`. Added
+    `!.env.example` and created `.env.example` (`NEXT_PUBLIC_SITE_URL`, `SURVEY_PROVIDER`,
+    `NEXT_PUBLIC_QUALTRICS_SURVEY_URL`, `NEXT_PUBLIC_QUALTRICS_ORIGIN`, `DATABASE_URL`
+    placeholder). Verified with `git check-ignore -v .env.example` (no match).
+  - **P1-4/P1-5:** Deleted the hand-written `public/robots.txt` (hardcoded `Disallow: /`,
+    couldn't react to `siteConfig.indexable`) and added `src/app/robots.ts` +
+    `src/app/sitemap.ts` as Next metadata routes deriving from `site.config`. Both need
+    `export const dynamic = "force-static"` to build under `output: "export"` — added.
+    Verified `out/robots.txt` and `out/sitemap.xml` are emitted correctly.
+  - **P1-8/P1-9/P1-10:** Added `alternates.canonical` to all three routes; added `openGraph`
+    (type/siteName/url/locale) and `twitter` (summary_large_image) metadata to the root
+    layout — no OG image yet, deferred to D11 rather than shipping a broken reference. Added
+    a `WebPage` (not `MedicalWebPage`, per the earlier P1-10 amendment) JSON-LD block to
+    `/report`. All verified present in the exported HTML.
+  - **P1-11:** Added `src/app/not-found.tsx` rendering inside the app shell with links back
+    to `/`, `/faq`, `/report`. Verified `out/404.html` now contains those links (previously:
+    the raw Next.js default, zero links).
+  - **P1-12:** `site.config.ts`'s `logo: "/logo.svg"` pointed at a file that doesn't exist.
+    Set to `logo: ""` with a `TODO: D11` comment rather than fabricating a placeholder asset;
+    confirmed the `Organization` JSON-LD doesn't emit `logo` today, so this was latent, not
+    yet visibly broken.
+  - **P1-6/P1-7:** Added `.github/workflows/ci.yml` (typecheck, lint, build, `npm audit
+    --audit-level=high`) on `pull_request` and `push: [main]`, kept separate from
+    `deploy.yml`. Added an ESLint `no-restricted-syntax` rule banning the brand/domain
+    literals plus the purged platform names, with `site.config.ts` (and the rule file itself)
+    excluded. **Verified it actually fails**, not just exists: temporarily pasted `"lareb"`
+    into `page.tsx`, confirmed `npm run lint` errored, reverted, confirmed clean and byte-
+    identical to the original.
+  - **P1-1:** Added `SECURITY.md` — the prohibited-actions list from spec §12 and a
+    (placeholder) disclosure contact; noted `/.well-known/security.txt` is Phase 4.
+  - **P1-3:** Wrote all 10 ADR files at `docs/adr/0001-*.md`…`0010-*.md`, matching the paths
+    already indexed in this file. 001–008 from spec §3; 009/010 from the amended (Docker +
+    Postgres, no Supabase) decision two entries below, not the superseded draft below that.
+  - **P2-1:** Added an interim `<meta http-equiv="Content-Security-Policy">` to the root
+    layout (`default-src`, `script-src`, `style-src`, `img-src`, `frame-src` scoped to
+    `https://*.qualtrics.com`, `connect-src`). Wrote **ADR-011** (new row added to the index
+    above) documenting that `frame-ancestors`, HSTS, and `X-Content-Type-Options` are
+    unreachable on GitHub Pages regardless, and scoping the Phase 1/2 "header scanner A/A+"
+    acceptance criteria to the Phase 3+ server host instead of quietly failing them here.
+  - **P2-2/P2-3:** Moved the hardcoded Qualtrics survey URL to
+    `NEXT_PUBLIC_QUALTRICS_SURVEY_URL` (env-first with the old literal as a fallback, so the
+    sample survey still works with no env set). Added `sandbox="allow-scripts allow-forms
+    allow-same-origin allow-popups"` to the `/report` iframe.
+  - **P2-4:** Added `.github/dependabot.yml` (npm + github-actions, weekly) and `npm audit
+    --audit-level=high` to CI. Confirmed it exits 0 today — the 2 known moderate `postcss`
+    findings (transitive via `next@16.2.10`) don't trip the high-severity gate; did **not**
+    run `npm audit fix --force` (would downgrade to `next@9.3.3`).
+  - **P2-5:** Relabeled the home-page CTA linking to `/faq` from "How it works" to "Common
+    questions", since `/how-it-works` isn't built yet and the old label silently pointed
+    elsewhere.
+  - **P2-6:** Removed the duplicate top-of-file `.qualtrics` line in `.gitignore` (the one
+    under "# secrets — never commit" already covers it).
+  - **P2-7:** Removed the dead `--background`/`--foreground` CSS vars in `globals.css`
+    (defined, then immediately overridden by `bg-white text-slate-900` on `<body>` in
+    `layout.tsx` — leftover `create-next-app` scaffolding). Added a `prefers-reduced-motion`
+    guard (no animations exist yet, but the spec §14 requirement is now in place ahead of any
+    being added).
+  - **P3-1:** Fixed ~15 stale `config/*` and `docs/qualtrics-integration.md` path references
+    in `TECHNICAL_SPEC.md` to match the flat repo-root layout from the 2026-07-16 reorg.
+    Left the two `config/survey/*.yaml` references (§4, §8.4) alone — those describe a
+    future Mode B production config *directory*, distinct from the root-level example seed
+    file, same reasoning as leaving `docs/adr/` untouched.
+  - **P3-2 (this entry also serves as the required correction):** the 2026-07-12 entry near
+    the bottom of this file claims `config/survey.example.yaml`, `config/survey.schema.json`,
+    `config/robots.example.txt`, `config/llms.example.txt`, `config/schema-examples.jsonld`,
+    and `.env.example` were created. The five seed artifacts exist, but at the repo root, not
+    under `config/` — that subdirectory has never existed. `.env.example` did not exist at
+    all until this entry. Per spec §21 rule 2, that original entry is left unedited; this
+    note is the append-only correction, and P1-2/P1-15 above are where the actual fixes
+    landed.
+  - **P3-3:** Added a note to `AGENTS.md` explaining the codegraph session-root mismatch
+    (`.codegraph/` lives at this repo's root; a session opened at the parent workspace
+    directory won't find it) so a future agent doesn't misread "no codegraph tools" as "no
+    index exists".
+  - **P3-4:** Corrected the Phase 2 board note (above) to state plainly that only the a11y
+    fallback link is done of its acceptance criteria — the rest is a bare iframe — and that
+    it's running ahead of the Phase 4 real-submissions gate.
+- **Decisions:** ADR-011 added (CSP/header hosting contradiction, scoped to Phase 3+). No
+  other decisions changed; D3, D4, D-minors, D-third-party remain open exactly as before —
+  none of this pass touches the compliance gates.
+- **Acceptance criteria progress:**
+  - [x] Phase 0 acceptance: ADRs committed, CI runs typecheck/lint, no-hardcoded-brand check
+        active and verified failing on a violation, `SECURITY.md`/`.env.example` created.
+  - [x] Phase 1 SEO baseline: sitemap, robots (derived from `site.config`), canonicals, OG/
+        Twitter tags, per-page schema on `/report`, on-brand 404 page.
+  - [ ] Phase 1/2 header-scanner A/A+ criterion — now explicitly scoped to Phase 3+ per
+        ADR-011, not achievable on GitHub Pages; not a regression, a documented limit.
+  - [ ] Everything already listed as open in the prior entry (crisis-line list beyond NL,
+        minors/third-party policy, DPO/legal review, P0-2/P0-3) is unchanged — none of it is
+        engineering work and none of it was in scope for this pass.
+- **Blockers / risks:** Unchanged — D3, D4, D-minors, D-third-party still block real-data
+  launch; P0-2 (Qualtrics EU region) and P0-3 (rotate `.qualtrics` codes) still need the
+  account owner. This pass touched none of them.
+- **Next actions:** Remaining engineering-adjacent items not covered here: extracting page
+  copy into a real content layer (ADR-004, currently still inline in components) and
+  building the actual `SurveyProvider` interface / postMessage completion handling (Phase 2).
+  Otherwise, the next real unblock is the DPO/legal review flagged in the prior entry.
 
 ### 2026-07-16 — Phase 0/1 — process + eng (Claude Code) — Scope change: product redefinition, reference purge, D1 rename, P0-1 deploy gate
 - **Status change:** none to phase numbers. Board's "Blocking items to closure" gained two new

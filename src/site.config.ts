@@ -13,7 +13,7 @@ export const siteConfig = {
   canonicalUrl: "https://aijwerkingen.github.io",
   defaultLocale: "en",
   locales: ["en"],
-  logo: "/logo.svg",
+  logo: "", // TODO: D11 — no logo asset exists yet; don't emit `logo` into JSON-LD until it does.
   organization: {
     legalName: "AIjwerkingen (placeholder legal name — TODO)",
     email: "contact@example.org",

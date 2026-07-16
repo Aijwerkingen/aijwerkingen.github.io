@@ -26,7 +26,7 @@ export default function HomePage() {
             href="/faq"
             className="rounded-md border border-slate-300 px-6 py-3 font-medium text-slate-900 hover:bg-slate-100"
           >
-            How it works
+            Common questions
           </Link>
         </div>
       </section>

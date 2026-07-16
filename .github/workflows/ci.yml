@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      - run: npm run build
+      # Visibility only — 2 known moderate findings (postcss, transitive via
+      # next@16.2.10) are tracked but not build-blocking (PENDING-FIXES.md P2-4).
+      # Phase 4's "0 high/critical" gate is what actually blocks release.
+      - run: npm audit --audit-level=high

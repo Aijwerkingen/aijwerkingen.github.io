@@ -11,11 +11,23 @@ export const metadata: Metadata = {
   },
   description:
     "Report a perceived adverse effect from a conversational AI tool, app, or social media platform. Fast, confidential, and free.",
+  alternates: {
+    canonical: "/",
+  },
   robots: {
     // ADR-010: this deploy stays noindex until the final domain is chosen
     // and verified in Search Console (spec §5.2, AC-DOMAIN).
     index: siteConfig.indexable,
     follow: siteConfig.indexable,
+  },
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    url: siteConfig.canonicalUrl,
+    locale: siteConfig.defaultLocale,
+  },
+  twitter: {
+    card: "summary_large_image",
   },
 };
 
@@ -45,9 +57,23 @@ export default function RootLayout({
     url: siteConfig.canonicalUrl,
   };
 
+  // Interim CSP via <meta>, ADR-011: GitHub Pages can't set response
+  // headers under static export, so frame-ancestors, HSTS, and
+  // X-Content-Type-Options remain unset regardless — those need a host
+  // that can send headers (Phase 3+, PENDING-FIXES.md P2-1).
+  const csp = [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline'",
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data:",
+    "frame-src https://*.qualtrics.com",
+    "connect-src 'self'",
+  ].join("; ");
+
   return (
     <html lang={siteConfig.defaultLocale} className="h-full antialiased">
       <head>
+        <meta httpEquiv="Content-Security-Policy" content={csp} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
