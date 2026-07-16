@@ -1,6 +1,6 @@
 # Qualtrics integration runbook (Mode A)
 
-Step-by-step, from **creating the survey in Qualtrics** to it being **live and detecting completions inside the AMC-Larebish app**. This is the concrete "how" for spec §8.3. Do Part A in Qualtrics, Part B in the app, then Part C to test and launch.
+Step-by-step, from **creating the survey in Qualtrics** to it being **live and detecting completions inside the AIjwerkingen app**. This is the concrete "how" for spec §8.3. Do Part A in Qualtrics, Part B in the app, then Part C to test and launch.
 
 > **Two accounts, two people.** A person with a Qualtrics account does Part A; an engineer does Part B. The implementing agent must **not** log into Qualtrics or accept its terms on your behalf — it prepares code/config and hands the Qualtrics UI steps to a human.
 
@@ -12,7 +12,7 @@ Step-by-step, from **creating the survey in Qualtrics** to it being **live and d
 
 ### A1. Create the survey
 1. Log in to Qualtrics → **Create project** → **Survey** (blank, from a copy, or from a file).
-2. Name it (e.g. "AMC-Larebish – Report a side effect").
+2. Name it (e.g. "AIjwerkingen – Report a side effect").
 
 ### A2. Build the questions
 - Add your questions/blocks. (In Mode A the questions live here, not in our config file — that's the whole point of Mode A.)
@@ -42,7 +42,7 @@ Qualtrics.SurveyEngine.addOnload(function () {
     // Post ONLY to the known parent origin — never "*".
     var PARENT_ORIGIN = "https://YOUR-FINAL-DOMAIN";  // = site.config.canonicalUrl
     window.parent.postMessage(
-      { sender: "amc-larebish-survey", event: "completed" },
+      { sender: "aijwerkingen-survey", event: "completed" },
       PARENT_ORIGIN
     );
   } catch (e) { /* no-op */ }
@@ -68,7 +68,7 @@ You now have the two values the app needs:
 
 ---
 
-## Part B — Integrate into the AMC-Larebish app
+## Part B — Integrate into the AIjwerkingen app
 
 ### B1. Configuration
 Set env vars (spec `.env.example`):
@@ -103,7 +103,7 @@ export function QualtricsEmbed({
       // SECURITY: only trust messages from the known Qualtrics origin.
       if (event.origin !== qualtricsOrigin) return;
       const data = event.data;
-      if (data && data.sender === "amc-larebish-survey" && data.event === "completed") {
+      if (data && data.sender === "aijwerkingen-survey" && data.event === "completed") {
         setCompleted(true);
         // fire the privacy-first analytics "submission_completed" event here (spec §15)
       }

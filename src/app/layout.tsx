@@ -6,11 +6,11 @@ import { siteConfig } from "@/site.config";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.canonicalUrl),
   title: {
-    default: `${siteConfig.name} — Report a side effect`,
+    default: `${siteConfig.name} — Report a perceived side effect`,
     template: `%s — ${siteConfig.name}`,
   },
   description:
-    "Report a suspected side effect from a medicine or vaccine. Fast, confidential, and free.",
+    "Report a perceived adverse effect from a conversational AI tool, app, or social media platform. Fast, confidential, and free.",
   robots: {
     // ADR-010: this deploy stays noindex until the final domain is chosen
     // and verified in Search Console (spec §5.2, AC-DOMAIN).
@@ -87,8 +87,23 @@ export default function RootLayout({
               {siteConfig.organization.legalName}
             </p>
             <p className="mt-1">
-              This is not a medical-advice service. In an emergency, contact
-              your local emergency number.
+              This is not a crisis or emergency service. If you or someone
+              else is in immediate danger, contact your local emergency
+              number.{" "}
+              {/* TODO(P0-5, D-crisis-lines): named, locale-specific crisis
+                  lines (e.g. NL: 113 Zelfmoordpreventie) pending the
+                  copy/legal owner's sign-off on which services to name. */}
+              In the Netherlands, you can also reach{" "}
+              <a
+                href="https://www.113.nl"
+                className="underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                113 Zelfmoordpreventie
+              </a>{" "}
+              (call 113 or 0800-0113) for support with suicidal thoughts or
+              crisis.
             </p>
             <p className="mt-4 text-xs text-slate-400">
               Placeholder deployment — not indexed by search engines.

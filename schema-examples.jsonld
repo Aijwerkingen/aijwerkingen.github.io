@@ -1,21 +1,21 @@
 {
-  "_note": "Example JSON-LD for AMC-Larebish. Emit as a single @graph in <script type=\"application/ld+json\"> in SSR HTML. Validate every page with Google's Rich Results Test in CI. Replace example.org, brand name (decision D1), and NAP with real, consistent values (keep NAP identical everywhere — AEO §11).",
+  "_note": "Example JSON-LD for AIjwerkingen. Emit as a single @graph in <script type=\"application/ld+json\"> in SSR HTML. Validate every page with Google's Rich Results Test in CI. Replace example.org, brand name (decision D1), and NAP with real, consistent values (keep NAP identical everywhere — AEO §11).",
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Organization",
       "@id": "https://example.org/#organization",
-      "name": "AMC-Larebish",
+      "name": "AIjwerkingen",
       "url": "https://example.org/",
       "logo": "https://example.org/logo.png",
-      "description": "A public service for reporting suspected side effects of medicines and vaccines.",
+      "description": "A public service for reporting perceived adverse effects of conversational AI tools and digital/social media.",
       "sameAs": []
     },
     {
       "@type": "WebSite",
       "@id": "https://example.org/#website",
       "url": "https://example.org/",
-      "name": "AMC-Larebish",
+      "name": "AIjwerkingen",
       "publisher": { "@id": "https://example.org/#organization" },
       "inLanguage": ["en", "nl"]
     },
@@ -28,7 +28,7 @@
           "name": "What happens after I report a side effect?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Your report is reviewed and combined with others to help monitor the safety of medicines and vaccines. Reporting is quick and can be anonymous. It is not a request for medical advice; in an emergency, contact your local emergency number."
+            "text": "Your report is reviewed and combined with others to help monitor patterns of harm from AI tools and digital/social media. Reporting is quick and can be anonymous. It is not a crisis or emergency service; in an emergency, contact your local emergency number."
           }
         },
         {
@@ -44,10 +44,10 @@
     {
       "@type": "HowTo",
       "@id": "https://example.org/how-it-works#howto",
-      "name": "How to report a suspected side effect",
+      "name": "How to report a perceived side effect",
       "step": [
         { "@type": "HowToStep", "name": "Open the report form", "text": "Go to the report page and start a new report." },
-        { "@type": "HowToStep", "name": "Describe what happened", "text": "Tell us the medicine or vaccine and the suspected side effect." },
+        { "@type": "HowToStep", "name": "Describe what happened", "text": "Tell us the AI tool or platform and the perceived side effect." },
         { "@type": "HowToStep", "name": "Submit", "text": "Review and submit. You can report anonymously." }
       ]
     }

@@ -1,9 +1,9 @@
-# AMC-Larebish — Technical Specification
+# AIjwerkingen — Technical Specification
 
-**Project:** AMC-Larebish — a public-facing pharmacovigilance / adverse-event survey & data-collection website
-**Status:** Draft v1.1 (specification, pre-implementation)
+**Project:** AIjwerkingen — a public-facing survey & data-collection website for reporting perceived adverse effects of conversational AI tools and digital/social media
+**Status:** Draft v1.2 (specification, pre-implementation) — restated 2026-07-16 for the scope change; see `CHANGELOG.md` and `PENDING-FIXES.md`
 **Owner:** _(fill in)_
-**Last updated:** 2026-07-12
+**Last updated:** 2026-07-16
 
 ---
 
@@ -14,7 +14,7 @@ This spec is written so that **any competent engineering agent (human or AI) can
 1. **Read the whole spec once, then work phase-by-phase.** Section 20 (Phased Implementation Plan) is the execution order. Do not start a later phase until the acceptance criteria of the current phase are met.
 2. **Persist status in the change log.** `CHANGELOG.md` (sibling file) is the single source of truth for *what has been done and what the current state is*. **Every phase, and every meaningful task within a phase, must be recorded there before the agent hands off or stops.** An agent resuming work reads `CHANGELOG.md` first to learn the exact current state, then continues. The change-log protocol is defined in Section 21.
 
-> **Terminology note.** "Larebish" = "Lareb-like". The reference site is [lareb.nl](https://www.lareb.nl/en) (Netherlands Pharmacovigilance Centre). Close analogs studied: VAERS (US), FAERS (US FDA), MHRA Yellow Card (UK), VigiAccess (WHO/Uppsala Monitoring Centre), MotherToBaby/OTIS (US). This platform collects **suspected adverse drug/vaccine reaction reports and related survey data from patients and healthcare professionals**. The public brand name is a `TODO` decision (Section 22); this document uses the working name **AMC-Larebish**.
+> **Terminology note.** "AIjwerkingen" = *AI* + *bijwerkingen* (Dutch for "side effects"). This platform collects **perceived adverse-effect reports about conversational AI tools and digital/social media platforms**, submitted by anyone affected and by parents, carers, and professionals supporting someone else. Decision D1 (Section 22) is resolved in favour of this name — `site.config.ts` already reflects it. This document does **not** name, and must not name, any specific pre-existing reporting platform or regulatory body as a model or analog (see `PENDING-FIXES.md` P1-13 for why).
 
 ### 0.1 ▶ START HERE when you resume after finalizing the domain & name
 
@@ -33,12 +33,12 @@ You paused this project with the **product name and domain undecided** (decision
 
 ## 1. Context & background
 
-The reference domain is **pharmacovigilance**: collecting, storing, and analysing reports of suspected side effects of medicines and vaccines from the public and from healthcare professionals. Sites in this space share a common shape:
+The domain is **perceived adverse effects of conversational AI tools and digital/social media**: collecting, storing, and analysing reports of harm — psychological, behavioural, or otherwise — that people perceive as linked to using an AI chatbot/companion, an AI-powered app, or a social media platform. Reporters may be the affected person, a parent or carer, or a professional (clinician, educator, researcher). This is a new domain with no single established model to follow; the site's shape is nonetheless informed by general good practice for public harm-reporting services:
 
 - A **trustworthy, informative public website** (who we are, what we do, why reporting matters, privacy assurances).
 - A prominent **"Report a side effect" / submission flow** — the core conversion.
-- **Searchable/aggregated information** about medicines and reported effects (later-phase, out of initial scope).
-- Strong **privacy, security, and regulatory** expectations because the data is health-related and often includes identifiable persons.
+- **Aggregated information** about tools/platforms and reported effects (later-phase, out of initial scope).
+- Strong **privacy, security, and regulatory** expectations, because free-text reports are likely to contain special-category (health) data under GDPR Art. 9, may involve minors, and may name identifiable third parties (see Section 13 and `PENDING-FIXES.md` P1-17).
 
 **This spec's near-term goal is deliberately scoped:** build a *proper, modern, informative, discoverable, secure* website whose central action is a data-collection/survey flow — **without yet committing to the final survey questions or the final data backend.** The survey layer is therefore designed as a **swappable module** with two supported implementations (see Section 8), selected by configuration.
 
@@ -59,7 +59,7 @@ The reference domain is **pharmacovigilance**: collecting, storing, and analysin
 
 ### 2.2 Non-goals (for the initial build)
 - Public searchable database of reported effects / analytics dashboards (future phase).
-- Clinical signal detection, coding (MedDRA), or regulatory transmission (E2B(R3)) pipelines.
+- Automated harm classification, moderation, or regulatory transmission pipelines.
 - Authenticated user accounts / reporter portals (future phase; anonymous submission is the default).
 - Native mobile apps.
 
@@ -147,8 +147,8 @@ Illustrative shape:
 ```ts
 // site.config.ts — the ONLY place brand name, domain, and NAP are defined.
 export const siteConfig = {
-  name: "AMC-Larebish",                 // D1 — final product name goes here
-  shortName: "AMC-Larebish",
+  name: "AIjwerkingen",                 // D1 — resolved, see §22
+  shortName: "AIjwerkingen",
   canonicalUrl: "https://example.org",  // D9 — final domain goes here (no trailing slash)
   defaultLocale: "en",
   locales: ["en", "nl"],
@@ -182,13 +182,13 @@ All pages SSR/SSG, each with unique `<title>`, meta description, canonical URL, 
 | Route | Page | Purpose | Key schema |
 |-------|------|---------|-----------|
 | `/` | **Home / landing** | Value proposition, primary CTA ("Report a side effect"), trust signals, secondary CTAs. | `Organization`, `WebSite` (+ `SearchAction` if search exists) |
-| `/report` | **Submission page** | Hosts the survey (Mode A embed or Mode B native form). The core conversion. | `WebPage`; optionally `MedicalWebPage` |
+| `/report` | **Submission page** | Hosts the survey (Mode A embed or Mode B native form). The core conversion. | `WebPage` (do not emit `MedicalWebPage` — see `PENDING-FIXES.md` P1-10) |
 | `/about` | **About us** | Who we are, mission, governance, affiliations, credibility. | `Organization`, `AboutPage` |
 | `/how-it-works` | **How reporting works** | Step-by-step of what happens to a report; reassurance. | `HowTo` |
 | `/faq` | **FAQ** | 8–15 Q&A pairs (answer-first, 40–60 word answers). | `FAQPage` |
 | `/privacy` | **Privacy statement** | GDPR-compliant privacy notice (see Section 13). | `WebPage` |
-| `/terms` | **Terms / disclaimer** | Legal disclaimer (not medical advice; emergencies → call local emergency number). | `WebPage` |
-| `/contact` | **Contact** | Contact routes; not for medical emergencies. | `ContactPage` |
+| `/terms` | **Terms / disclaimer** | Legal disclaimer (not a crisis/emergency service; emergencies → call local emergency number or a crisis line). | `WebPage` |
+| `/contact` | **Contact** | Contact routes; not for emergencies or crises. | `ContactPage` |
 | `/accessibility` | **Accessibility statement** | WCAG conformance statement (legally expected for public/health bodies). | `WebPage` |
 | `/news` or `/updates` (optional) | **News/updates** | Freshness signal for SEO/AEO; announcements. | `Article`/`NewsArticle` |
 | `/404`, `/500` | Error pages | Helpful, on-brand, link back to key pages. | — |
@@ -201,11 +201,11 @@ All pages SSR/SSG, each with unique `<title>`, meta description, canonical URL, 
 
 ## 7. Content requirements
 
-- Copy is **authoritative, plain-language, and reassuring**; reading level appropriate for the general public, with a clear tone for both patients and healthcare professionals.
+- Copy is **authoritative, plain-language, and reassuring**; reading level appropriate for the general public, with a clear tone for anyone affected, for parents/carers, and for professionals.
 - Every informational page opens with a **direct 40–60 word answer** to the question the page addresses (AEO "50-word rule", Section 11).
-- Medical/safety disclaimers are explicit and consistent: **this is not a medical-advice service; in an emergency contact local emergency services.**
+- Crisis/safety signposting is explicit and consistent, and appears **above the fold on `/report`, not only in the footer**: **this is not a crisis or emergency service; if you or someone else is in immediate danger, contact your local emergency number or a crisis line** (see `PENDING-FIXES.md` P0-5 for the open decision on which lines to name per locale).
 - All copy externalised into the content layer (ADR-004), authored in the primary language with i18n-ready keys (Section 17).
-- No claims of clinical outcome or diagnosis. Content reviewed by a domain/compliance owner before publish (record reviewer in change log).
+- No claims of diagnosis, treatment, or moderation action against a named third party. Content reviewed by a domain/compliance owner before publish (record reviewer in change log).
 
 ---
 
@@ -310,7 +310,7 @@ Goal: the site is **findable, extractable, and citable** by AI answer engines (C
 7. **Freshness.** Maintain `dateModified` in schema; a lightweight news/updates section signals freshness that AEO rewards.
 8. **Measurement.** Track AI-referral traffic in the privacy-first analytics (referrers from chat.openai.com, perplexity.ai, etc.) and, optionally, periodic manual "ask the top engines about us" audits, logging misses/wrong facts to fix.
 
-> **Guardrail:** because this is health information, **accuracy and non-misleading phrasing outrank any citation tactic.** Do not add persuasive "quotability" content that could be read as medical advice. Every answer block must remain factually careful and carry the not-medical-advice framing where relevant.
+> **Guardrail:** because free-text reports may contain special-category (health) data and may name real people or companies, **accuracy and non-misleading phrasing outrank any citation tactic.** Do not add persuasive "quotability" content that could be read as clinical/diagnostic advice or as an accusation against a named third party. Every answer block must remain factually careful and carry the crisis-signposting framing where relevant.
 
 ## 12. Security requirements
 
@@ -330,18 +330,22 @@ Public-facing site handling (potentially) health data. Baseline:
 
 ## 13. Privacy & regulatory compliance
 
-The data is **health-related = special-category personal data under GDPR Art. 9.** This section is **blocking for any launch that collects real submissions** (Mode B, or Mode A where we control correlation).
+> **Restated 2026-07-16 for the scope change (product is AI/social-media harm reporting, not pharmacovigilance).** The previous version of this section assumed the Art. 9 burden was specific to medicines/vaccines and would lighten under a pivot. **That assumption was wrong and has been removed.** The burden does not drop — it changes shape. Everything below is a **draft for the DPO/legal owner to commission and finalize, not a legal conclusion** (`PENDING-FIXES.md` P1-17).
 
-1. **Lawful basis & DPIA:** a **Data Protection Impact Assessment** is required before collecting real data. Establish the Art. 6 lawful basis and the Art. 9 condition for health data (e.g. explicit consent and/or public-interest/health grounds — decide with the DPO/legal owner). Record in the DPIA. _(Blocking task in Phase 4.)_
-2. **Data minimisation & anonymity-by-default (ADR-005):** collect only what's necessary; default to anonymous reporting; mark PII fields explicitly in survey config (`pii: true`).
-3. **Consent:** clear, unbundled, specific consent for any personal/health data and for any non-essential cookies/analytics; consent must be as easy to withdraw as to give. Privacy-first analytics chosen to minimise consent burden (ADR-007).
-4. **Transparency:** a plain-language **privacy notice** at `/privacy` covering purposes, lawful basis, retention, recipients/processors (incl. **Qualtrics** in Mode A — confirm its DPA, sub-processors, and **storage region** cover EU health data), international transfer safeguards, and data-subject rights (access, rectification, erasure, objection).
-5. **Data residency (ADR-006):** self-hosted PII/health data stored in the EU. For Mode A, confirm Qualtrics storage region and transfer mechanism; if it cannot meet residency/DPA requirements for health data, that is a **go/no-go** input for choosing Mode B.
+Free-text reports of perceived psychological or behavioural harm (anxiety, distress, self-harm ideation, disordered eating, compulsive use) are **health data — special-category personal data under GDPR Art. 9, exactly as before.** This section is **blocking for any launch that collects real submissions** (Mode B, or Mode A where we control correlation).
+
+1. **Lawful basis & DPIA:** a **Data Protection Impact Assessment** is required before collecting real data, covering Art. 9 as above. New relative to the prior draft: the DPIA must also separately address **(a) minors** — under GDPR Art. 8, processing a child's personal data on consent needs parental authorisation (NL digital age of consent: 16); this platform is expected to attract under-18 reporters given the domain, and a minors policy (minimum age, age-assurance approach, parental-consent flow) does not yet exist (open decision **D-minors**) — and **(b) named third parties** — reports will likely name real companies/products and possibly identifiable individuals, which raises Art. 14 (information to a non-reporting data subject) and moderation/retention questions with no policy yet (open decision **D-third-party**). _(Blocking task in Phase 4.)_
+2. **Data minimisation & anonymity-by-default (ADR-005):** collect only what's necessary; default to anonymous reporting; mark PII fields explicitly in survey config (`pii: true`) — treat this as more load-bearing than before, since free text is more likely to contain special-category and third-party data here than in the prior domain.
+3. **Consent:** clear, unbundled, specific consent for any personal/health data and for any non-essential cookies/analytics; consent must be as easy to withdraw as to give; must account for the minors question in (1). Privacy-first analytics chosen to minimise consent burden (ADR-007).
+4. **Transparency:** a plain-language **privacy notice** at `/privacy` covering purposes, lawful basis, retention, recipients/processors (incl. **Qualtrics** in Mode A — confirm its DPA, sub-processors, and **storage region** cover EU special-category data), international transfer safeguards, and data-subject rights (access, rectification, erasure, objection).
+5. **Data residency (ADR-006):** self-hosted PII/health data stored in the EU. For Mode A, confirm Qualtrics storage region and transfer mechanism; if it cannot meet residency/DPA requirements, that is a **go/no-go** input for choosing Mode B. Unchanged by the pivot — still blocking.
 6. **Security of processing:** encryption at rest (column-level for free-text/PII), in transit; access controls; audit; retention & deletion schedule with automated purge. No PII in URLs, logs, or analytics.
 7. **ePrivacy/cookies:** cookieless/first-party-only by default; a compliant cookie/consent mechanism only if any non-essential storage is introduced. The implementing agent should choose the **most privacy-preserving default** on any consent choice.
 8. **Records & contacts:** publish DPO/contact route; maintain records of processing (RoPA); breach-response plan.
+9. **Crisis disclosures (new):** a free-text harm description in this domain will receive acute-distress disclosures. Crisis signposting (a named, locale-specific route to real help) must appear on `/report` above the form and inside the survey itself, not only in a footer (Section 7). A moderation/triage route for reports indicating imminent risk is required before real submissions are collected; in Mode A this is a Qualtrics-side responsibility and interacts with (5).
+10. **Regulator/regime (open question, not a conclusion):** the prior draft's implicit frame was pharmacovigilance regulation, which does not apply here. Adjacent EU regimes that may be relevant to a service in this domain include the **Digital Services Act** and the **AI Act** — this needs a legal opinion, not an engineering guess, before it's treated as settled.
 
-> Legal/compliance sign-off (DPO/legal owner) is a named acceptance criterion in Phase 4. This spec does not substitute for legal advice.
+> Legal/compliance sign-off (DPO/legal owner) is a named acceptance criterion in Phase 4. This spec does not substitute for legal advice. Add the minors policy (D-minors) and the named-third-party policy (D-third-party) as new rows in Section 22 and as blocking items in `CHANGELOG.md`'s "Blocking items to closure" list.
 
 ## 14. Accessibility
 
@@ -469,7 +473,7 @@ See `CHANGELOG.md` for the template and the initial entry.
 
 | # | Item | Type | Owner | Notes |
 |---|------|------|-------|-------|
-| D1 | Final **public brand name** | Decision | product | Working name "AMC-Larebish". Configurable at zero SEO cost via `site.config.ts` (§5.1); decide any time before launch. |
+| D1 | Final **public brand name** | Decision | product | **Resolved: AIjwerkingen** (2026-07-16 — see `PENDING-FIXES.md` P1-16). Configurable at zero SEO cost via `site.config.ts` (§5.1), which already reflects this name. |
 | D2 | **Default survey mode at launch** (A vs B) | Decision | product/legal | May launch informational with a placeholder or Mode A; Mode B once questions finalised. |
 | D3 | **Qualtrics DPA / EU storage** sufficiency for health data | Risk (blocking) | DPO/legal | Go/no-go input for Mode A with real data. |
 | D4 | **DPIA outcome & lawful basis** | Risk (blocking) | DPO/legal | Gate for real-data collection (Phase 4). |
@@ -479,7 +483,9 @@ See `CHANGELOG.md` for the template and the initial entry.
 | D8 | **Final survey questions** | Content | domain owner | Externalised to config; not blocking the informational site. |
 | D9 | **Final domain** (+ hosting/CDN & data-residency vendor) | Decision (ADR) | product / eng/infra | Set in `site.config.canonicalUrl` (§5.1). **Must be final before anything is indexed** (§5.2, AC-DOMAIN). Hosting must satisfy EU residency + WAF. |
 | D10 | **Bot-mitigation vendor** (Turnstile/hCaptcha) | Decision | eng | Privacy-friendly; human-only CAPTCHA. |
-| D11 | **Visual identity & content authoring** (logo, color palette, typography, imagery/illustration style, actual page copy) | Decision + content (blocking for a "modern-looking" Phase 1) | product/design | This spec fixes the *toolchain* (Tailwind + headless components, §5) and *copy voice/structure* (answer-first, disclaimers, §7) but not the visual identity or the actual written copy. Without this, Phase 1 ships architecturally correct but visually unstyled pages. Resolve before or during Phase 1 — assign a copy author and either a design pass or a mood-board/reference-site decision (lareb.nl, VAERS, MHRA Yellow Card, VigiAccess as the studied analogs, §0). |
+| D11 | **Visual identity & content authoring** (logo, color palette, typography, imagery/illustration style, actual page copy) | Decision + content (blocking for a "modern-looking" Phase 1) | product/design | This spec fixes the *toolchain* (Tailwind + headless components, §5) and *copy voice/structure* (answer-first, disclaimers, §7) but not the visual identity or the actual written copy. Without this, Phase 1 ships architecturally correct but visually unstyled pages. Resolve before or during Phase 1 — assign a copy author and a design pass. No reference-site mood-boarding — see the terminology note in §0 on why no existing platform is cited as a model. |
+| D-minors | **Minors policy** (minimum age, age-assurance, parental consent) | Decision (blocking, DPIA input) | DPO/legal | New with the scope change (§13.1, `PENDING-FIXES.md` P0-5). This domain is expected to attract under-18 reporters; no policy exists yet. |
+| D-third-party | **Named-third-party policy** (moderation/retention for reports naming companies or individuals) | Decision (blocking, DPIA input) | DPO/legal | New with the scope change (§13.1/§13.10, `PENDING-FIXES.md` P1-17). |
 
 ---
 

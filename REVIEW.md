@@ -24,6 +24,11 @@ prior agent's own account of its work — treat it as a claim, not a fact.
 Working directory note: the actual project/repo root is `aijwerkingen.github.io/` (the
 parent workspace directory is not part of the repo). `cd` into it before doing anything.
 
+Tooling note: this repo's `AGENTS.md` (also loaded via `CLAUDE.md`) tells agents working
+here to prefer **codegraph's MCP tools** over raw `grep`/`find`/manual reads for exploring
+the codebase — that applies to you too while conducting this review. Fall back to plain
+Unix search only if codegraph's tools aren't available in your session.
+
 ## 2. Establish scope for *this* review
 
 Don't hardcode an assumption about which phase is active — read it off the **Phase status
@@ -84,6 +89,16 @@ board** in `CHANGELOG.md`:
 9. **Look beyond the changelog's own "known gaps."** The prior agent's self-report may be
    incomplete or optimistic. Actively look for anything wrong, insecure, or inconsistent
    with the spec that isn't mentioned at all.
+
+10. **Check mobile responsiveness — don't just load the desktop viewport.** The spec's own
+    success criteria (§2.3, §16) are measured on a **mobile profile** (Lighthouse, Core Web
+    Vitals), and this is a public health-information site where a large share of traffic
+    will be mobile. For every route claimed to be done: resize to a mobile viewport
+    (~375–414px wide) and confirm layout doesn't break, nav/CTAs stay usable (no
+    overlapping text, no horizontal scroll, tap targets aren't cramped), and — for `/report`
+    specifically — that any embedded survey (Qualtrics iframe or native form) is actually
+    usable on a small screen, not just present. Screenshot at both a desktop and a mobile
+    width as evidence.
 
 ## 4. Output format
 

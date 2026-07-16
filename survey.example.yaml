@@ -1,4 +1,4 @@
-# AMC-Larebish — Example survey configuration (Mode B, self-hosted)
+# AIjwerkingen — Example survey configuration (Mode B, self-hosted)
 # ---------------------------------------------------------------------------
 # Questions are defined HERE, not in code. Editing this file (and bumping
 # `version`) changes the survey with no code change. Validated against
@@ -10,16 +10,17 @@
 # encryption + retention handling.
 # ---------------------------------------------------------------------------
 
-version: "0.1.0"                 # semver; stored as `survey_version` on each submission
+version: "0.2.0"                 # semver; stored as `survey_version` on each submission
 locale_default: "en"
 locales: ["en", "nl"]
 
 metadata:
-  title: "Report a suspected side effect"
+  title: "Report a perceived side effect"
   description: >
-    Help improve medicine and vaccine safety by reporting a suspected side
-    effect. This is not a medical-advice service; in an emergency contact your
-    local emergency number.
+    Help identify patterns of harm from conversational AI tools and
+    digital/social media by reporting a perceived adverse effect. This is not
+    a crisis or emergency service; in an emergency contact your local
+    emergency number or a crisis line.
   estimated_minutes: 6
 
 consent:
@@ -38,35 +39,53 @@ sections:
         label: "Who is submitting this report?"
         required: true
         options:
-          - { value: "patient", i18n_key: "opt.patient" }
-          - { value: "carer", i18n_key: "opt.carer" }
-          - { value: "healthcare_professional", i18n_key: "opt.hcp" }
+          - { value: "affected_person", i18n_key: "opt.affected_person" }
+          - { value: "parent_or_carer", i18n_key: "opt.parent_or_carer" }
+          - { value: "professional", i18n_key: "opt.professional" }   # clinician, educator, researcher
         i18n_key: "q.who_is_reporting"
+        # TODO (D-minors, P0-5): age of the affected person and any
+        # parental-consent requirement are open decisions — not yet modelled here.
 
   - id: the_product
-    title: "The medicine or vaccine"
+    title: "The AI tool or platform"
     questions:
       - id: product_name
         type: short_text
-        label: "Name of the medicine or vaccine"
+        label: "Name of the AI tool, app, or platform"
         required: true
         validation: { max_length: 200 }
         i18n_key: "q.product_name"
-      - id: batch_number
+      - id: product_version
         type: short_text
-        label: "Batch / lot number (if known)"
+        label: "App or model version (if known)"
         required: false
         validation: { max_length: 100 }
-        i18n_key: "q.batch_number"
+        i18n_key: "q.product_version"
+      - id: usage_context
+        type: short_text
+        label: "How were you using it? (e.g. chatbot companion, social feed, image generator)"
+        required: false
+        validation: { max_length: 200 }
+        i18n_key: "q.usage_context"
+      - id: usage_duration
+        type: single_choice
+        label: "How long had you been using it?"
+        required: false
+        options:
+          - { value: "first_time", i18n_key: "opt.first_time" }
+          - { value: "days", i18n_key: "opt.days" }
+          - { value: "weeks", i18n_key: "opt.weeks" }
+          - { value: "months_or_more", i18n_key: "opt.months_or_more" }
+        i18n_key: "q.usage_duration"
 
   - id: the_reaction
-    title: "The suspected side effect"
+    title: "The perceived effect"
     questions:
       - id: reaction_description
         type: long_text
         label: "Describe what happened"
         required: true
-        pii: true                      # free text may contain personal/health data
+        pii: true                      # free text may name real people/companies or contain sensitive data
         validation: { max_length: 5000 }
         i18n_key: "q.reaction_description"
       - id: start_date

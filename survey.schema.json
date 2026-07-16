@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://amc-larebish.example/survey.schema.json",
-  "title": "AMC-Larebish survey configuration",
+  "$id": "https://aijwerkingen.example/survey.schema.json",
+  "title": "AIjwerkingen survey configuration",
   "description": "Validates config-driven survey definitions for Mode B (self-hosted). Used at build time (CI gate) and runtime.",
   "type": "object",
   "required": ["version", "locale_default", "metadata", "sections"],

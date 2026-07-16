@@ -42,8 +42,10 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Blocking items to closure (must be `done` before real-data launch)
 
-- [ ] **D3** — Qualtrics DPA / EU storage sufficiency for health data (owner: DPO/legal)
+- [ ] **D3** — Qualtrics DPA / EU storage sufficiency for special-category data (owner: DPO/legal)
 - [ ] **D4** — DPIA completed; lawful basis + GDPR Art. 9 condition documented (owner: DPO/legal)
+- [ ] **D-minors** — minors policy: minimum age, age-assurance, parental consent (owner: DPO/legal; new 2026-07-16, spec §13.1)
+- [ ] **D-third-party** — moderation/retention policy for reports naming companies or individuals (owner: DPO/legal; new 2026-07-16, spec §13.1/§13.10)
 - [ ] **Legal sign-off** on privacy notice, terms, accessibility statement
 - [ ] **Security review** — 0 high/critical findings (DAST + SCA + header/CSP audit)
 
@@ -81,6 +83,83 @@ anything is indexed. This work is scheduled in **Phase 5**.
 ---
 
 ## Entries (newest at top)
+
+### 2026-07-16 — Phase 0/1 — process + eng (Claude Code) — Scope change: product redefinition, reference purge, D1 rename, P0-1 deploy gate
+- **Status change:** none to phase numbers. Board's "Blocking items to closure" gained two new
+  rows: **D-minors**, **D-third-party** (both DPO/legal-owned, blocking).
+- **What changed:** Per `PENDING-FIXES.md` (an audit produced against commit `828673d`), the
+  project owner clarified this is **not** a pharmacovigilance platform — it is a service for
+  reporting perceived adverse effects of **conversational AI tools and digital/social media**,
+  and must carry **no references to Lareb/VAERS/FAERS/MHRA/VigiAccess/MotherToBaby-OTIS/Uppsala**
+  or any other pre-existing reporting platform used as inspiration. Every prior entry in this
+  ledger above this one describes the old (wrong) product; do not treat them as current framing,
+  only as a historical record of what was actually built (the underlying code/architecture work
+  they describe is still accurate).
+  - Gated `.github/workflows/deploy.yml` to `workflow_dispatch` only (dropped the `push` trigger)
+    so the repo can be pushed without auto-publishing a live public form before the Phase 4
+    compliance gate (`PENDING-FIXES.md` P0-1).
+  - Rewrote all user-facing copy in `layout.tsx`, `page.tsx`, `faq/page.tsx`, `report/page.tsx`
+    to the real domain; replaced the medical-advice disclaimer with crisis signposting (113
+    Zelfmoordpreventie for NL) shown in the footer and, more prominently, above the form on
+    `/report`; added a non-operational-preview banner on `/report` (P0-4, P0-5, P1-14).
+  - Purged every "Lareb"/analog-platform reference found by the audit's grep across app code,
+    `README.md`, `TECHNICAL_SPEC.md`, `qualtrics-integration.md`, and the seed artifacts;
+    renamed the Qualtrics `postMessage` sender token from `"amc-larebish-survey"` to
+    `"aijwerkingen-survey"` (cheap now since Mode A isn't wired up yet) (P1-13).
+  - Rewrote the seed artifacts (`survey.example.yaml` — entity model, `who_is_reporting`
+    options, new `product_version`/`usage_context`/`usage_duration` fields, `pii` emphasis;
+    `llms.example.txt`; `schema-examples.jsonld` — no medical schema.org type introduced;
+    `robots.example.txt`; `survey.schema.json` `$id`/`title`) to the real domain (P1-15).
+  - Restated `TECHNICAL_SPEC.md` §0 terminology note, §1 Context, §2.2 Non-goals, §6 (dropped
+    `MedicalWebPage` from `/report`'s schema list per the P1-10 amendment — plain `WebPage`
+    only), §7 Content requirements, the AEO guardrail in §11, and §13 Privacy & regulatory
+    compliance (added minors and named-third-party analysis, flagged DSA/AI Act as an open
+    legal question, kept Art. 9/D3/D4 unchanged and blocking) (P1-16, P1-17).
+  - **Resolved D1**: brand name is **AIjwerkingen** (already the value in `site.config.ts`,
+    so no app-code change was needed there — ADR-008 held). Updated the D1/D11 rows in §22 and
+    `README.md`'s stale "temporary working name" note accordingly.
+- **Decisions:** D1 resolved (AIjwerkingen). Added **D-minors** and **D-third-party** to §22 as
+  new open, blocking decisions owned by DPO/legal — not resolved here, only identified and
+  scoped, per `PENDING-FIXES.md` P0-5/P1-17.
+- **Acceptance criteria progress:**
+  - [x] Repo is safe to push without auto-publishing (P0-1).
+  - [x] User-facing copy matches the real product (P0-4).
+  - [x] Platform references purged from app code, docs, and seeds outside this ledger's history
+        (verified via the audit's grep command; `CHANGELOG.md`'s own historical entries at the
+        original lines 1/155/165/251 were deliberately left untouched — append-only, spec §21).
+  - [ ] Crisis-line selection beyond the one NL default, and the full minors/third-party
+        policies, still need DPO/legal/copy-owner sign-off — see Blockers below.
+  - [ ] Engineering SEO baseline (sitemap, robots.ts, canonicals, OG tags, WebPage schema, 404
+        page, CI, lint rule, SECURITY.md, ADR files) from `PENDING-FIXES.md` P1-1…P1-12 was
+        **out of scope for this pass** and remains open.
+- **Blockers / risks:** D3, D4 unchanged and still blocking real-data launch — the pivot does
+  **not** reduce the Art. 9 burden (P1-17). New: **D-minors** and **D-third-party**, both
+  blocking, both DPO/legal-owned. P0-2 (Qualtrics EU-region confirmation) and P0-3 (rotate the
+  `.qualtrics` plaintext codes) remain open and are user/account-owner actions, not agent-doable.
+- **Next actions:** Commission the DPO/legal review of the restated §13 (D3, D4, D-minors,
+  D-third-party) and decide the actual crisis-line list per locale beyond the NL placeholder
+  already in the footer/`/report`. Separately, work through the remaining P1 engineering items
+  (sitemap/robots.ts/canonicals/OG/404/CI/lint/SECURITY.md/ADRs) whenever that pass is picked up.
+
+### 2026-07-16 — Phase 0 — process (Claude Code) — REVIEW.md: added mobile-responsiveness + codegraph checks
+- **Status change:** none.
+- **What changed:** User caught two gaps in the freshly-added `REVIEW.md` by directly
+  asking whether it covered them — it didn't:
+  - **Mobile responsiveness** was entirely absent from the checklist, despite the spec's
+    own success criteria (§2.3, §16) being measured on a mobile Lighthouse profile. Added
+    item 10: resize to a mobile viewport (~375–414px) for every route under review, confirm
+    layout/nav/CTAs don't break and there's no horizontal scroll, and specifically confirm
+    the `/report` survey embed is usable at that width, not just present. Screenshot both
+    desktop and mobile as evidence.
+  - **Codegraph usage** wasn't referenced at all, even though `AGENTS.md` already tells
+    agents working in this repo to prefer codegraph's MCP tools over raw `grep`/`find`.
+    Added a tooling note in section 1 pointing the reviewing agent at that same convention,
+    with the same Unix-search fallback if codegraph's tools aren't attached in-session.
+- **Decisions:** none new.
+- **Blockers / risks:** unchanged.
+- **Next actions:** unchanged. Worth remembering when adding future checklist-style docs:
+  cross-check them against both the spec's stated success criteria and this repo's own
+  standing tooling conventions before considering them complete.
 
 ### 2026-07-16 — Phase 0 — process (Claude Code) — added REVIEW.md; fixed a README regression
 - **Status change:** none.

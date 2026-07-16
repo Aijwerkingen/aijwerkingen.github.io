@@ -6,14 +6,14 @@ export default function HomePage() {
     <>
       <section className="mx-auto max-w-3xl px-4 py-20 text-center">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          Noticed a side effect from a medicine or vaccine?
+          Noticed a side effect from an AI tool or social media?
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-lg text-slate-600">
           {siteConfig.name}{" "}
-          lets you report a suspected adverse reaction in a few minutes —
-          anonymously, for free, whether you&apos;re a patient or a
-          healthcare professional. Your report helps spot safety signals
-          earlier.
+          lets you report a perceived adverse effect from a conversational AI
+          tool, app, or social media platform in a few minutes — anonymously,
+          for free, whether it happened to you or someone you support. Your
+          report helps spot patterns of harm earlier.
         </p>
         <div className="mt-10 flex justify-center gap-4">
           <Link
@@ -39,11 +39,11 @@ export default function HomePage() {
           />
           <TrustCard
             title="A few minutes"
-            body="A short, plain-language form — no medical jargon required to get started."
+            body="A short, plain-language form — no technical knowledge required to get started."
           />
           <TrustCard
-            title="Reviewed by people who look"
-            body="Reports feed into ongoing safety monitoring, the same way pharmacovigilance centres like Lareb work."
+            title="Built for ongoing monitoring"
+            body="Reports are intended to feed into ongoing monitoring for patterns of harm across AI tools and platforms, once this preview is fully operational."
           />
         </div>
       </section>
