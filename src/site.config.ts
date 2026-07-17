@@ -115,6 +115,50 @@ export const siteConfig = {
     },
     sameAs: [] as string[],
   },
+
+  /**
+   * Institutional provenance — the credibility signal for a research
+   * instrument: which body stands behind it, who is responsible, under what
+   * ethics approval.
+   *
+   * EVERY FIELD IS OMITTED FROM THE UI WHILE EMPTY, exactly like `legalName`.
+   * Nothing here is invented, and no "TODO" placeholder is ever rendered: an
+   * empty string means the corresponding block simply does not appear. Filling
+   * these in is a one-file edit (ADR-008) — no component changes.
+   */
+  research: {
+    /** e.g. "Amsterdam UMC" — shown on /about and in the footer. */
+    institution: "",
+    /** e.g. "Department of Clinical Psychology". */
+    department: "",
+    /** Named researcher accountable for the study. */
+    principalInvestigator: "",
+    /** Reviewing committee + reference, e.g. "METC 2026.123". */
+    ethicsApproval: "",
+    /** Data Protection Officer / privacy contact for data-subject requests. */
+    dpoEmail: "",
+    /** Optional institution URL, used to link the affiliation. */
+    institutionUrl: "",
+  },
+
+  /**
+   * Legal documents (/privacy, /terms, /accessibility).
+   *
+   * `approved` is the DPO/legal sign-off gate. While it is FALSE:
+   *   - each page renders a visible draft notice, and
+   *   - each page is forced `noindex` regardless of `indexable` below,
+   * so an unapproved notice can never be indexed or relied on as a statement of
+   * fact. The drafts assert specifics (retention, lawful basis) that NOBODY HAS
+   * APPROVED — they exist to be redlined, not to be published as-is.
+   *
+   * Flip to true only on sign-off (spec §13, D4 / "Legal sign-off" in CHANGELOG).
+   */
+  legal: {
+    approved: false,
+    /** ISO date of the last legal review, shown once approved. */
+    lastReviewed: "",
+  },
+
   // ADR-010: this deploy is a public but non-indexed staging tier until the
   // final domain is verified in Search Console (spec §5.2, AC-DOMAIN).
   indexable: false,

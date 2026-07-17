@@ -89,10 +89,27 @@ export const metadata: Metadata = {
   },
 };
 
+/** Header nav — kept short so the lockup and the CTA keep their room. */
 const nav = [
-  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
 ];
+
+const footerNav = {
+  Site: [
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    { href: "/how-it-works", label: "How it works" },
+    { href: "/faq", label: "FAQ" },
+    { href: "/report", label: "Report your experience" },
+  ],
+  Legal: [
+    { href: "/privacy", label: "Privacy notice" },
+    { href: "/terms", label: "Terms & disclaimer" },
+    { href: "/accessibility", label: "Accessibility" },
+    { href: "/contact", label: "Contact" },
+  ],
+};
 
 export default function RootLayout({
   children,
@@ -195,40 +212,29 @@ export default function RootLayout({
                   <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-soft">
                     {siteConfig.tagline}
                   </p>
+                  {/* Institutional provenance — the credibility signal for a
+                      research instrument. Renders nothing until site.config's
+                      `research` block is filled in (see ProvenanceList). */}
+                  <FooterProvenance />
                 </div>
 
-                <nav aria-label="Footer">
-                  <h2 className="eyebrow">Site</h2>
-                  <ul className="mt-3 space-y-2 text-sm">
-                    {[
-                      ...nav,
-                      { href: "/report", label: "Report your experience" },
-                    ].map((item) => (
-                      <li key={item.href}>
-                        <Link
-                          href={item.href}
-                          className="text-ink-soft transition-colors hover:text-ink"
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-
-                <div>
-                  <h2 className="eyebrow">Contact</h2>
-                  <ul className="mt-3 space-y-2 text-sm text-ink-soft">
-                    <li>
-                      <a
-                        href={`mailto:${siteConfig.organization.email}`}
-                        className="transition-colors hover:text-ink"
-                      >
-                        {siteConfig.organization.email}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                {Object.entries(footerNav).map(([heading, items]) => (
+                  <nav key={heading} aria-label={heading}>
+                    <h2 className="eyebrow">{heading}</h2>
+                    <ul className="mt-3 space-y-2 text-sm">
+                      {items.map((item) => (
+                        <li key={item.href}>
+                          <Link
+                            href={item.href}
+                            className="text-ink-soft transition-colors hover:text-ink"
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                ))}
               </div>
 
               {/* Crisis routing is the most consequential thing in the footer, so
@@ -275,5 +281,38 @@ export default function RootLayout({
         </BrandProvider>
       </body>
     </html>
+  );
+}
+
+/**
+ * Compact institutional attribution for the footer.
+ *
+ * Absent entirely until `research.institution` is set in site.config.ts — an
+ * empty slot renders nothing rather than a placeholder, so this is safe to ship
+ * before the formal details arrive (same rule as `legalName`).
+ */
+function FooterProvenance() {
+  const { institution, department, institutionUrl } = siteConfig.research;
+  if (!institution) return null;
+
+  const affiliation = department ? `${department}, ${institution}` : institution;
+
+  return (
+    <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
+      A research instrument from{" "}
+      {institutionUrl ? (
+        <a
+          href={institutionUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-ink"
+        >
+          {affiliation}
+        </a>
+      ) : (
+        <span className="font-semibold text-ink">{affiliation}</span>
+      )}
+      .
+    </p>
   );
 }

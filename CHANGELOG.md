@@ -85,6 +85,54 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-07-16 — Phase 1 — build (Claude Code) — remaining page set scaffolded: /about, /how-it-works, /contact + draft /privacy, /terms, /accessibility
+- **Status change:** none to the board. Phase 1's page table (spec §5) is now complete
+  except `/news`; every route in that table exists, is linked, and emits its specified
+  JSON-LD type. Phase 1 stays `in_progress` (blocked-by D11's copy half).
+- **What changed:**
+  - **New routes** (13 total build, all static): `/about` (`AboutPage`),
+    `/how-it-works` (`HowTo`), `/contact` (`ContactPage`), `/privacy`, `/terms`,
+    `/accessibility` (all `WebPage`) — the JSON-LD types the spec's §5 table specifies.
+    Footer reorganised into **Site** and **Legal** columns; header nav is now
+    About / FAQ / CTA.
+  - **Institutional provenance (`siteConfig.research`)** — institution, department,
+    principal investigator, ethics approval, DPO email, institution URL. **All empty,
+    and empty means omitted, never a rendered placeholder** (same rule as `legalName`).
+    Verified both ways: filling the six fields makes the Governance block appear on
+    `/about`, the attribution line appear in the footer, and the DPO address flow into
+    `/privacy`, `/contact` and `/accessibility`; clearing them removes every trace. This
+    is the credibility surface the site was missing — it is a research instrument and
+    nothing on it said so.
+  - **Legal drafts**, written at the owner's explicit direction ("full draft for the DPO
+    to redline"). They deliberately assert specifics nobody has approved; each is marked
+    `TODO(D4)` / `TODO(D3)` / `TODO(D-minors)` / `TODO(D-third-party)` at its exact site,
+    so the DPO's redline maps 1:1 onto a code change. **The retention period (five years)
+    is an invented placeholder and must be replaced, not merely reviewed.**
+- **Decisions:** added **`siteConfig.legal.approved`** (default `false`) as the sign-off
+  gate — Claude Code's addition, flagged to the owner rather than silently included.
+  While false: each legal page renders a visible "Draft for review — not yet in force"
+  notice, and is **forced `noindex` independently of `siteConfig.indexable`**, so an
+  unapproved notice cannot be indexed even after the site is flipped indexable at Phase
+  5. The sitemap excludes the three drafts off the same flag, so the two cannot drift.
+  Verified by building with `indexable: true`: public pages became `index, follow` while
+  the drafts held at `noindex, follow` and the sitemap stayed at 6 entries. Sign-off is
+  then a one-line edit that removes the banner, restores indexing, and adds them to the
+  sitemap together.
+- **Acceptance criteria progress:** `/accessibility` deliberately makes **no conformance
+  claim** — Phase 1's WCAG AA gate has not been run, and "partially conforms" is a
+  defined, legally meaningful term for a public/health body. It states the AA target, the
+  absence of an audit, and one real known limitation (the third-party Qualtrics iframe is
+  unaudited and outside our control). Replace when the audit exists.
+- **Blockers / risks:** unchanged, and the previous entry's warning still stands. The
+  drafts do **not** close D3/D4/D-minors/D-third-party — they are inputs for the DPO, and
+  each open decision is now visible as a TODO in the page that depends on it. Note
+  `/privacy` and `/terms` still say the minors and named-third-party policies are "being
+  finalised": those are true statements about open decisions, not preview framing.
+- **Next actions:** (1) DPO/legal to redline the three drafts, resolve every TODO, then
+  set `legal.approved: true` + `legal.lastReviewed`. (2) Fill `siteConfig.research` when
+  the formal details and authorisations land — one file, no component changes. (3) Run
+  the a11y audit and replace the status section in `/accessibility`.
+
 ### 2026-07-16 — Phase 1 — copy + positioning (Claude Code, at product owner's direction) — reframed from "side effects" to distress; preview/placeholder framing removed from the UI
 - **Status change:** none to the phase board. **⚠️ This entry records a deliberate
   discrepancy — read the blockers section before acting on it.**
