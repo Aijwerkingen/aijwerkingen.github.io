@@ -15,7 +15,7 @@ const resources = [
     name: "Find a Helpline",
     url: "https://findahelpline.com/",
     description:
-      "Run by ThroughLine, this is the most comprehensive verified directory — covering 1,500+ helplines in 175+ countries across 21 topics and 15 specialties. Helpline organisations verify their own information directly.",
+      "Run by ThroughLine, this is the most comprehensive verified directory - covering 1,500+ helplines in 175+ countries across 21 topics and 15 specialties. Helpline organisations verify their own information directly.",
   },
   {
     name: "Wikimedia Mental Health Resources",
@@ -30,13 +30,13 @@ const resources = [
       "Lists crisis centres and helplines across Africa, Asia, Europe, North America, Oceania, and South America. IASP is a WHO-affiliated body dedicated to suicide prevention.",
   },
   {
-    name: "HelpGuide — International Directory",
+    name: "HelpGuide - International Directory",
     url: "https://www.helpguide.org/find-help",
     description:
       "A curated international directory of crisis helplines, broken down by country. HelpGuide is a nonprofit mental-health resource.",
   },
   {
-    name: "TherapyRoute — Worldwide Crisis Lines",
+    name: "TherapyRoute - Worldwide Crisis Lines",
     url: "https://www.therapyroute.com/article/helplines-suicide-hotlines-and-crisis-lines-from-around-the-world",
     description:
       "Another worldwide directory of crisis and suicide-prevention helplines, organised by country.",
@@ -87,7 +87,7 @@ export default function HelplinesPage() {
             >
               findahelpline.com
             </a>{" "}
-            — it detects your location and shows verified services instantly.
+            - it detects your location and shows verified services instantly.
           </p>
         </aside>
 
@@ -99,7 +99,7 @@ export default function HelplinesPage() {
             always see the most current information. Our on-site helpline
             selector (shown on the{" "}
             <a href="/report">report page</a>) draws from these same sources
-            but covers a smaller set of countries — use the directories below
+            but covers a smaller set of countries - use the directories below
             for the most complete coverage.
           </p>
 
@@ -124,7 +124,7 @@ export default function HelplinesPage() {
           <p>
             Crisis helplines change their phone numbers, hours, and web
             addresses from time to time. The on-site selector on our report
-            page is a convenience feature — it is not a substitute for a
+            page is a convenience feature - it is not a substitute for a
             verified, real-time directory.{" "}
             <a
               href="https://findahelpline.com/"

@@ -1,6 +1,6 @@
 // Runtime brand state (name + colour-way).
 //
-// Server-rendered output — <title>, JSON-LD, canonical, sitemap — always uses the
+// Server-rendered output - <title>, JSON-LD, canonical, sitemap - always uses the
 // build-time default from site.config.ts. This module only layers a *client-side*
 // override on top, so the admin drawer can preview the other name/theme without a
 // rebuild. It is deliberately dependency-free and safe to import from server code
@@ -34,7 +34,7 @@ function isBrandTheme(value: unknown): value is BrandTheme {
   );
 }
 
-/** Anything unrecognised falls back to the default — never trust stored JSON. */
+/** Anything unrecognised falls back to the default - never trust stored JSON. */
 function parseBrandState(raw: string | null): BrandState {
   if (!raw) return defaultBrandState;
   try {
@@ -54,7 +54,7 @@ function readStorage(): BrandState {
   try {
     return parseBrandState(window.localStorage.getItem(BRAND_STORAGE_KEY));
   } catch {
-    // Private mode / blocked storage — the default is always a valid answer.
+    // Private mode / blocked storage - the default is always a valid answer.
     return defaultBrandState;
   }
 }

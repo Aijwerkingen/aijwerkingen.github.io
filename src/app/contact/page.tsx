@@ -81,14 +81,14 @@ export default function ContactPage() {
             {dpoEmail || siteConfig.organization.email}
           </a>
           . Reports are anonymous by default, so we may be unable to link a
-          request to a specific submission — the{" "}
+          request to a specific submission - the{" "}
           <Link href="/privacy">privacy notice</Link> explains what that means
           for your rights.
         </p>
 
         <h2>Reporting an experience</h2>
         <p>
-          Please don&apos;t email reports — they can&apos;t be included in the
+          Please don&apos;t email reports - they can&apos;t be included in the
           analysis that way. Use the{" "}
           <Link href="/report">report form</Link> instead, which is anonymous
           and takes a few minutes.

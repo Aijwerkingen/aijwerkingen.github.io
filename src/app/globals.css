@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
- * Design tokens (D11 — visual identity, spec §22).
+ * Design tokens (D11 - visual identity, spec §22).
  *
  * Every colour below is sampled from the supplied icon set, so the UI and the
  * artwork cannot drift apart. The two colour-ways share ALL neutrals and differ
@@ -14,7 +14,7 @@
  * ------------------------------------------------------------------------- */
 
 :root {
-  /* Neutrals — shared by both colour-ways (sampled from the lockup artwork). */
+  /* Neutrals - shared by both colour-ways (sampled from the lockup artwork). */
   --c-ink: #121e18;
   --c-ink-soft: #596760;
   --c-line: #d8e0dc;
@@ -33,12 +33,12 @@
 
 /* Both colour-ways are also declared as scoped selectors, not just as :root
  * defaults. That lets any subtree opt into a colour-way with
- * `data-brand-theme` — which the admin drawer's swatches rely on to show warm
+ * `data-brand-theme` - which the admin drawer's swatches rely on to show warm
  * and teal side by side. With warm living only on :root, a warm-tagged element
  * inside a teal document would inherit teal and both swatches would match. */
 :root,
 [data-brand-theme="warm"] {
-  /* Warm colour-way — the default (spec D11). */
+  /* Warm colour-way - the default (spec D11). */
   --accent: #bb5752;
   --accent-strong: #9a403c;
   --accent-soft: #fbf3f2;
@@ -89,7 +89,7 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* One ring definition for every interactive element — a visible, high-contrast
+  /* One ring definition for every interactive element - a visible, high-contrast
    * focus indicator is a WCAG AA requirement the spec gates Phase 1 on. */
   :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
     outline: 2px solid var(--accent-strong);
@@ -185,7 +185,7 @@
  * logo mark. Purely decorative, and the reduced-motion block below stops it.
  *
  * Relies on the path carrying pathLength="1", which normalises the dash maths to
- * a 0..1 scale — hard-coding a length in user units instead would leave the tail
+ * a 0..1 scale - hard-coding a length in user units instead would leave the tail
  * of the path rendered as a gap whenever the real length exceeded the guess. */
 @keyframes brand-trace {
   from {

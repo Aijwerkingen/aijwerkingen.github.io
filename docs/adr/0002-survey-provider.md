@@ -21,5 +21,5 @@ a `SURVEY_PROVIDER` environment variable (see `.env.example`).
 Switching providers is a config change (`SURVEY_PROVIDER` + redeploy), not a
 rewrite of page code. `/report` (`src/app/report/page.tsx`) currently
 implements Mode A directly (a bare iframe embed); the `SurveyProvider`
-interface itself has not yet been built — that is outstanding Phase 2 work
+interface itself has not yet been built - that is outstanding Phase 2 work
 (`CHANGELOG.md` "Known gaps").

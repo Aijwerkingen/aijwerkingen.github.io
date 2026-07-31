@@ -24,7 +24,7 @@
 .DS_Store
 *.pem
 
-# secrets — never commit
+# secrets - never commit
 .qualtrics
 
 # debug

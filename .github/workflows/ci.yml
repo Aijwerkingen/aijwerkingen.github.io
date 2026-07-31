@@ -18,7 +18,7 @@ jobs:
       - run: npx tsc --noEmit
       - run: npm run lint
       - run: npm run build
-      # Visibility only — 2 known moderate findings (postcss, transitive via
+      # Visibility only - 2 known moderate findings (postcss, transitive via
       # next@16.2.10) are tracked but not build-blocking (PENDING-FIXES.md P2-4).
       # Phase 4's "0 high/critical" gate is what actually blocks release.
       - run: npm audit --audit-level=high

@@ -18,7 +18,7 @@ const eslintConfig = defineConfig([
         {
           selector: `Literal[value=/${bannedLiteralPattern}/i]`,
           message:
-            "Brand name/domain and purged platform references must not be hard-coded — use src/site.config.ts (ADR-008) or see PENDING-FIXES.md P1-13.",
+            "Brand name/domain and purged platform references must not be hard-coded - use src/site.config.ts (ADR-008) or see PENDING-FIXES.md P1-13.",
         },
       ],
     },

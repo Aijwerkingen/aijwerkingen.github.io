@@ -1,4 +1,4 @@
-# AIjwerkingen — example robots.txt
+# AIjwerkingen - example robots.txt
 # Replace https://example.org with the real canonical origin.
 # AI-crawler policy is a DECISION (spec §11.6): the block below ALLOWS AI
 # crawlers, which is usually desirable for a public-interest information site that
@@ -7,7 +7,7 @@
 # these at the CDN/WAF layer, or the policy here is meaningless.
 #
 # NOTE (P1-5): this static file is superseded by src/app/robots.ts once that
-# lands — decide then whether this seed should still exist (see PENDING-FIXES.md P1-15).
+# lands - decide then whether this seed should still exist (see PENDING-FIXES.md P1-15).
 
 User-agent: *
 Allow: /

@@ -77,7 +77,7 @@ export function CrisisHelpline({ variant = "notice" }: { variant?: Variant }) {
           }
         }
       } catch {
-        /* geolocation failed — keep default */
+        /* geolocation failed - keep default */
       }
     })();
 

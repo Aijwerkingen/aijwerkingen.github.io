@@ -23,7 +23,7 @@ export default function HomePage() {
 
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-ink-soft">
             <BrandName /> lets you report distress you felt during or after
-            using a conversational AI tool, app, or social media platform — in a
+            using a conversational AI tool, app, or social media platform - in a
             few minutes, whether it happened to you or someone you support. Your
             report helps spot patterns of harm earlier.
           </p>
@@ -93,7 +93,7 @@ export default function HomePage() {
               n={1}
               icon={<ChatIcon className="size-5" />}
               title="Describe how you felt"
-              body="In plain language. Mild or overwhelming, during use or afterwards — if you noticed it, it counts."
+              body="In plain language. Mild or overwhelming, during use or afterwards - if you noticed it, it counts."
             />
             <Step
               n={2}
@@ -132,7 +132,7 @@ export default function HomePage() {
 }
 
 /**
- * Decorative ECG trace echoing the pulse line inside the logo mark — it ties the
+ * Decorative ECG trace echoing the pulse line inside the logo mark - it ties the
  * hero to the identity without another image request. Hidden from assistive tech
  * and stilled by the reduced-motion rule in globals.css.
  */

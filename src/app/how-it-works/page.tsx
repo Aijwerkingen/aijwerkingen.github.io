@@ -85,7 +85,7 @@ export default function HowItWorksPage() {
         <p>
           Only what is needed to understand the report: what you described, the
           tool or platform involved, and any optional context you chose to add.
-          Reporting is anonymous by default — we do not ask for your name and
+          Reporting is anonymous by default - we do not ask for your name and
           you do not need an account. If you supply contact details, they are
           optional, clearly marked, and used only for follow-up.
         </p>
@@ -98,7 +98,7 @@ export default function HowItWorksPage() {
         <p>
           Submitting a report does not contact the company involved on your
           behalf, does not produce a clinical assessment of your situation, and
-          does not reach anyone in real time. This is not a crisis service — if
+          does not reach anyone in real time. This is not a crisis service - if
           you or someone else is in immediate danger, contact your local
           emergency number.
         </p>

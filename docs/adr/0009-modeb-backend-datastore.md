@@ -16,12 +16,12 @@ Supabase; Docker+Postgres everywhere") in favour of full dev/prod parity.
 ## Decision
 
 Mode B uses a containerized Node service plus PostgreSQL, identically in
-local, staging, and production — the same Docker image/stack everywhere
+local, staging, and production - the same Docker image/stack everywhere
 (`docker-compose` locally; the same containers on a server host for
 staging/prod). Environments differ **only** by `DATABASE_URL` and other
 per-environment secrets. No managed-database vendor (e.g. Supabase) is
 used. Data access is ORM + versioned SQL migrations over a standard
-connection string — no vendor-proprietary coupling (no `supabase-js`,
+connection string - no vendor-proprietary coupling (no `supabase-js`,
 Supabase Auth/Storage/Edge Functions, no RLS-as-app-authz on the critical
 path).
 

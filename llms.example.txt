@@ -5,11 +5,11 @@
 > parents, carers, and professionals supporting someone else, can submit
 > reports to help identify patterns of harm. This is not a crisis or
 > emergency service; in an emergency, contact your local emergency number.
-> (Replace all example.org URLs and confirm the final brand name — spec decision D1.)
+> (Replace all example.org URLs and confirm the final brand name - spec decision D1.)
 
 ## Core pages
 - [Home](https://example.org/): what AIjwerkingen is and how to report a side effect.
-- [Report a side effect](https://example.org/report): the reporting form — the main action.
+- [Report a side effect](https://example.org/report): the reporting form - the main action.
 - [How reporting works](https://example.org/how-it-works): step-by-step of what happens to a report.
 - [About us](https://example.org/about): who we are, our mission, and governance.
 - [FAQ](https://example.org/faq): common questions with direct answers.

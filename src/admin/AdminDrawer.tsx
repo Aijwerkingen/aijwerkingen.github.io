@@ -1,7 +1,7 @@
 "use client";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TEMPORARY — brand preview panel (D1 naming + D11 colour-way, spec §22).
+// TEMPORARY - brand preview panel (D1 naming + D11 colour-way, spec §22).
 //
 // REMOVING THIS: delete this `src/admin/` directory and the single
 // `<AdminDrawer />` line in src/app/layout.tsx. Nothing else imports it. The
@@ -12,7 +12,7 @@
 //
 // Scope: this previews *rendered* brand only. Titles, JSON-LD, canonical URLs,
 // the sitemap and OG images are generated at build time from site.config.ts and
-// are intentionally NOT affected — brand identity for crawlers stays single-
+// are intentionally NOT affected - brand identity for crawlers stays single-
 // sourced (ADR-008).
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -196,7 +196,7 @@ function Field({
 type Option<T> = { value: T; label: string; swatch?: BrandTheme };
 
 /**
- * Radio group styled as a segmented control — real radios keep arrow-key
+ * Radio group styled as a segmented control - real radios keep arrow-key
  * navigation and screen-reader semantics for free.
  */
 function Segmented<T extends string>({

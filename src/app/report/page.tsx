@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 };
 
 // Mode A (Qualtrics-embedded), spec §8.3. This is a SAMPLE survey for early
-// preview only — swap for the real anonymous link before any real-data launch,
+// preview only - swap for the real anonymous link before any real-data launch,
 // and see qualtrics-integration.md for postMessage completion handling,
 // CSP frame-src hardening, and the launch checklist (Phase 2 work, not yet done).
 // Sourced from env (spec §19, §8.5) rather than hard-coded, so it's per-build
-// config, not a component literal — see .env.example.
+// config, not a component literal - see .env.example.
 const QUALTRICS_SURVEY_URL =
   process.env.NEXT_PUBLIC_QUALTRICS_SURVEY_URL ||
   "https://qualtricsxmwdy4hl99w.qualtrics.com/jfe/form/SV_aVpwAHDeyg456No";

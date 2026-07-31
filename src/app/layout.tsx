@@ -16,7 +16,7 @@ import { CrisisHelpline } from "@/components/CrisisHelpline";
 
 // Matches the supplied lockup artwork: Nunito for the wordmark and headings,
 // Nunito Sans for running text. next/font self-hosts both at build time, so no
-// third-party request is made at runtime — which also keeps the CSP below free
+// third-party request is made at runtime - which also keeps the CSP below free
 // of a font-src exception.
 const display = Nunito({
   subsets: ["latin"],
@@ -35,7 +35,7 @@ const sans = Nunito_Sans({
 const iconDir = (file: string) =>
   brandAsset(defaultBrandKey, defaultBrandTheme, file);
 
-// Resolved at build time (static export), not in the browser — so it can't
+// Resolved at build time (static export), not in the browser - so it can't
 // disagree with the server-rendered HTML. It does go stale until the next
 // deploy, which is the usual trade for a site with no server runtime.
 const buildYear = new Date().getFullYear();
@@ -43,8 +43,8 @@ const buildYear = new Date().getFullYear();
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.canonicalUrl),
   title: {
-    default: `${siteConfig.name} — Report distress from AI or social media`,
-    template: `%s — ${siteConfig.name}`,
+    default: `${siteConfig.name} - Report distress from AI or social media`,
+    template: `%s - ${siteConfig.name}`,
   },
   description:
     "Report distress you felt during or after using a conversational AI tool, app, or social media platform. Fast, confidential, and free.",
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage.url,
         width: siteConfig.ogImage.width,
         height: siteConfig.ogImage.height,
-        alt: `${siteConfig.name} — ${siteConfig.tagline}`,
+        alt: `${siteConfig.name} - ${siteConfig.tagline}`,
       },
     ],
   },
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
   },
 };
 
-/** Header nav — kept short so the lockup and the CTA keep their room. */
+/** Header nav - kept short so the lockup and the CTA keep their room. */
 const nav = [
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
@@ -121,7 +121,7 @@ export default function RootLayout({
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    // Falls back to the brand name until a legal entity is registered — a
+    // Falls back to the brand name until a legal entity is registered - a
     // placeholder here would be published to crawlers (spec §5.1, NAP).
     name: siteConfig.organization.legalName || siteConfig.name,
     url: siteConfig.canonicalUrl,
@@ -138,7 +138,7 @@ export default function RootLayout({
 
   // Interim CSP via <meta>, ADR-011: GitHub Pages can't set response
   // headers under static export, so frame-ancestors, HSTS, and
-  // X-Content-Type-Options remain unset regardless — those need a host
+  // X-Content-Type-Options remain unset regardless - those need a host
   // that can send headers (Phase 3+, PENDING-FIXES.md P2-1).
   const csp = [
     "default-src 'self'",
@@ -180,7 +180,7 @@ export default function RootLayout({
 
           <header className="sticky top-0 z-30 border-b border-line bg-surface/85 backdrop-blur">
             <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
-              <Link href="/" aria-label={`${siteConfig.name} — home`}>
+              <Link href="/" aria-label={`${siteConfig.name} - home`}>
                 <BrandLockup size={34} wordmarkClassName="text-lg sm:text-xl" />
               </Link>
 
@@ -214,7 +214,7 @@ export default function RootLayout({
                   <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-soft">
                     {siteConfig.tagline}
                   </p>
-                  {/* Institutional provenance — the credibility signal for a
+                  {/* Institutional provenance - the credibility signal for a
                       research instrument. Renders nothing until site.config's
                       `research` block is filled in (see ProvenanceList). */}
                   <FooterProvenance />
@@ -258,7 +258,7 @@ export default function RootLayout({
           </footer>
 
           {/* TEMPORARY: the brand preview drawer's only entry point. Delete this
-              line and src/admin/ to remove it entirely — see AdminDrawer.tsx. */}
+              line and src/admin/ to remove it entirely - see AdminDrawer.tsx. */}
           <AdminDrawer />
         </BrandProvider>
       </body>
@@ -269,7 +269,7 @@ export default function RootLayout({
 /**
  * Compact institutional attribution for the footer.
  *
- * Absent entirely until `research.institution` is set in site.config.ts — an
+ * Absent entirely until `research.institution` is set in site.config.ts - an
  * empty slot renders nothing rather than a placeholder, so this is safe to ship
  * before the formal details arrive (same rule as `legalName`).
  */

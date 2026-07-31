@@ -1,8 +1,8 @@
-// site.config.ts — the ONLY place brand name, domain, and NAP are defined.
+// site.config.ts - the ONLY place brand name, domain, and NAP are defined.
 // Every SEO/AEO artifact (titles, meta, canonical, JSON-LD, sitemap, robots.txt,
 // llms.txt) must derive from this file. See TECHNICAL_SPEC.md §5.1 (ADR-008).
 //
-// STATUS: placeholder identity + placeholder domain (D1, D9 — spec §22, both open).
+// STATUS: placeholder identity + placeholder domain (D1, D9 - spec §22, both open).
 // canonicalUrl points at the GitHub Pages deploy, which stays noindex (ADR-010)
 // until a final domain is chosen. Swapping either value later is a one-file edit —
 // see TECHNICAL_SPEC.md §0.1 / §5.2 and the "▶ RESUME HERE" block in CHANGELOG.md.
@@ -21,7 +21,7 @@ type BrandVariant = {
   key: string;
   name: string;
   /**
-   * Registered legal entity, once one exists. Empty until then — consumers fall
+   * Registered legal entity, once one exists. Empty until then - consumers fall
    * back to `name` rather than print a placeholder. Never put a "TODO" string
    * here: this feeds the Organization JSON-LD, so anything written here is
    * published to crawlers.
@@ -30,7 +30,7 @@ type BrandVariant = {
   tagline: string;
   /**
    * The lockup sets exactly one half of the wordmark in the accent colour and
-   * the other in ink — `accent` says which half. Mirrors the supplied artwork.
+   * the other in ink - `accent` says which half. Mirrors the supplied artwork.
    */
   wordmark: { lead: string; tail: string; accent: "lead" | "tail" };
 };
@@ -69,7 +69,7 @@ const defaultBrand = brandVariants[defaultBrandKey];
  * Asset paths are derived rather than written out, which keeps the brand-key
  * literal inside this file (ADR-008) and makes the 2×2 icon set addressable by
  * (key, theme). The files live under `public/brand/`, so they are copied
- * verbatim into the static export — no bundler or loader involved.
+ * verbatim into the static export - no bundler or loader involved.
  */
 export function brandAsset(
   key: BrandKey,
@@ -89,7 +89,7 @@ export const siteConfig = {
   // D11: an icon set now exists, so `logo` is a real asset rather than a TODO.
   logo: brandAsset(defaultBrandKey, defaultBrandTheme, "icon-mark.png"),
   // Dimensions are the artwork's real pixel size, which is not what the file
-  // name suggests — OG consumers pre-allocate from these, so they must be true.
+  // name suggests - OG consumers pre-allocate from these, so they must be true.
   ogImage: {
     url: brandAsset(defaultBrandKey, defaultBrandTheme, "opengraph-1200x630.png"),
     width: 1088,
@@ -117,17 +117,17 @@ export const siteConfig = {
   },
 
   /**
-   * Institutional provenance — the credibility signal for a research
+   * Institutional provenance - the credibility signal for a research
    * instrument: which body stands behind it, who is responsible, under what
    * ethics approval.
    *
    * EVERY FIELD IS OMITTED FROM THE UI WHILE EMPTY, exactly like `legalName`.
    * Nothing here is invented, and no "TODO" placeholder is ever rendered: an
    * empty string means the corresponding block simply does not appear. Filling
-   * these in is a one-file edit (ADR-008) — no component changes.
+   * these in is a one-file edit (ADR-008) - no component changes.
    */
   research: {
-    /** e.g. "Amsterdam UMC" — shown on /about and in the footer. */
+    /** e.g. "Amsterdam UMC" - shown on /about and in the footer. */
     institution: "",
     /** e.g. "Department of Clinical Psychology". */
     department: "",
@@ -149,7 +149,7 @@ export const siteConfig = {
    *   - each page is forced `noindex` regardless of `indexable` below,
    * so an unapproved notice can never be indexed or relied on as a statement of
    * fact. The drafts assert specifics (retention, lawful basis) that NOBODY HAS
-   * APPROVED — they exist to be redlined, not to be published as-is.
+   * APPROVED - they exist to be redlined, not to be published as-is.
    *
    * Flip to true only on sign-off (spec §13, D4 / "Legal sign-off" in CHANGELOG).
    */

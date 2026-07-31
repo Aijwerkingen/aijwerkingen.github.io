@@ -9,10 +9,10 @@ import {
 } from "@/components/DocPage";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// UNAPPROVED DRAFT — gated by `siteConfig.legal.approved` (draft banner +
+// UNAPPROVED DRAFT - gated by `siteConfig.legal.approved` (draft banner +
 // forced noindex while false).
 //
-// Unlike /privacy and /terms, the blocker here is not a lawyer — it is that an
+// Unlike /privacy and /terms, the blocker here is not a lawyer - it is that an
 // accessibility statement must report the result of an actual audit, and no
 // audit has been run. A conformance claim is a factual claim; the TODOs below
 // mark where one is owed. See spec §20 (Phase 1 gate: WCAG AA automated pass).
@@ -75,7 +75,7 @@ export default function AccessibilityPage() {
         </p>
 
         <h2>Current status</h2>
-        {/* TODO(a11y audit): no formal audit has been carried out — neither
+        {/* TODO(a11y audit): no formal audit has been carried out - neither
             automated nor with assistive-technology users. Until one is, this
             page cannot make a conformance claim, and this paragraph must stay.
             Phase 1's acceptance gate requires the automated pass at minimum. */}
@@ -99,14 +99,14 @@ export default function AccessibilityPage() {
             people find works better.
           </li>
           <li>
-            <strong>No audit result.</strong> As above — until an assessment is
+            <strong>No audit result.</strong> As above - until an assessment is
             done, there may be barriers we simply do not know about yet.
           </li>
         </ul>
 
         <h2>If something blocks you</h2>
         <p>
-          Please tell us — a specific report of what failed is the fastest route
+          Please tell us - a specific report of what failed is the fastest route
           to fixing it. Email{" "}
           <a href={`mailto:${contact}`}>{contact}</a> and, if you can, say what
           page you were on, what you were trying to do, and what you use to

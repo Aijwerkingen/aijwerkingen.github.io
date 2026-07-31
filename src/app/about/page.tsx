@@ -54,8 +54,8 @@ export default function AboutPage() {
           When a medicine causes an unexpected effect, there is somewhere to
           report it, and those reports accumulate into evidence. When a
           conversational AI tool or a social media platform leaves someone
-          feeling worse — more anxious, more isolated, worse about their body,
-          unable to stop — there is usually nowhere for that to go. It stays a
+          feeling worse - more anxious, more isolated, worse about their body,
+          unable to stop - there is usually nowhere for that to go. It stays a
           private experience, and nothing aggregates.
         </p>
         <p>
@@ -69,7 +69,7 @@ export default function AboutPage() {
         <p>
           Reports are reviewed as part of ongoing monitoring for patterns across
           tools and platforms. A single report is not a diagnosis and is never
-          treated as one — it is one account among many. What makes it valuable
+          treated as one - it is one account among many. What makes it valuable
           is the aggregate: recurring descriptions, from unrelated people, of
           the same kind of harm around the same kind of product.
         </p>
@@ -92,7 +92,7 @@ export default function AboutPage() {
         <p>
           It is also not a support service, a complaints channel to the
           companies involved, or a route to individual advice. Reporting here
-          will not get you a clinical opinion about your own situation — if you
+          will not get you a clinical opinion about your own situation - if you
           need one, speak to a health professional.
         </p>
 
@@ -114,7 +114,7 @@ export default function AboutPage() {
         <p>
           The <Link href="/faq">FAQ</Link> answers what to report, how anonymity
           works, and what happens next. For anything else,{" "}
-          <Link href="/contact">contact us</Link> — though please don&apos;t use
+          <Link href="/contact">contact us</Link> - though please don&apos;t use
           it for anything urgent.
         </p>
       </DocBody>

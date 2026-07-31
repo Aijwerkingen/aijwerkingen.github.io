@@ -39,5 +39,5 @@ it was previously undocumented (`PENDING-FIXES.md` P2-1).
 
 Phase 1/2 can be marked `done` on GitHub Pages without ever hitting A/A+ on
 a header scanner, and that is expected, not a gap to keep chasing on this
-hosting tier. The full header set becomes achievable — and required —
+hosting tier. The full header set becomes achievable - and required —
 once Phase 3's server host is in place.

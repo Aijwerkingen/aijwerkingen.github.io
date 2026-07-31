@@ -10,7 +10,7 @@ import {
 } from "@/components/DocPage";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// UNAPPROVED DRAFT — spec §13, decisions D3/D4 (both open, owner: DPO/legal).
+// UNAPPROVED DRAFT - spec §13, decisions D3/D4 (both open, owner: DPO/legal).
 //
 // This is a starting point for the DPO to redline, not a notice in force. It is
 // gated by `siteConfig.legal.approved`: while false the page shows a draft
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
         <h2>Who is responsible</h2>
         {/* TODO(D4): the controller is named from research.institution and falls
             back to the brand name while that is empty. Confirm the actual
-            controller — for a university study this is normally the institution
+            controller - for a university study this is normally the institution
             rather than the platform, and it may be a joint controllership. */}
         <p>
           {controller} is the controller for the personal data described here.
@@ -74,7 +74,7 @@ export default function PrivacyPage() {
         <p>When you submit a report, we collect:</p>
         <ul>
           <li>
-            what you tell us about how you felt, in your own words — this is the
+            what you tell us about how you felt, in your own words - this is the
             substance of the report;
           </li>
           <li>
@@ -116,14 +116,14 @@ export default function PrivacyPage() {
           We propose to process this data as a task carried out in the public
           interest (Art. 6(1)(e)), relying on the scientific-research condition
           in Art. 9(2)(j) for special-category data, subject to the safeguards
-          in Art. 89(1) — including data minimisation and, wherever it does not
+          in Art. 89(1) - including data minimisation and, wherever it does not
           defeat the research purpose, pseudonymisation.
         </p>
 
         <h2>Anonymity</h2>
         <p>
           Reporting is anonymous by default. Because we do not know who you are,
-          we generally cannot connect a later request to a specific report — see{" "}
+          we generally cannot connect a later request to a specific report - see{" "}
           <a href="#rights">your rights</a> for what that means in practice. If
           you include details that identify you inside a free-text answer, they
           are stored as part of the report.
@@ -141,7 +141,7 @@ export default function PrivacyPage() {
 
         <h2>Where your data is stored</h2>
         {/* TODO(D3): asserts EU storage and no third-country transfer. This is
-            the INTENDED configuration, not a verified fact — the region depends
+            the INTENDED configuration, not a verified fact - the region depends
             on the Qualtrics tenant actually used, and sub-processors may involve
             transfers requiring Art. 46 safeguards. Verify before approval. */}
         <p>
@@ -194,7 +194,7 @@ export default function PrivacyPage() {
 
         <h2>Children</h2>
         {/* TODO(D-minors): NOT DECIDED. There is no minimum age, no
-            age-assurance approach, and no parental-consent flow — yet this
+            age-assurance approach, and no parental-consent flow - yet this
             domain is expected to attract under-18 reporters (spec §13.1). This
             paragraph is a stand-in and is knowingly incomplete: it must be
             rewritten once D-minors closes, and the form changed to match. */}
@@ -209,7 +209,7 @@ export default function PrivacyPage() {
         <p>
           If you are unhappy with how we handle your data, please tell us first
           at <a href={`mailto:${privacyContact}`}>{privacyContact}</a>. You also
-          have the right to complain to your national supervisory authority — in
+          have the right to complain to your national supervisory authority - in
           the Netherlands, the{" "}
           <a
             href="https://autoriteitpersoonsgegevens.nl"

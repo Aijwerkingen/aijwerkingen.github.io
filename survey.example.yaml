@@ -1,10 +1,10 @@
-# AIjwerkingen — Example survey configuration (Mode B, self-hosted)
+# AIjwerkingen - Example survey configuration (Mode B, self-hosted)
 # ---------------------------------------------------------------------------
 # Questions are defined HERE, not in code. Editing this file (and bumping
 # `version`) changes the survey with no code change. Validated against
 # survey.schema.json at build time (CI) and at runtime before rendering.
 #
-# NOTE: The questions below are ILLUSTRATIVE placeholders — the real questions
+# NOTE: The questions below are ILLUSTRATIVE placeholders - the real questions
 # are not yet finalised (spec §9, decision D8). Structure matters here, not the
 # exact wording. Mark any personal-data field with `pii: true` so it drives
 # encryption + retention handling.
@@ -27,7 +27,7 @@ consent:
   required: true
   # Consent text is referenced by i18n key; full copy lives in the content layer.
   i18n_key: "survey.consent.body"
-  # Explicit consent is a candidate GDPR Art. 9 condition — confirm in the DPIA (spec §13).
+  # Explicit consent is a candidate GDPR Art. 9 condition - confirm in the DPIA (spec §13).
   record_consent_version: true
 
 sections:
@@ -44,7 +44,7 @@ sections:
           - { value: "professional", i18n_key: "opt.professional" }   # clinician, educator, researcher
         i18n_key: "q.who_is_reporting"
         # TODO (D-minors, P0-5): age of the affected person and any
-        # parental-consent requirement are open decisions — not yet modelled here.
+        # parental-consent requirement are open decisions - not yet modelled here.
 
   - id: the_product
     title: "The AI tool or platform"
@@ -124,5 +124,5 @@ sections:
         type: email
         label: "Email address"
         required: false
-        pii: true                      # personal data — encrypted; lawful basis required
+        pii: true                      # personal data - encrypted; lawful basis required
         i18n_key: "q.contact_email"

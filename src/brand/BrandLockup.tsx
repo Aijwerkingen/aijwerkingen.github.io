@@ -26,7 +26,7 @@ export function BrandWordmark({ className = "" }: { className?: string }) {
 }
 
 /**
- * The app-icon tile. Decorative by default — it sits next to the wordmark, so
+ * The app-icon tile. Decorative by default - it sits next to the wordmark, so
  * announcing it again would just double up for screen readers.
  */
 export function BrandMark({

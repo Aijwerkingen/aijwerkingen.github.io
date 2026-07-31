@@ -21,4 +21,4 @@ never hard-coded into components.
 Question changes become a config/content edit rather than an app-code
 change. The config's schema (`survey.schema.json`) is domain-agnostic and
 already survived the 2026-07-16 product redefinition unchanged in
-structure — only `$id`/`title` needed updating (`CHANGELOG.md`, P1-15).
+structure - only `$id`/`title` needed updating (`CHANGELOG.md`, P1-15).

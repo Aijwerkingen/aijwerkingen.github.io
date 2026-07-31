@@ -2,7 +2,7 @@
  * Curated crisis helpline data by country (ISO 3166-1 alpha-2).
  *
  * Sources: findahelpline.com, IASP, Wikimedia mental-health resources.
- * This is a best-effort snapshot — for the most up-to-date, verified directory
+ * This is a best-effort snapshot - for the most up-to-date, verified directory
  * users are linked through to findahelpline.com (run by ThroughLine).
  *
  * Each entry carries the primary suicide/crisis line. Countries without a known
@@ -16,7 +16,7 @@ export interface HelplineEntry {
   country: string;
   /** Primary crisis/suicide helpline name */
   name: string;
-  /** Phone number(s) — display string, not necessarily dialable as-is */
+  /** Phone number(s) - display string, not necessarily dialable as-is */
   phone: string;
   /** Helpline website */
   url: string;
@@ -32,7 +32,7 @@ export const helplines: HelplineEntry[] = [
   { code: "AT", country: "Austria", name: "Telefonseelsorge", phone: "142", url: "https://www.telefonseelsorge.at/", emergency: "112" },
   { code: "BD", country: "Bangladesh", name: "Kaan Pete Roi", phone: "+1 732-806-7735", url: "https://www.kaanpeteroi.com/", emergency: "999" },
   { code: "BE", country: "Belgium", name: "Centre de Prévention du Suicide", phone: "0800 32 123", url: "https://www.preventionsuicide.be/", emergency: "112" },
-  { code: "BR", country: "Brazil", name: "CVV — Centro de Valorização da Vida", phone: "188", url: "https://www.cvv.org.br/", emergency: "190" },
+  { code: "BR", country: "Brazil", name: "CVV - Centro de Valorização da Vida", phone: "188", url: "https://www.cvv.org.br/", emergency: "190" },
   { code: "BG", country: "Bulgaria", name: "Bulgarian National Helpline", phone: "0035 9249 17 223", url: "https://findahelpline.com/countries/bg", emergency: "112" },
   { code: "CA", country: "Canada", name: "988 Suicide Crisis Helpline", phone: "988", url: "https://988.ca/", emergency: "911" },
   { code: "CL", country: "Chile", name: "Teléfono de la Esperanza", phone: "600 360 7777", url: "https://findahelpline.com/countries/cl", emergency: "131" },
@@ -44,14 +44,14 @@ export const helplines: HelplineEntry[] = [
   { code: "EG", country: "Egypt", name: "Befrienders Egypt", phone: "762 2381", url: "https://findahelpline.com/countries/eg", emergency: "122" },
   { code: "EE", country: "Estonia", name: "Eluliin", phone: "655 8088", url: "https://findahelpline.com/countries/ee", emergency: "112" },
   { code: "FI", country: "Finland", name: "MIELI Mental Health Finland", phone: "09 2525 0111", url: "https://mieli.fi/en/", emergency: "112" },
-  { code: "FR", country: "France", name: "3114 — Numéro National de Prévention du Suicide", phone: "3114", url: "https://3114.fr/", emergency: "112" },
+  { code: "FR", country: "France", name: "3114 - Numéro National de Prévention du Suicide", phone: "3114", url: "https://3114.fr/", emergency: "112" },
   { code: "DE", country: "Germany", name: "Telefonseelsorge", phone: "0800 111 0 111", url: "https://www.telefonseelsorge.de/", emergency: "112" },
   { code: "GH", country: "Ghana", name: "Befrienders Ghana", phone: "+233 244 846 101", url: "https://findahelpline.com/countries/gh", emergency: "999" },
   { code: "GR", country: "Greece", name: "Klimaka NGO", phone: "1018", url: "https://www.klimaka.org.gr/", emergency: "112" },
   { code: "HK", country: "Hong Kong", name: "The Samaritan Befrienders Hong Kong", phone: "2389 2222", url: "https://www.sbhk.org.hk/", emergency: "999" },
   { code: "HU", country: "Hungary", name: "LESZ Telefonos Lelkisegély", phone: "116 123", url: "https://findahelpline.com/countries/hu", emergency: "112" },
   { code: "IS", country: "Iceland", name: "Rauði Krossinn", phone: "1717", url: "https://findahelpline.com/countries/is", emergency: "112" },
-  { code: "IN", country: "India", name: "iCall — TISS", phone: "9152987821", url: "https://icallhelpline.org/", emergency: "112" },
+  { code: "IN", country: "India", name: "iCall - TISS", phone: "9152987821", url: "https://icallhelpline.org/", emergency: "112" },
   { code: "ID", country: "Indonesia", name: "Into The Light Indonesia", phone: "119 ext. 8", url: "https://findahelpline.com/countries/id", emergency: "112" },
   { code: "IE", country: "Ireland", name: "Samaritans Ireland", phone: "116 123", url: "https://www.samaritans.org/ireland/", emergency: "112" },
   { code: "IL", country: "Israel", name: "ERAN", phone: "1201", url: "https://www.eran.org.il/", emergency: "100" },

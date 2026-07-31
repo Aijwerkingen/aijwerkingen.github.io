@@ -69,7 +69,7 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
     const root = document.documentElement;
     root.dataset.brand = state.brand;
     // Drives every accent token in globals.css. These two attributes are the
-    // whole runtime surface — <html> is not React-owned, so stamping it is safe.
+    // whole runtime surface - <html> is not React-owned, so stamping it is safe.
     root.dataset.brandTheme = state.theme;
   }, [state]);
 

@@ -42,7 +42,7 @@ export function DocBody({ children }: { children: React.ReactNode }) {
  * Robots directives for a legal document.
  *
  * An unapproved draft must never be indexed, even after the site is flipped
- * indexable — so this ANDs the sign-off flag with the site-wide switch rather
+ * indexable - so this ANDs the sign-off flag with the site-wide switch rather
  * than deferring to `siteConfig.indexable` alone. `follow` stays tied to the
  * site switch: there is no reason to drop link equity, only to keep the draft
  * itself out of the index.
@@ -54,7 +54,7 @@ export const legalRobots: Metadata["robots"] = {
 
 /**
  * Renders only while the DPO/legal owner has not signed off. Every figure in
- * these drafts — retention periods, lawful bases, named processors — is a
+ * these drafts - retention periods, lawful bases, named processors - is a
  * proposal written to be redlined, so saying so on the page is what keeps the
  * document from being mistaken for a statement of fact by a data subject
  * (GDPR Art. 13 transparency). Disappears when `legal.approved` is true.
@@ -67,11 +67,11 @@ export function DraftNotice() {
       role="note"
       className="notice mb-8 border-notice-line bg-notice-soft text-notice"
     >
-      <p className="font-semibold">Draft for review — not yet in force.</p>
+      <p className="font-semibold">Draft for review - not yet in force.</p>
       <p className="mt-1">
         This document has not been approved by our data protection officer or
-        legal owner. Every specific below — retention periods, lawful bases,
-        named processors — is a proposal for review, not an approved fact. Do
+        legal owner. Every specific below - retention periods, lawful bases,
+        named processors - is a proposal for review, not an approved fact. Do
         not rely on it.
       </p>
     </aside>
@@ -95,7 +95,7 @@ export function LastReviewed() {
 
 /**
  * The institutional provenance block. Renders nothing at all until
- * site.config.ts `research` is filled in — an empty field is omitted rather
+ * site.config.ts `research` is filled in - an empty field is omitted rather
  * than shown as a placeholder, so this is safe to ship before the formal
  * details land.
  */

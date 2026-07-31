@@ -22,7 +22,7 @@ ADR-009/010).
 
 The current sample survey URL
 (`https://qualtricsxmwdy4hl99w.qualtrics.com/...`) has no `.eu.` segment and
-is therefore a US-datacenter host — flagged as P0-2 in `PENDING-FIXES.md`,
+is therefore a US-datacenter host - flagged as P0-2 in `PENDING-FIXES.md`,
 open, and requiring the Qualtrics account owner to confirm/resolve
 (blocking input to decision D3). Harmless only as long as no real
 submissions are collected, which is what the deploy gate (P0-1, resolved)

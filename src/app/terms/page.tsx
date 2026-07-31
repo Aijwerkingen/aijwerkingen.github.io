@@ -11,7 +11,7 @@ import {
 } from "@/components/DocPage";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// UNAPPROVED DRAFT — for the legal owner to redline. Gated by
+// UNAPPROVED DRAFT - for the legal owner to redline. Gated by
 // `siteConfig.legal.approved` (draft banner + forced noindex while false).
 // Each TODO marks a proposal nobody has approved. See /privacy for the same
 // pattern and CHANGELOG's "Legal sign-off" blocking item.
@@ -78,7 +78,7 @@ export default function TermsPage() {
           <li>what you describe is your own account, given in good faith;</li>
           <li>
             you are not submitting anyone else&apos;s identifying details
-            unnecessarily — describe what happened without naming other people
+            unnecessarily - describe what happened without naming other people
             where you can;
           </li>
           <li>
@@ -98,7 +98,7 @@ export default function TermsPage() {
           Reports may name products, companies, or people. We do not pass your
           report to the company involved, and we do not publish reports as
           submitted. Our policy for handling reports that identify third parties
-          — including how they are moderated and how long they are kept — is
+          - including how they are moderated and how long they are kept - is
           being finalised, and this section will be replaced when it is.
         </p>
 

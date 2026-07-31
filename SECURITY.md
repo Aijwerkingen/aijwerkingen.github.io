@@ -3,7 +3,7 @@
 ## Reporting a vulnerability
 
 If you believe you've found a security vulnerability in this project, please
-email **contact@example.org** (placeholder — see `src/site.config.ts`,
+email **contact@example.org** (placeholder - see `src/site.config.ts`,
 D9/D11) with details. Please do not open a public GitHub issue for
 undisclosed vulnerabilities.
 

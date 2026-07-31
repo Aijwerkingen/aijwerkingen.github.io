@@ -10,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
     return { rules: { userAgent: "*", disallow: "/" } };
   }
 
-  // AI-crawler policy (D5, spec §11.6) is not yet decided — leave the
+  // AI-crawler policy (D5, spec §11.6) is not yet decided - leave the
   // default allow-all here rather than inventing a policy.
   return {
     rules: { userAgent: "*", allow: "/" },
