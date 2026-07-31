@@ -4,7 +4,7 @@ import { siteConfig } from "@/site.config";
 export const dynamic = "force-static";
 
 // Public pages, always listed.
-const routes = ["", "/about", "/how-it-works", "/faq", "/report", "/contact"];
+const routes = ["", "/about", "/how-it-works", "/faq", "/report", "/contact", "/helplines"];
 
 // The legal documents are forced `noindex` until the DPO/legal owner signs off
 // (site.config `legal.approved`), so listing them here would ask crawlers to

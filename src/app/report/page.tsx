@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/site.config";
+import { CrisisHelpline } from "@/components/CrisisHelpline";
 
 export const metadata: Metadata = {
   title: "Report your experience",
@@ -68,23 +69,7 @@ export default function ReportPage() {
 
       <div className="mx-auto max-w-3xl px-4 py-12">
         <aside className="notice border-line bg-canvas text-ink-soft">
-          <p>
-            <span className="font-semibold text-ink">
-              Not a crisis service.
-            </span>{" "}
-            If you or someone else is in immediate danger, contact your local
-            emergency number. In the Netherlands,{" "}
-            <a
-              href="https://www.113.nl"
-              className="link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              113 Zelfmoordpreventie
-            </a>{" "}
-            (call 113 or 0800-0113) offers free, confidential support with
-            suicidal thoughts or crisis.
-          </p>
+          <CrisisHelpline variant="notice" />
         </aside>
 
         <div className="mt-8 overflow-hidden rounded-2xl border border-line bg-surface shadow-sm">

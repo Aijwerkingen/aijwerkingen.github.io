@@ -12,6 +12,7 @@ import { brandPrePaintScript } from "@/brand/brand-state";
 import { BrandProvider } from "@/brand/BrandProvider";
 import { BrandLockup, BrandName } from "@/brand/BrandLockup";
 import { AdminDrawer } from "@/admin/AdminDrawer";
+import { CrisisHelpline } from "@/components/CrisisHelpline";
 
 // Matches the supplied lockup artwork: Nunito for the wordmark and headings,
 // Nunito Sans for running text. next/font self-hosts both at build time, so no
@@ -102,6 +103,7 @@ const footerNav = {
     { href: "/how-it-works", label: "How it works" },
     { href: "/faq", label: "FAQ" },
     { href: "/report", label: "Report your experience" },
+    { href: "/helplines", label: "Crisis helplines" },
   ],
   Legal: [
     { href: "/privacy", label: "Privacy notice" },
@@ -144,7 +146,7 @@ export default function RootLayout({
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data:",
     "frame-src https://*.qualtrics.com",
-    "connect-src 'self'",
+    "connect-src 'self' https://ipapi.co",
   ].join("; ");
 
   return (
@@ -244,27 +246,7 @@ export default function RootLayout({
                 aria-labelledby="crisis-heading"
                 className="notice mt-12 border-notice-line bg-notice-soft text-notice"
               >
-                <h2 id="crisis-heading" className="font-semibold">
-                  This is not a crisis or emergency service
-                </h2>
-                <p className="mt-1">
-                  If you or someone else is in immediate danger, contact your
-                  local emergency number.{" "}
-                  {/* TODO(P0-5, D-crisis-lines): named, locale-specific crisis
-                      lines (e.g. NL: 113 Zelfmoordpreventie) pending the
-                      copy/legal owner's sign-off on which services to name. */}
-                  In the Netherlands, you can also reach{" "}
-                  <a
-                    href="https://www.113.nl"
-                    className="font-semibold underline underline-offset-4"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    113 Zelfmoordpreventie
-                  </a>{" "}
-                  (call 113 or 0800-0113) for support with suicidal thoughts or
-                  crisis.
-                </p>
+                <CrisisHelpline variant="footer" />
               </aside>
 
               <div className="mt-10 flex flex-col gap-2 border-t border-line pt-6 text-xs text-ink-soft sm:flex-row sm:items-center sm:justify-between">
