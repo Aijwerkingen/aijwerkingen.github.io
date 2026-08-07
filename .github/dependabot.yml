@@ -4,6 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    ignore:
+      # ESLint 10 crashes eslint-plugin-react@7.37.5 (bundled by
+      # eslint-config-next) - context.getFilename was removed. Revisit when
+      # eslint-config-next ships ESLint-10-compatible plugins.
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
