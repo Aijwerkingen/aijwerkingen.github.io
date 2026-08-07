@@ -67,6 +67,6 @@ that the technology isn't done changing — and neither are we.
 
 ## Sources
 
-- van Dis, Bollen, Zuidema, van Rooij & Bockting — *Living guidelines for generative AI: why scientists must oversee its use*, Nature 622, 693–696 (2023) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/37857895/) · [Nature](https://doi.org/10.1038/d41586-023-03266-1)
+- Bockting, van Dis, van Rooij, Zuidema & Bollen — *Living guidelines for generative AI: why scientists must oversee its use*, Nature 622, 693–696 (2023) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/37857895/) · [Nature](https://doi.org/10.1038/d41586-023-03266-1)
 - European Commission, DG Research and Innovation — *Living guidelines on the responsible use of generative AI in research* (ERA Forum stakeholders' document, 3rd ed., May 2026) · [PDF](https://research-and-innovation.ec.europa.eu/document/download/2b6cf7e5-36ac-41cb-aab5-0d32050143dc_en?filename=ec_rtd_ai-guidelines.pdf)
 - van Dis et al. — *ChatGPT: five priorities for research*, Nature 614, 224–226 (2023) · [DOI](https://doi.org/10.1038/d41586-023-00288-7)
