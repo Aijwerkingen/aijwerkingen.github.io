@@ -10,6 +10,11 @@ updates:
       # eslint-config-next ships ESLint-10-compatible plugins.
       - dependency-name: "eslint"
         update-types: ["version-update:semver-major"]
+      # TypeScript 7 hard-fails in typescript-eslint@8.64 (bundled by
+      # eslint-config-next): "does not support TS 7.0". Revisit when
+      # typescript-eslint ships TS 7 support (issue #10940).
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
