@@ -19,6 +19,7 @@ A public-facing **survey & data-collection website** for reporting perceived adv
 - `llms.example.txt` - starting `llms.txt` for AEO/GEO discovery.
 - `schema-examples.jsonld` - example JSON-LD (`Organization`, `FAQPage`, `HowTo`).
 - `qualtrics-integration.md` - step-by-step Mode A (Qualtrics embed) runbook, spec §8.3 Appendix G.
+- `content/blog/README.md` - how the blog works: writing and publishing a post, frontmatter, cover images, tags and the RSS feed.
 
 ## The one idea to internalise
 The survey layer sits behind a **`SurveyProvider` abstraction** with two implementations:
