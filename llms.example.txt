@@ -13,6 +13,8 @@
 - [How reporting works](https://example.org/how-it-works): step-by-step of what happens to a report.
 - [About us](https://example.org/about): who we are, our mission, and governance.
 - [FAQ](https://example.org/faq): common questions with direct answers.
+- [Blog](https://example.org/blog): plain-language articles on recognising distress
+  linked to AI tools and social media, and what the reports reveal.
 
 ## Trust & legal
 - [Privacy statement](https://example.org/privacy): how personal and health data is handled (GDPR).

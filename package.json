@@ -9,12 +9,16 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "js-yaml": "^5.2.3",
+    "marked": "^18.0.9",
+    "marked-gfm-heading-id": "^4.1.4",
     "next": "16.3.0",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^26",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -24,6 +28,6 @@
     "typescript": "^5"
   },
   "overrides": {
-    "js-yaml": "^5.2.3"
+    "js-yaml": "$js-yaml"
   }
 }

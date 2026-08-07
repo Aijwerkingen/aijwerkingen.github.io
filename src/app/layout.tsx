@@ -93,6 +93,7 @@ export const metadata: Metadata = {
 /** Header nav - kept short so the lockup and the CTA keep their room. */
 const nav = [
   { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
   { href: "/faq", label: "FAQ" },
 ];
 
@@ -101,6 +102,7 @@ const footerNav = {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/how-it-works", label: "How it works" },
+    { href: "/blog", label: "Blog" },
     { href: "/faq", label: "FAQ" },
     { href: "/report", label: "Report your experience" },
     { href: "/helplines", label: "Crisis helplines" },
