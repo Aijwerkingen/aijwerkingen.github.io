@@ -9,8 +9,9 @@ Files starting with `_` and this `README.md` are ignored.
 ## Publishing a post
 
 1. Add a `.md` file here (see the frontmatter below).
-2. Commit it.
-3. Run the **Deploy to GitHub Pages** workflow (Actions tab → Run workflow).
+2. Commit it and push to `main`.
+3. The **Deploy to GitHub Pages** workflow runs automatically on every push to
+   `main` (manual run still available via Actions tab → Run workflow).
 
 `next build` reads these files, renders them to static HTML, and adds each post
 to the sitemap and `Blog` / `BlogPosting` structured data automatically. There
