@@ -1,4 +1,5 @@
 ---
+published: true
 title: "Spotting when an AI tool is affecting how you feel"
 description: "The early signs that a chatbot, app, or social feed is wearing on your wellbeing - and the small step you can take next."
 date: 2026-08-07
