@@ -3,7 +3,7 @@ published: false
 title: "The rules for AI in research are now official - and designed to keep changing"
 description: "The 'living guidelines' approach - scientists keeping oversight of generative AI in research - is now official European guidance. Here's what it says, and why it matters."
 date: 2026-08-07
-author: "AIjwerkingen team"
+author: "AISafetyWatch team"
 tags: ["research", "policy", "guidelines"]
 ---
 

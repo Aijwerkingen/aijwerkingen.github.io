@@ -1,11 +1,10 @@
-# AIjwerkingen
+# AISafetyWatch
 
 A public-facing **survey & data-collection website** for reporting perceived adverse effects of conversational AI tools and digital/social media - a modern, secure, discoverable site whose core action is "report a side effect". See `TECHNICAL_SPEC.md` §1 for the full scope and §22 (D1) for the naming decision.
 
-> **AIjwerkingen** is the resolved public brand name (decision D1, spec §22, resolved
-> 2026-07-16). This deploy's domain (`aijwerkingen.github.io`, decision D9) remains a
-> placeholder kept `noindex` - see `TECHNICAL_SPEC.md` §5.2 and `CHANGELOG.md`'s
-> **▶ RESUME HERE** block for what changes once the final domain is chosen.
+> **AISafetyWatch** is the public brand name. The production domain is `aisafetywatch.com`
+> (set in `src/site.config.ts`). The GitHub Pages deploy (`aijwerkingen.github.io`) serves
+> as the deploy host; the folder name is kept as-is.
 
 ## Read these in order
 1. **`TECHNICAL_SPEC.md`** - the full technical specification. Start here.
@@ -39,7 +38,7 @@ so the two cannot drift apart.
 
 The site ships with a **temporary brand-preview drawer** (small handle on the right edge)
 for trying the alternative name and colour-way without a rebuild. It defaults to
-**AIjwerkingen + warm**, matching `defaultBrandKey` / `defaultBrandTheme` in
+**AISafetyWatch + warm**, matching `defaultBrandKey` / `defaultBrandTheme` in
 `site.config.ts`.
 
 > **To remove it:** delete `src/admin/` and the single `<AdminDrawer />` line in

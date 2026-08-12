@@ -29,7 +29,7 @@ title: "Spotting when an AI tool is affecting how you feel"
 description: "A short, plain-language guide to the early signs, and what to do about them."
 date: 2026-08-07            # YYYY-MM-DD. Required. Drives ordering + datePublished.
 updated: 2026-08-10         # Optional. Set when you meaningfully edit a live post.
-author: "AIjwerkingen team" # Optional. Omit to attribute to the organisation.
+author: "AISafetyWatch team" # Optional. Omit to attribute to the organisation.
 tags: ["guides", "wellbeing"]   # Optional.
 image: /blog/spotting-ai-distress/cover.png   # Optional cover + OG image.
 imageAlt: "Illustration of a person pausing to check in with themselves."

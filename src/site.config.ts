@@ -41,11 +41,11 @@ type BrandVariant = {
 export const brandVariants = {
   aijwerkingen: {
     key: "aijwerkingen",
-    name: "AIjwerkingen",
+    name: "AISafetyWatch",
     legalName: "", // TODO(D11/NAP): set once the operating entity is registered.
     tagline:
       "Report distress you felt during or after using AI tools or social media.",
-    wordmark: { lead: "AI", tail: "jwerkingen", accent: "lead" },
+    wordmark: { lead: "AI", tail: "SafetyWatch", accent: "lead" },
   },
   adverseai: {
     key: "adverseai",
@@ -83,7 +83,9 @@ export const siteConfig = {
   name: defaultBrand.name,
   shortName: defaultBrand.name,
   tagline: defaultBrand.tagline,
-  canonicalUrl: "https://aijwerkingen.github.io",
+  // D9 resolved: the production domain. .info/.net 301-redirect here (zone-level
+  // Cloudflare Redirect Rules), so this stays the single canonical host.
+  canonicalUrl: "https://aisafetywatch.com",
   defaultLocale: "en",
   locales: ["en"],
   // D11: an icon set now exists, so `logo` is a real asset rather than a TODO.
@@ -159,9 +161,10 @@ export const siteConfig = {
     lastReviewed: "",
   },
 
-  // ADR-010: this deploy is a public but non-indexed staging tier until the
-  // final domain is verified in Search Console (spec §5.2, AC-DOMAIN).
-  indexable: false,
+  // ADR-010 satisfied: the final domain (aisafetywatch.com) is live and
+  // confirmed, so the site opens to crawlers. Legal pages stay noindex
+  // independently via `legal.approved` until DPO sign-off.
+  indexable: true,
 } as const;
 
 export type SiteConfig = typeof siteConfig;

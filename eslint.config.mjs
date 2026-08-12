@@ -6,7 +6,7 @@ import nextTs from "eslint-config-next/typescript";
 // literals also include the purged platform references (PENDING-FIXES.md
 // P1-13.6) so they can't silently come back in app code.
 const bannedLiteralPattern =
-  "aijwerkingen|AIjwerkingen|AMC-Larebish|github\\.io|lareb|vaers|faers|vigiaccess|mothertobaby|otis|uppsala|mhra";
+  "aijwerkingen|AIjwerkingen|AISafetyWatch|aisafetywatch|AMC-Larebish|github\\.io|lareb|vaers|faers|vigiaccess|mothertobaby|otis|uppsala|mhra";
 
 const eslintConfig = defineConfig([
   ...nextVitals,

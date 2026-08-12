@@ -3,7 +3,7 @@ published: false
 title: "Before the guidelines: five priorities for ChatGPT in research"
 description: "In early 2023, a group of scientists wrote five priorities for using ChatGPT in research - the seed of today's living guidelines and official EU policy. Here's what they said, and why it still matters."
 date: 2026-08-07
-author: "AIjwerkingen team"
+author: "AISafetyWatch team"
 tags: ["research", "guidelines", "history"]
 ---
 
