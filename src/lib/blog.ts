@@ -6,9 +6,13 @@
 // `next build` and is baked into static HTML. Nothing in this file reaches the
 // browser.
 //
-// Publishing a post = add a `.md` file + redeploy. Set `draft: true` in the
-// frontmatter to keep a post out of the build (and out of the sitemap) until it
-// is ready. See content/blog/README.md.
+// Post state is controlled with frontmatter flags:
+//   - `published: false`  - DEACTIVATED: post is taken down. Excluded from the
+//     build, listing, tags, sitemap, and feed; its URL 404s. Flip it back to
+//     `true` (or remove it) to re-activate. Set it on a post that was live.
+//   - `draft: true`        - legacy alias for the same state, kept for
+//     compatibility (pre-publication drafts). Prefer `published`.
+//   - absent               - active (default).
 
 import fs from "node:fs";
 import path from "node:path";
@@ -61,7 +65,17 @@ export type PostFrontmatter = {
   image?: string;
   /** Alt text for `image`. Always write one - it is required for accessibility. */
   imageAlt?: string;
-  /** When true, the post is excluded from the build, sitemap, and listing. */
+  /**
+   * Activation flag. `false` deactivates the post: it is excluded from the
+   * build, listing, tags, sitemap, and feed, and its URL 404s. Absent
+   * (or `true`) = active. Use this to take a published post down without
+   * deleting it.
+   */
+  published?: boolean;
+  /**
+   * Legacy alias for deactivation, kept for compatibility (pre-publication
+   * drafts). New posts should use `published` instead.
+   */
   draft?: boolean;
 };
 
@@ -103,12 +117,18 @@ function allSlugs(): string[] {
 }
 
 /**
- * Drafts are dropped unless `BLOG_INCLUDE_DRAFTS=1` is set (handy for local
- * preview: `BLOG_INCLUDE_DRAFTS=1 npm run dev`). A production build never ships
- * a draft, so it can never leak into the static output or the sitemap.
+ * Drafts and deactivated posts are dropped unless `BLOG_INCLUDE_DRAFTS=1` is
+ * set (handy for local preview: `BLOG_INCLUDE_DRAFTS=1 npm run dev`). A
+ * production build never ships them, so they can never leak into the static
+ * output or the sitemap.
  */
 function includeDrafts(): boolean {
   return process.env.BLOG_INCLUDE_DRAFTS === "1";
+}
+
+/** True when the post should be hidden (deactivated or legacy draft). */
+function isHidden(post: { published?: boolean; draft?: boolean }): boolean {
+  return post.published === false || post.draft === true;
 }
 
 /**
@@ -122,7 +142,7 @@ export function getAllPosts(): PostMeta[] {
       const { data, content } = readPostFile(slug);
       return { ...data, slug, readingMinutes: readingMinutes(content) };
     })
-    .filter((post) => includeDrafts() || !post.draft)
+    .filter((post) => includeDrafts() || !isHidden(post))
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
@@ -131,11 +151,11 @@ export function getPublishedSlugs(): string[] {
   return getAllPosts().map((post) => post.slug);
 }
 
-/** A single post with rendered HTML, or `null` if the slug is unknown/draft. */
+/** A single post with rendered HTML, or `null` if the slug is unknown/hidden. */
 export function getPostBySlug(slug: string): Post | null {
   if (!allSlugs().includes(slug)) return null;
   const { data, content } = readPostFile(slug);
-  if (data.draft && !includeDrafts()) return null;
+  if (isHidden(data) && !includeDrafts()) return null;
 
   return {
     ...data,
