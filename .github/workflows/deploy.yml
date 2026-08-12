@@ -1,11 +1,11 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Auto-publish on every push to main - committing a markdown post (or any
+  # Auto-publish on every push to staging - committing a markdown post (or any
   # source change) triggers a rebuild and deploy. `cancel-in-progress` below
   # means a rapid second push supersedes an in-flight run rather than queueing.
   push:
-    branches: [main]
+    branches: [staging]
   # Still runnable by hand from the Actions tab.
   workflow_dispatch:
 
