@@ -51,7 +51,7 @@ export default function BlogIndexPage() {
             Writing on AI, distress, and reporting
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-pretty text-ink-soft">
-            Plain-language articles on spotting when an AI tool or social
+            Articles, in the public interest, on spotting when an AI tool or social
             platform is affecting how you feel, and what happens to the reports
             you send us.
           </p>

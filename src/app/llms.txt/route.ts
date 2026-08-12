@@ -22,7 +22,7 @@ export function GET(): Response {
     ["/how-it-works", "How reporting works", "step-by-step of what happens to a report."],
     ["/about", "About us", "who we are, our mission, and governance."],
     ["/faq", "FAQ", "common questions with direct answers."],
-    ["/blog", "Blog", "plain-language articles on distress linked to AI tools and social media, and what the reports reveal."],
+    ["/blog", "Blog", "Articles, in the public interest, on distress linked to AI tools and social media, and what the reports reveal."],
     ["/helplines", "Crisis helplines", "immediate support lines — this site is not itself a crisis service."],
     ["/contact", "Contact", "how to reach us (not for emergencies)."],
   ];
@@ -33,10 +33,10 @@ export function GET(): Response {
   // join the map on the same flag that lets them into the sitemap.
   const legalPages: Array<[string, string, string]> = siteConfig.legal.approved
     ? [
-        ["/privacy", "Privacy statement", "how personal and health data is handled (GDPR)."],
-        ["/accessibility", "Accessibility statement", "WCAG 2.2 AA conformance."],
-        ["/terms", "Terms & disclaimer", "not a crisis service; emergency guidance."],
-      ]
+      ["/privacy", "Privacy statement", "how personal and health data is handled (GDPR)."],
+      ["/accessibility", "Accessibility statement", "WCAG 2.2 AA conformance."],
+      ["/terms", "Terms & disclaimer", "not a crisis service; emergency guidance."],
+    ]
     : [];
 
   const link = ([path, label, note]: [string, string, string]) =>
