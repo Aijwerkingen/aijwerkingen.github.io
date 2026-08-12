@@ -7,32 +7,27 @@ author: "AIjwerkingen team"
 tags: ["reporting", "ai-safety", "launch"]
 ---
 
-AI is already in the middle of everyday life. It writes the email, answers
-the health question, grades the essay, screens the job application. Much of
-the time that works fine. Sometimes it does not. People follow confident
-advice that turns out wrong. They lose hours, make bad decisions, or feel
-worn down by a tool they trusted. And when that happens, there is nowhere to
-say so.
+AI writes the email, answers the health question, grades the essay, screens
+the job application. Mostly that works. Sometimes it does not: people follow
+confident advice that turns out wrong, lose hours, make bad decisions, or
+feel worn down. And there is nowhere to say so.
 
-None of this is hypothetical, and almost none of it is ever reported
-anywhere.
+Almost none of these experiences are ever reported.
 
-We are a group of researchers working on the living guidelines for AI in
-research. Today we are announcing a public reporting tool. Anyone who has
-experienced an adverse effect from an AI system, at work, at school, or in
-daily life, can file a report in a few minutes: what happened, which tool,
-and what it cost you.
+We are researchers working on the living guidelines for AI in research, and
+we are launching a public reporting tool. Anyone who has experienced an
+adverse effect from an AI system, at work, at school, or in daily life, can
+file a report in a few minutes: what happened, which tool, what it cost you.
 
-One report tells us a story. Enough reports show us patterns: which tools
-fail, in which settings, for whom. Those patterns are what the living
-guidelines need to stay grounded in real experience, and right now they are
-exactly what is missing.
+One report is a story. Enough reports show patterns: which tools fail, in
+which settings, for whom. That is what the guidelines need, and it is what
+is missing.
 
-On this blog we have written about the official European guidelines for AI
-in research, about the five priorities scientists set for ChatGPT in 2023,
-and about noticing when an AI tool is affecting how you feel. This is the
-next step. Instead of writing about the problem, we are giving you a way to
-put it on the record.
+The work builds on two peer-reviewed papers: [Living guidelines for
+generative AI](https://doi.org/10.1038/d41586-023-03266-1), on why
+scientists must oversee the technology, and [ChatGPT: five priorities for
+research](https://doi.org/10.1038/d41586-023-00288-7), on what researchers
+flagged early.
 
 The tool launches soon. When it is live, the report form will be at
 [/report](/report). If something about an AI tool has gone wrong for you,
