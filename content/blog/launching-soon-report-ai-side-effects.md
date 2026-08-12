@@ -19,5 +19,12 @@ AI tools and social media, so that patterns of harm can be studied rather
 than guessed at. Reporting is anonymous by default, needs no account, and
 asks for no name.
 
+The platform is part of a wider effort: the European Commission's [living
+guidelines for the responsible use of generative AI in
+research](https://research-and-innovation.ec.europa.eu/document/download/2b6cf7e5-36ac-41cb-aab5-0d32050143dc_en),
+and the research behind them - [Living guidelines for generative
+AI](https://doi.org/10.1038/d41586-023-03266-1) and [ChatGPT: five
+priorities for research](https://doi.org/10.1038/d41586-023-00288-7).
+
 The platform launches soon. When it is live, the report form will be at
 [/report](/report).
