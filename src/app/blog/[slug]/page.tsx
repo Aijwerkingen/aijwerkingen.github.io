@@ -115,9 +115,9 @@ export default async function BlogPostPage({ params }: Params) {
 
         <div className="mx-auto max-w-3xl px-4 py-12">
           {post.image && (
-            // eslint-disable-next-line @next/next/no-img-element -- static export
-            // has no image optimizer (next.config `images.unoptimized`), so a
-            // plain <img> is the honest primitive here.
+            // Static export has no image optimizer (next.config
+            // `images.unoptimized`), so a plain <img> is the honest primitive.
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={post.image}
               alt={post.imageAlt ?? ""}
