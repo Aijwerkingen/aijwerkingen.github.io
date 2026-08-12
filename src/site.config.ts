@@ -35,17 +35,22 @@ type BrandVariant = {
   wordmark: { lead: string; tail: string; accent: "lead" | "tail" };
 };
 
-// D1 is resolved in favour of the first entry (spec §22); the second is kept as a
-// live alternative so the naming decision can still be previewed via the admin
-// drawer and reversed by editing `defaultBrandKey` below.
 export const brandVariants = {
-  aijwerkingen: {
-    key: "aijwerkingen",
+  aisafetywatch: {
+    key: "aisafetywatch",
     name: "AISafetyWatch",
     legalName: "", // TODO(D11/NAP): set once the operating entity is registered.
     tagline:
       "Report distress you felt during or after using AI tools or social media.",
     wordmark: { lead: "AI", tail: "SafetyWatch", accent: "lead" },
+  },
+  aijwerkingen: {
+    key: "aijwerkingen",
+    name: "AIjwerkingen",
+    legalName: "",
+    tagline:
+      "Report distress you felt during or after using AI tools or social media.",
+    wordmark: { lead: "AI", tail: "jwerkingen", accent: "lead" },
   },
   adverseai: {
     key: "adverseai",
@@ -60,7 +65,7 @@ export const brandVariants = {
 export type BrandKey = keyof typeof brandVariants;
 
 /** Build-time identity. Everything server-rendered (metadata, JSON-LD) uses these. */
-export const defaultBrandKey: BrandKey = "aijwerkingen";
+export const defaultBrandKey: BrandKey = "aisafetywatch";
 export const defaultBrandTheme: BrandTheme = "warm";
 
 const defaultBrand = brandVariants[defaultBrandKey];

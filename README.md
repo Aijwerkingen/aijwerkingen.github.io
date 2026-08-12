@@ -29,15 +29,15 @@ Switching between them is **one config value (`SURVEY_PROVIDER`) + a redeploy** 
 
 ## Brand assets & the temporary preview drawer
 
-The icon set lives in **`public/brand/<brand>/<theme>/`** - a 2×2 matrix of name
-(`aijwerkingen`, `adverseai`) × colour-way (`warm`, `teal`). `public/` is copied verbatim
+The icon set lives in **`public/brand/<brand>/<theme>/`** - a matrix of name
+(`aisafetywatch`, `aijwerkingen`, `adverseai`) × colour-way (`warm`, `teal`). `public/` is copied verbatim
 into the static export, so these need no bundler step; paths are built by `brandAsset()`
 in `src/site.config.ts` rather than written by hand, which keeps brand literals in that
 one file (ADR-008). The UI palette in `src/app/globals.css` is sampled from this artwork,
 so the two cannot drift apart.
 
 The site ships with a **temporary brand-preview drawer** (small handle on the right edge)
-for trying the alternative name and colour-way without a rebuild. It defaults to
+for trying alternative names and colour-ways without a rebuild. It defaults to
 **AISafetyWatch + warm**, matching `defaultBrandKey` / `defaultBrandTheme` in
 `site.config.ts`.
 
