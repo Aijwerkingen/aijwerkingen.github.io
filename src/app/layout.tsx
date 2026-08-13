@@ -147,7 +147,6 @@ export default function RootLayout({
     "script-src 'self' 'unsafe-inline'",
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data:",
-    "frame-src https://*.qualtrics.com",
     "connect-src 'self' https://ipapi.co",
   ].join("; ");
 
