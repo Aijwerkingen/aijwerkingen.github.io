@@ -85,6 +85,15 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-08-18 - Phase 2 - Hermes (at product owner's direction) - Qualtrics survey re-enabled on /report with the latest survey link (SV_aV0s4hQLmXWDXrE)
+- Reverts `03e5775` (disable survey) + `30b16f0` (CSP drop) for the staging site.
+- `src/app/report/page.tsx` embeds the Qualtrics form again (env-first via
+  `NEXT_PUBLIC_QUALTRICS_SURVEY_URL`, fallback = current survey), and `layout.tsx`
+  CSP regains `frame-src https://*.qualtrics.com`.
+- **Gates unchanged:** P0-1 (no real submissions before D3/D4) and P0-2 (survey
+  host is US datacenter, contradicts ADR-006 EU residency) remain open; owner
+  accepted the staging exposure knowingly.
+
 ### 2026-07-16 - Phase 1 - build (Claude Code) - remaining page set scaffolded: /about, /how-it-works, /contact + draft /privacy, /terms, /accessibility
 - **Status change:** none to the board. Phase 1's page table (spec §5) is now complete
   except `/news`; every route in that table exists, is linked, and emits its specified
