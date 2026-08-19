@@ -85,6 +85,12 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-08-18 - Phase 2 - Hermes (at product owner's direction) - /report Qualtrics survey URL updated to the latest survey (SV_aV0s4hQLmXWDXrE)
+- `src/app/report/page.tsx`: fallback survey URL swapped (was SV_eA4y9ucLih6un8a);
+  env override via `NEXT_PUBLIC_QUALTRICS_SURVEY_URL` unchanged.
+- **Gates unchanged:** P0-1/P0-2 (D3/D4, EU residency vs US-datacenter host) remain
+  open for real-data launch; this only points staging at the current survey.
+
 ### 2026-07-16 - Phase 1 - build (Claude Code) - remaining page set scaffolded: /about, /how-it-works, /contact + draft /privacy, /terms, /accessibility
 - **Status change:** none to the board. Phase 1's page table (spec §5) is now complete
   except `/news`; every route in that table exists, is linked, and emits its specified
