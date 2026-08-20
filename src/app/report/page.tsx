@@ -1,25 +1,16 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/site.config";
 import { CrisisHelpline } from "@/components/CrisisHelpline";
+import { ReportGate } from "./ReportGate";
 
 export const metadata: Metadata = {
   title: "Report your experience",
   description:
-    "Report distress you felt during or after using a conversational AI tool or social media platform. Takes a few minutes; anonymous by default.",
+    "The public reporting platform launches soon. When it is live, the anonymous report form will appear here.",
   alternates: {
     canonical: "/report",
   },
 };
-
-// Mode A (Qualtrics-embedded), spec §8.3. This is a SAMPLE survey for early
-// preview only - swap for the real anonymous link before any real-data launch,
-// and see qualtrics-integration.md for postMessage completion handling,
-// CSP frame-src hardening, and the launch checklist (Phase 2 work, not yet done).
-// Sourced from env (spec §19, §8.5) rather than hard-coded, so it's per-build
-// config, not a component literal - see .env.example.
-const QUALTRICS_SURVEY_URL =
-  process.env.NEXT_PUBLIC_QUALTRICS_SURVEY_URL ||
-  "https://qualtricsxm6gyvfq8rn.qualtrics.com/jfe/form/SV_ddoaHNEsGsbDnwi";
 
 export default function ReportPage() {
   const webPageJsonLd = {
@@ -72,29 +63,7 @@ export default function ReportPage() {
           <CrisisHelpline variant="notice" />
         </aside>
 
-        <div className="mt-8 overflow-hidden rounded-2xl border border-line bg-surface shadow-sm">
-          <iframe
-            src={QUALTRICS_SURVEY_URL}
-            title="Experience report form"
-            className="h-[900px] w-full"
-            referrerPolicy="no-referrer"
-            allowFullScreen={false}
-            sandbox="allow-scripts allow-forms allow-same-origin allow-popups"
-          />
-        </div>
-
-        <p className="mt-4 text-sm text-ink-soft">
-          Form not loading, or prefer a full page?{" "}
-          <a
-            href={QUALTRICS_SURVEY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link"
-          >
-            Open it in a new tab
-          </a>
-          .
-        </p>
+        <ReportGate />
       </div>
     </>
   );
