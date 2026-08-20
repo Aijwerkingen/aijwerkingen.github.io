@@ -1,0 +1,2306 @@
+{
+  "SurveyEntry": {
+    "SurveyID": "SV_eA4y9ucLih6un8a",
+    "SurveyName": "Aijwerkingen",
+    "SurveyDescription": null,
+    "SurveyOwnerID": "UR_1d4wYNEiJfrxJpQ",
+    "SurveyBrandID": "qualtricsxmwdy4hl99w",
+    "DivisionID": null,
+    "SurveyLanguage": "EN-GB",
+    "SurveyActiveResponseSet": "RS_9ADHnfxiVAvmea2",
+    "SurveyStatus": "Active",
+    "SurveyStartDate": "0000-00-00 00:00:00",
+    "SurveyExpirationDate": "0000-00-00 00:00:00",
+    "SurveyCreationDate": "2026-08-07 04:15:27",
+    "CreatorID": "UR_1d4wYNEiJfrxJpQ",
+    "LastModified": "2026-08-18 09:43:08",
+    "LastAccessed": "0000-00-00 00:00:00",
+    "LastActivated": "2026-08-07 04:51:23",
+    "Deleted": null
+  },
+  "SurveyElements": [
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "BL",
+      "PrimaryAttribute": "Survey Blocks",
+      "SecondaryAttribute": null,
+      "TertiaryAttribute": null,
+      "Payload": [
+        {
+          "Type": "Standard",
+          "SubType": "",
+          "Description": "Eligibility",
+          "ID": "BL_Eligibility",
+          "BlockElements": [
+            {
+              "Type": "Question",
+              "QuestionID": "QID4"
+            }
+          ],
+          "Options": {
+            "BlockLocking": "false",
+            "RandomizeQuestions": "false",
+            "BlockVisibility": "Expanded"
+          }
+        },
+        {
+          "Type": "Standard",
+          "SubType": "",
+          "Description": "Under-16 message",
+          "ID": "BL_MinorMsg",
+          "BlockElements": [
+            {
+              "Type": "Question",
+              "QuestionID": "QID32"
+            }
+          ],
+          "Options": {
+            "BlockLocking": "false",
+            "RandomizeQuestions": "false",
+            "BlockVisibility": "Expanded"
+          }
+        },
+        {
+          "Type": "Default",
+          "Description": "Block A: Reporter",
+          "ID": "BL_3PMJf1TV8NkMut8",
+          "BlockElements": [
+            {
+              "Type": "Question",
+              "QuestionID": "QID14"
+            },
+            {
+              "Type": "Page Break"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID17"
+            }
+          ],
+          "Options": {
+            "BlockLocking": "false",
+            "RandomizeQuestions": "false",
+            "BlockVisibility": "Expanded"
+          }
+        },
+        {
+          "Type": "Standard",
+          "SubType": "",
+          "Description": "Block B: General & Demographics",
+          "ID": "BL_DemographicsA2",
+          "BlockElements": [
+            {
+              "Type": "Question",
+              "QuestionID": "QID5"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID26"
+            }
+          ],
+          "Options": {
+            "BlockLocking": "false",
+            "RandomizeQuestions": "false",
+            "BlockVisibility": "Expanded"
+          }
+        },
+        {
+          "Type": "Standard",
+          "SubType": "",
+          "Description": "Block C: AI Experience & Situation",
+          "ID": "BL_5cJg8eeE0zUYqkC",
+          "BlockElements": [
+            {
+              "Type": "Question",
+              "QuestionID": "QID27"
+            },
+            {
+              "Type": "Page Break"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID28"
+            }
+          ],
+          "Options": {
+            "BlockLocking": "false",
+            "RandomizeQuestions": "false",
+            "BlockVisibility": "Expanded"
+          }
+        },
+        {
+          "Type": "Standard",
+          "SubType": "",
+          "Description": "Block D: Time & Duration",
+          "ID": "BL_6VyG61os8zZO570",
+          "BlockElements": [
+            {
+              "Type": "Question",
+              "QuestionID": "QID29"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID30"
+            }
+          ],
+          "Options": {
+            "BlockLocking": "false",
+            "RandomizeQuestions": "false",
+            "BlockVisibility": "Expanded"
+          }
+        },
+        {
+          "Type": "Standard",
+          "SubType": "",
+          "Description": "Block E: Platforms & Context (if applicable)",
+          "ID": "BL_bKhOCdBMjcCqcjc",
+          "BlockElements": [
+            {
+              "Type": "Question",
+              "QuestionID": "QID1"
+            },
+            {
+              "Type": "Page Break"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID8"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID20"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID21"
+            }
+          ],
+          "Options": {
+            "BlockLocking": "false",
+            "RandomizeQuestions": "false",
+            "BlockVisibility": "Expanded"
+          }
+        },
+        {
+          "Type": "Standard",
+          "SubType": "",
+          "Description": "Block F: Symptoms",
+          "ID": "BL_SymptomsF1",
+          "BlockElements": [
+            {
+              "Type": "Question",
+              "QuestionID": "QID22"
+            }
+          ],
+          "Options": {
+            "BlockLocking": "false",
+            "RandomizeQuestions": "false",
+            "BlockVisibility": "Expanded"
+          }
+        },
+        {
+          "Type": "Standard",
+          "SubType": "",
+          "Description": "Block G: Thank you",
+          "ID": "BL_ThankYouG1",
+          "BlockElements": [
+            {
+              "Type": "Question",
+              "QuestionID": "QID31"
+            }
+          ],
+          "Options": {
+            "BlockLocking": "false",
+            "RandomizeQuestions": "false",
+            "BlockVisibility": "Expanded"
+          }
+        },
+        {
+          "Type": "Trash",
+          "Description": "Bin/Unused Questions",
+          "ID": "BL_eKvC2Ykcw7RpLSK",
+          "BlockElements": [
+            {
+              "Type": "Question",
+              "QuestionID": "QID2"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID9"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID6"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID11"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID12"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID13"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID18"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID25"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID23"
+            },
+            {
+              "Type": "Question",
+              "QuestionID": "QID24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "FL",
+      "PrimaryAttribute": "Survey Flow",
+      "SecondaryAttribute": null,
+      "TertiaryAttribute": null,
+      "Payload": {
+        "Flow": [
+          {
+            "Type": "EmbeddedData",
+            "FlowID": "FL_10",
+            "EmbeddedData": [
+              {
+                "Description": "subj",
+                "Type": "Custom",
+                "Field": "subj",
+                "VariableType": "String",
+                "DataVisibility": [],
+                "AnalyzeText": false,
+                "Value": "you"
+              },
+              {
+                "Description": "poss",
+                "Type": "Custom",
+                "Field": "poss",
+                "VariableType": "String",
+                "DataVisibility": [],
+                "AnalyzeText": false,
+                "Value": "your"
+              },
+              {
+                "Description": "beq",
+                "Type": "Custom",
+                "Field": "beq",
+                "VariableType": "String",
+                "DataVisibility": [],
+                "AnalyzeText": false,
+                "Value": "are you"
+              },
+              {
+                "Description": "doq",
+                "Type": "Custom",
+                "Field": "doq",
+                "VariableType": "String",
+                "DataVisibility": [],
+                "AnalyzeText": false,
+                "Value": "do you"
+              }
+            ]
+          },
+          {
+            "ID": "BL_Eligibility",
+            "Type": "Standard",
+            "FlowID": "FL_40"
+          },
+          {
+            "Type": "Branch",
+            "FlowID": "FL_30",
+            "Description": "Under 16 - ineligible",
+            "BranchLogic": {
+              "0": {
+                "0": {
+                  "LogicType": "Question",
+                  "QuestionID": "QID4",
+                  "QuestionIsInLoop": "no",
+                  "ChoiceLocator": "q://QID4/SelectableChoice/2",
+                  "Operator": "Selected",
+                  "QuestionIDFromLocator": "QID4",
+                  "LeftOperand": "q://QID4/SelectableChoice/2",
+                  "Type": "Expression",
+                  "Description": "If No, I am under 16 Is Selected"
+                },
+                "Type": "If"
+              },
+              "Type": "BooleanExpression"
+            },
+            "Flow": [
+              {
+                "Type": "Standard",
+                "ID": "BL_MinorMsg",
+                "FlowID": "FL_31"
+              },
+              {
+                "Type": "EndSurvey",
+                "FlowID": "FL_32"
+              }
+            ]
+          },
+          {
+            "ID": "BL_3PMJf1TV8NkMut8",
+            "Type": "Block",
+            "FlowID": "FL_2"
+          },
+          {
+            "Type": "Branch",
+            "FlowID": "FL_11",
+            "Description": "Proxy report",
+            "BranchLogic": {
+              "0": {
+                "0": {
+                  "LogicType": "Question",
+                  "QuestionID": "QID14",
+                  "QuestionIsInLoop": "no",
+                  "ChoiceLocator": "q://QID14/SelectableChoice/2",
+                  "Operator": "Selected",
+                  "QuestionIDFromLocator": "QID14",
+                  "LeftOperand": "q://QID14/SelectableChoice/2",
+                  "Type": "Expression",
+                  "Description": "If Whose experience... Someone else's experience Is Selected"
+                },
+                "Type": "If"
+              },
+              "Type": "BooleanExpression"
+            },
+            "Flow": [
+              {
+                "Type": "EmbeddedData",
+                "FlowID": "FL_12",
+                "EmbeddedData": [
+                  {
+                    "Description": "subj",
+                    "Type": "Custom",
+                    "Field": "subj",
+                    "VariableType": "String",
+                    "DataVisibility": [],
+                    "AnalyzeText": false,
+                    "Value": "this person"
+                  },
+                  {
+                    "Description": "poss",
+                    "Type": "Custom",
+                    "Field": "poss",
+                    "VariableType": "String",
+                    "DataVisibility": [],
+                    "AnalyzeText": false,
+                    "Value": "their"
+                  },
+                  {
+                    "Description": "beq",
+                    "Type": "Custom",
+                    "Field": "beq",
+                    "VariableType": "String",
+                    "DataVisibility": [],
+                    "AnalyzeText": false,
+                    "Value": "is this person"
+                  },
+                  {
+                    "Description": "doq",
+                    "Type": "Custom",
+                    "Field": "doq",
+                    "VariableType": "String",
+                    "DataVisibility": [],
+                    "AnalyzeText": false,
+                    "Value": "does this person"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "ID": "BL_DemographicsA2",
+            "Type": "Standard",
+            "FlowID": "FL_6"
+          },
+          {
+            "ID": "BL_5cJg8eeE0zUYqkC",
+            "Type": "Standard",
+            "FlowID": "FL_3"
+          },
+          {
+            "ID": "BL_6VyG61os8zZO570",
+            "Type": "Standard",
+            "FlowID": "FL_4"
+          },
+          {
+            "ID": "BL_bKhOCdBMjcCqcjc",
+            "Type": "Standard",
+            "FlowID": "FL_5"
+          },
+          {
+            "ID": "BL_SymptomsF1",
+            "Type": "Standard",
+            "FlowID": "FL_20"
+          },
+          {
+            "ID": "BL_ThankYouG1",
+            "Type": "Standard",
+            "FlowID": "FL_21"
+          }
+        ],
+        "Properties": {
+          "Count": 42
+        },
+        "FlowID": "FL_1",
+        "Type": "Root"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "PL",
+      "PrimaryAttribute": "Preview Link",
+      "SecondaryAttribute": null,
+      "TertiaryAttribute": null,
+      "Payload": {
+        "PreviewType": "Brand",
+        "PreviewID": "9d206ac2-fa16-4330-9f1f-46b9ceb3ec08"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "PROJ",
+      "PrimaryAttribute": "CORE",
+      "SecondaryAttribute": null,
+      "TertiaryAttribute": "1.1.0",
+      "Payload": {
+        "ProjectCategory": "CORE",
+        "SchemaVersion": "1.1.0"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "QC",
+      "PrimaryAttribute": "Survey Question Count",
+      "SecondaryAttribute": "26",
+      "TertiaryAttribute": null,
+      "Payload": null
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "RS",
+      "PrimaryAttribute": "RS_9ADHnfxiVAvmea2",
+      "SecondaryAttribute": "Default Response Set",
+      "TertiaryAttribute": null,
+      "Payload": null
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SCO",
+      "PrimaryAttribute": "Scoring",
+      "SecondaryAttribute": null,
+      "TertiaryAttribute": null,
+      "Payload": {
+        "ScoringCategories": [],
+        "ScoringCategoryGroups": [],
+        "ScoringSummaryCategory": null,
+        "ScoringSummaryAfterQuestions": 0,
+        "ScoringSummaryAfterSurvey": 0,
+        "DefaultScoringCategory": null,
+        "AutoScoringCategory": null
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SO",
+      "PrimaryAttribute": "Survey Options",
+      "SecondaryAttribute": null,
+      "TertiaryAttribute": null,
+      "Payload": {
+        "BackButton": "true",
+        "SaveAndContinue": "true",
+        "SurveyProtection": "PublicSurvey",
+        "BallotBoxStuffingPrevention": "false",
+        "NoIndex": "Yes",
+        "SecureResponseFiles": "true",
+        "SurveyExpiration": "None",
+        "SurveyTermination": "DefaultMessage",
+        "Header": "",
+        "Footer": "",
+        "ProgressBarDisplay": "None",
+        "PartialData": "+1 week",
+        "ValidationMessage": "",
+        "PreviousButton": "",
+        "NextButton": "",
+        "SurveyTitle": "Qualtrics Survey | Qualtrics Experience Management",
+        "SkinLibrary": "qualtricsxmwdy4hl99w",
+        "SkinType": "component",
+        "Skin": {
+          "brandingId": null,
+          "templateId": "*simple",
+          "overrides": null
+        },
+        "NewScoring": 1,
+        "SurveyMetaDescription": "The most powerful, simple and trusted way to gather experience data. Start your journey to experience management and try a free account today.",
+        "SurveyName": "Aijwerkingen",
+        "ProtectSelectionIds": true
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID1",
+      "SecondaryAttribute": "Which of the following digital and social platforms did ${e://Field/subj} use recently?",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "Which of the following digital and social platforms did ${e://Field/subj} use recently?",
+        "DataExportTag": "Q3",
+        "QuestionType": "MC",
+        "Selector": "MAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Which of the following digital and social platforms did ${e://Field/subj} use recently?",
+        "Choices": {
+          "1": {
+            "Display": "Instagram"
+          },
+          "2": {
+            "Display": "TikTok"
+          },
+          "3": {
+            "Display": "Snapchat"
+          },
+          "4": {
+            "Display": "Reddit"
+          },
+          "5": {
+            "Display": "X (formerly Twitter)"
+          },
+          "6": {
+            "Display": "Meta (Facebook)"
+          },
+          "7": {
+            "Display": "Twitch"
+          },
+          "8": {
+            "Display": "Discord"
+          },
+          "9": {
+            "Display": "Roblox"
+          },
+          "10": {
+            "Display": "Steam"
+          },
+          "11": {
+            "Display": "Console networks (PlayStation / Xbox)"
+          },
+          "12": {
+            "Display": "Mobile games"
+          },
+          "13": {
+            "Display": "Other (please specify)",
+            "TextEntry": "true"
+          },
+          "14": {
+            "Display": "None",
+            "ExclusiveAnswer": true
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "OFF",
+            "Type": "MinChoices",
+            "MinChoices": "1"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 15,
+        "NextAnswerId": 1,
+        "QuestionID": "QID1",
+        "Randomization": {
+          "Advanced": null,
+          "Type": "All",
+          "TotalRandSubset": ""
+        },
+        "DisplayLogic": {
+          "0": {
+            "0": {
+              "LogicType": "Question",
+              "QuestionID": "QID27",
+              "QuestionIsInLoop": "no",
+              "ChoiceLocator": "q://QID27/SelectableChoice/3",
+              "Operator": "Selected",
+              "QuestionIDFromLocator": "QID27",
+              "LeftOperand": "q://QID27/SelectableChoice/3",
+              "Type": "Expression",
+              "Description": "If Social-media algorithms Is Selected"
+            },
+            "1": {
+              "LogicType": "Question",
+              "QuestionID": "QID27",
+              "QuestionIsInLoop": "no",
+              "ChoiceLocator": "q://QID27/SelectableChoice/4",
+              "Operator": "Selected",
+              "QuestionIDFromLocator": "QID27",
+              "LeftOperand": "q://QID27/SelectableChoice/4",
+              "Type": "Expression",
+              "Description": "Or Gaming & virtual worlds Is Selected",
+              "Conjunction": "Or"
+            },
+            "Type": "If"
+          },
+          "Type": "BooleanExpression",
+          "inPage": false
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID2",
+      "SecondaryAttribute": "If you answered Other above, please list the digital / social platforms...",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "If you answered \"Other\" above, please list the digital / social platforms you have used recently (each on a new line)<br>",
+        "DefaultChoices": false,
+        "DataExportTag": "Q3_other",
+        "QuestionType": "TE",
+        "Selector": "ML",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "If you answered Other above, please list the digital / social platforms...",
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "OFF",
+            "Type": "None"
+          }
+        },
+        "GradingData": [],
+        "Language": [],
+        "NextChoiceId": 4,
+        "NextAnswerId": 1,
+        "SearchSource": {
+          "AllowFreeResponse": "false"
+        },
+        "QuestionID": "QID2"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID4",
+      "SecondaryAttribute": "Eligibility (age 16+)",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "Before we begin: are you 16 years of age or older?",
+        "DataExportTag": "Q1",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Eligibility (age 16+)",
+        "Choices": {
+          "1": {
+            "Display": "Yes, I am 16 or older"
+          },
+          "2": {
+            "Display": "No, I am under 16"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "ForceResponseType": "ON",
+            "Type": "None"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 3,
+        "NextAnswerId": 1,
+        "QuestionID": "QID4"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID5",
+      "SecondaryAttribute": "Gender identity of the subject",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "<em>Please answer the following questions about ${e://Field/subj}.</em><br><br>What ${e://Field/doq} identify as?",
+        "DataExportTag": "Q2",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Gender identity of the subject",
+        "Choices": {
+          "1": {
+            "Display": "Female"
+          },
+          "2": {
+            "Display": "Male"
+          },
+          "3": {
+            "Display": "Non-binary"
+          },
+          "4": {
+            "Display": "Prefer not to say"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "Type": "None",
+            "ForceResponseType": "ON"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 5,
+        "NextAnswerId": 1,
+        "QuestionID": "QID5"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID6",
+      "SecondaryAttribute": "Any distress from the platform(s)?",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "Did ${e://Field/subj} feel any distress during or after using the platform(s)?",
+        "DataExportTag": "Q4",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Any distress from the platform(s)?",
+        "Choices": {
+          "1": {
+            "Display": "Yes"
+          },
+          "2": {
+            "Display": "Not sure"
+          },
+          "3": {
+            "Display": "No"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "ForceResponseType": "ON",
+            "Type": "None"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 4,
+        "NextAnswerId": 1,
+        "QuestionID": "QID6"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID8",
+      "SecondaryAttribute": "Which of the following Conversational AI platforms did ${e://Field/subj} use recently?",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "Which of the following Conversational AI platforms did ${e://Field/subj} use recently?",
+        "DataExportTag": "Q6",
+        "QuestionType": "MC",
+        "Selector": "MAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Which of the following Conversational AI platforms did ${e://Field/subj} use recently?",
+        "Choices": {
+          "1": {
+            "Display": "<img alt=\"File:ChatGPT-Logo.svg\" height=\"25\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/ChatGPT-Logo.svg/960px-ChatGPT-Logo.svg.png?_=20240214002031\" height=\"25\" width=\"25\"  /> ChatGPT"
+          },
+          "2": {
+            "Display": "<img alt=\"File:Claude AI symbol.svg\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Claude_AI_symbol.svg/960px-Claude_AI_symbol.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail&amp;_=20260428111349\" height=\"25\" width=\"25\" /> Claude"
+          },
+          "3": {
+            "Display": "<img alt=\"File:Google Gemini icon 2025.svg\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Google_Gemini_icon_2025.svg/960px-Google_Gemini_icon_2025.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail&amp;_=20250728014952\" height=\"25\" width=\"25\" /> Gemini"
+          },
+          "4": {
+            "Display": "<img alt=\"Perplexity Icon &amp; Logo | Dashboard Icons &amp; Logos\" src=\"https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/webp/perplexity.webp\" height=\"25\" width=\"25\" /> Perplexity"
+          },
+          "5": {
+            "Display": "<img alt=\"Microsoft Copilot Icon &amp; Logo | Dashboard Icons &amp; Logos\" src=\"https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/microsoft-copilot.png\" height=\"25\" width=\"25\"  /> Copilot(Microsoft)"
+          },
+          "6": {
+            "Display": "<img alt=\"File:Meta AI Logo (2026).svg\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Meta_AI_Logo_%282026%29.svg/960px-Meta_AI_Logo_%282026%29.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail&amp;_=20260426181351\" height=\"25\" width=\"25\"/> Meta AI"
+          },
+          "7": {
+            "Display": "<img alt=\"Character Logo PNG (Transparent) SVG AI – Free Download\" src=\"https://vectorseek.com/wp-content/uploads/2025/07/Character-ai-Logo-PNG-SVG-Vector-01.png\" height=\"25\" width=\"25\" /> character.ai"
+          },
+          "8": {
+            "Display": "Other (please specify)",
+            "TextEntry": "true"
+          },
+          "9": {
+            "Display": "None",
+            "ExclusiveAnswer": true
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "OFF",
+            "Type": "MinChoices",
+            "MinChoices": "1"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 10,
+        "NextAnswerId": 1,
+        "QuestionID": "QID8",
+        "Randomization": {
+          "Advanced": null,
+          "TotalRandSubset": "",
+          "Type": "All"
+        },
+        "DisplayLogic": {
+          "0": {
+            "0": {
+              "LogicType": "Question",
+              "QuestionID": "QID27",
+              "QuestionIsInLoop": "no",
+              "ChoiceLocator": "q://QID27/SelectableChoice/1",
+              "Operator": "Selected",
+              "QuestionIDFromLocator": "QID27",
+              "LeftOperand": "q://QID27/SelectableChoice/1",
+              "Type": "Expression",
+              "Description": "If Direct AI conversations Is Selected"
+            },
+            "Type": "If"
+          },
+          "Type": "BooleanExpression",
+          "inPage": false
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID9",
+      "SecondaryAttribute": "If you answered Other above, please list the Conversational AI platforms...",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "If you answered \"Other\" above, please list the Conversational AI platforms you have used recently (each on a new line)",
+        "DefaultChoices": false,
+        "DataExportTag": "Q6_other",
+        "QuestionID": "QID9",
+        "QuestionType": "TE",
+        "Selector": "ML",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "If you answered Other above, please list the Conversational AI platforms...",
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "OFF",
+            "Type": "None"
+          }
+        },
+        "GradingData": [],
+        "Language": [],
+        "NextChoiceId": 4,
+        "NextAnswerId": 1,
+        "SearchSource": {
+          "AllowFreeResponse": "false"
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID11",
+      "SecondaryAttribute": "Any distress from Conversational AI?",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "Did ${e://Field/subj} feel distress during or after using the Conversational AI platform(s)?",
+        "DataExportTag": "Q7",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Any distress from Conversational AI?",
+        "Choices": {
+          "1": {
+            "Display": "Yes"
+          },
+          "2": {
+            "Display": "Not sure"
+          },
+          "3": {
+            "Display": "No"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "ForceResponseType": "ON",
+            "Type": "None"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 4,
+        "NextAnswerId": 1,
+        "QuestionID": "QID11"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID12",
+      "SecondaryAttribute": "Extent of distress (platforms)",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "How would ${e://Field/subj} describe the extent of distress felt while using the platform(s)?",
+        "DataExportTag": "Q5",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText",
+          "Autoscale": {
+            "YScale": {
+              "Name": "tooLittleTooMuch",
+              "Type": "likert",
+              "Reverse": false
+            }
+          }
+        },
+        "QuestionDescription": "Extent of distress (platforms)",
+        "Choices": {
+          "1": {
+            "Display": "Far too little"
+          },
+          "2": {
+            "Display": "Slightly too little"
+          },
+          "3": {
+            "Display": "Neither too much nor too little"
+          },
+          "4": {
+            "Display": "Slightly too much"
+          },
+          "5": {
+            "Display": "Far too much"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "OFF",
+            "Type": "None"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 6,
+        "NextAnswerId": 1,
+        "QuestionID": "QID12",
+        "DisplayLogic": {
+          "0": {
+            "0": {
+              "LogicType": "Question",
+              "QuestionID": "QID6",
+              "QuestionIsInLoop": "no",
+              "ChoiceLocator": "q://QID6/SelectableChoice/3",
+              "Operator": "NotSelected",
+              "QuestionIDFromLocator": "QID6",
+              "LeftOperand": "q://QID6/SelectableChoice/3",
+              "Type": "Expression",
+              "Description": "If Q4 platform distress No Is Not Selected"
+            },
+            "Type": "If"
+          },
+          "Type": "BooleanExpression",
+          "inPage": false
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID13",
+      "SecondaryAttribute": "Extent of distress (AI)",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "How would ${e://Field/subj} describe the extent of distress felt while using the Conversational AI platform(s)?",
+        "DataExportTag": "Q8",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText",
+          "Autoscale": {
+            "YScale": {
+              "Name": "tooLittleTooMuch",
+              "Type": "likert",
+              "Reverse": false
+            }
+          }
+        },
+        "QuestionDescription": "Extent of distress (AI)",
+        "Choices": {
+          "1": {
+            "Display": "Far too little"
+          },
+          "2": {
+            "Display": "Slightly too little"
+          },
+          "3": {
+            "Display": "Neither too much nor too little"
+          },
+          "4": {
+            "Display": "Slightly too much"
+          },
+          "5": {
+            "Display": "Far too much"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "OFF",
+            "Type": "None"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 6,
+        "NextAnswerId": 1,
+        "QuestionID": "QID13",
+        "DisplayLogic": {
+          "0": {
+            "0": {
+              "LogicType": "Question",
+              "QuestionID": "QID11",
+              "QuestionIsInLoop": "no",
+              "ChoiceLocator": "q://QID11/SelectableChoice/3",
+              "Operator": "NotSelected",
+              "QuestionIDFromLocator": "QID11",
+              "LeftOperand": "q://QID11/SelectableChoice/3",
+              "Type": "Expression",
+              "Description": "If Q7 AI distress No Is Not Selected"
+            },
+            "Type": "If"
+          },
+          "Type": "BooleanExpression",
+          "inPage": false
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID14",
+      "SecondaryAttribute": "Whose experience is this survey about?",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "Whose experience is this survey about?",
+        "DataExportTag": "Q0a",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Whose experience is this survey about?",
+        "Choices": {
+          "1": {
+            "Display": "My own experience"
+          },
+          "2": {
+            "Display": "Someone else's experience (I am reporting on their behalf)"
+          }
+        },
+        "ChoiceOrder": [
+          "1",
+          "2"
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "Type": "None",
+            "ForceResponseType": "ON"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 3,
+        "NextAnswerId": 1,
+        "QuestionID": "QID14"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID17",
+      "SecondaryAttribute": "What is your relationship to the person whose experience you are reporting?",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "What is your relationship to the person whose experience you are reporting?",
+        "DataExportTag": "Q0b",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "What is your relationship to the person whose experience you are reporting?",
+        "Choices": {
+          "1": {
+            "Display": "Parent / legal guardian"
+          },
+          "2": {
+            "Display": "Partner or spouse"
+          },
+          "3": {
+            "Display": "Other family member"
+          },
+          "4": {
+            "Display": "Friend"
+          },
+          "5": {
+            "Display": "Caregiver / support worker"
+          },
+          "6": {
+            "Display": "Healthcare or mental-health professional"
+          },
+          "7": {
+            "Display": "Teacher / educator"
+          },
+          "8": {
+            "Display": "Other (please specify)",
+            "TextEntry": "true"
+          }
+        },
+        "ChoiceOrder": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "Type": "None",
+            "ForceResponseType": "ON"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 9,
+        "NextAnswerId": 1,
+        "QuestionID": "QID17",
+        "DisplayLogic": {
+          "0": {
+            "0": {
+              "LogicType": "Question",
+              "QuestionID": "QID14",
+              "QuestionIsInLoop": "no",
+              "ChoiceLocator": "q://QID14/SelectableChoice/2",
+              "Operator": "Selected",
+              "QuestionIDFromLocator": "QID14",
+              "LeftOperand": "q://QID14/SelectableChoice/2",
+              "Type": "Expression",
+              "Description": "If Q0a Someone else's experience Is Selected"
+            },
+            "Type": "If"
+          },
+          "Type": "BooleanExpression",
+          "inPage": false
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID18",
+      "SecondaryAttribute": "Timeframe of distress (platforms)",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "When did ${e://Field/subj} most recently experience this distress from the digital / social platform(s)?",
+        "DataExportTag": "Q12_social",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Timeframe of distress (platforms)",
+        "Choices": {
+          "1": {
+            "Display": "Today / within the last few days"
+          },
+          "2": {
+            "Display": "Within the last week"
+          },
+          "3": {
+            "Display": "Within the last month"
+          },
+          "4": {
+            "Display": "Within the last 6 months"
+          },
+          "5": {
+            "Display": "More than 6 months ago"
+          },
+          "6": {
+            "Display": "It is ongoing"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "Type": "None",
+            "ForceResponseType": "ON"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 7,
+        "NextAnswerId": 1,
+        "QuestionID": "QID18",
+        "DisplayLogic": {
+          "0": {
+            "0": {
+              "LogicType": "Question",
+              "QuestionID": "QID6",
+              "QuestionIsInLoop": "no",
+              "ChoiceLocator": "q://QID6/SelectableChoice/3",
+              "Operator": "NotSelected",
+              "QuestionIDFromLocator": "QID6",
+              "LeftOperand": "q://QID6/SelectableChoice/3",
+              "Type": "Expression",
+              "Description": "If Q4 platform distress No Is Not Selected"
+            },
+            "Type": "If"
+          },
+          "Type": "BooleanExpression",
+          "inPage": false
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID20",
+      "SecondaryAttribute": "What did ${e://Field/subj} mainly use the Conversational AI platform(s) for? (Select all that apply)",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "What did ${e://Field/subj} mainly use the Conversational AI platform(s) for? (Select all that apply)",
+        "DataExportTag": "Q10",
+        "QuestionType": "MC",
+        "Selector": "MAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "What did ${e://Field/subj} mainly use the Conversational AI platform(s) for? (Select all that apply)",
+        "Choices": {
+          "1": {
+            "Display": "Information / search / answering questions"
+          },
+          "2": {
+            "Display": "Work or study productivity"
+          },
+          "3": {
+            "Display": "Coding or technical help"
+          },
+          "4": {
+            "Display": "Emotional support / therapy-like conversations"
+          },
+          "5": {
+            "Display": "Coaching, advice, or decision-making"
+          },
+          "6": {
+            "Display": "Companionship / social connection"
+          },
+          "7": {
+            "Display": "Creative writing or brainstorming"
+          },
+          "8": {
+            "Display": "Image, art, or media generation"
+          },
+          "9": {
+            "Display": "Entertainment / fun"
+          },
+          "10": {
+            "Display": "Other (please specify)",
+            "TextEntry": "true"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "ForceResponseType": "ON",
+            "Type": "MinChoices",
+            "MinChoices": "1"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 11,
+        "NextAnswerId": 1,
+        "QuestionID": "QID20",
+        "DisplayLogic": {
+          "0": {
+            "0": {
+              "LogicType": "Question",
+              "QuestionID": "QID27",
+              "QuestionIsInLoop": "no",
+              "ChoiceLocator": "q://QID27/SelectableChoice/1",
+              "Operator": "Selected",
+              "QuestionIDFromLocator": "QID27",
+              "LeftOperand": "q://QID27/SelectableChoice/1",
+              "Type": "Expression",
+              "Description": "If Direct AI conversations Is Selected"
+            },
+            "1": {
+              "LogicType": "Question",
+              "QuestionID": "QID8",
+              "QuestionIsInLoop": "no",
+              "ChoiceLocator": "q://QID8/SelectableChoice/9",
+              "Operator": "NotSelected",
+              "QuestionIDFromLocator": "QID8",
+              "LeftOperand": "q://QID8/SelectableChoice/9",
+              "Type": "Expression",
+              "Description": "And AI platform None Is Not Selected",
+              "Conjunction": "And"
+            },
+            "Type": "If"
+          },
+          "Type": "BooleanExpression",
+          "inPage": false
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID21",
+      "SecondaryAttribute": "How did ${e://Field/subj} mainly encounter AI?",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "How did ${e://Field/subj} mainly encounter AI?",
+        "DataExportTag": "Q11",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "How did ${e://Field/subj} mainly encounter AI?",
+        "Choices": {
+          "1": {
+            "Display": "Active — ${e://Field/subj} directly interacted with an AI (e.g., chatting with a chatbot, generating content)"
+          },
+          "2": {
+            "Display": "Passive — ${e://Field/subj} came across AI-generated content that others created (e.g., AI posts, images, or videos in ${e://Field/poss} feed)"
+          },
+          "3": {
+            "Display": "Both actively and passively"
+          },
+          "4": {
+            "Display": "Not sure"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "ForceResponseType": "ON",
+            "Type": "None"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 5,
+        "NextAnswerId": 1,
+        "QuestionID": "QID21",
+        "DisplayLogic": {
+          "0": {
+            "0": {
+              "LogicType": "Question",
+              "QuestionID": "QID27",
+              "QuestionIsInLoop": "no",
+              "ChoiceLocator": "q://QID27/SelectableChoice/1",
+              "Operator": "Selected",
+              "QuestionIDFromLocator": "QID27",
+              "LeftOperand": "q://QID27/SelectableChoice/1",
+              "Type": "Expression",
+              "Description": "If Direct AI conversations Is Selected"
+            },
+            "1": {
+              "LogicType": "Question",
+              "QuestionID": "QID8",
+              "QuestionIsInLoop": "no",
+              "ChoiceLocator": "q://QID8/SelectableChoice/9",
+              "Operator": "NotSelected",
+              "QuestionIDFromLocator": "QID8",
+              "LeftOperand": "q://QID8/SelectableChoice/9",
+              "Type": "Expression",
+              "Description": "And AI platform None Is Not Selected",
+              "Conjunction": "And"
+            },
+            "Type": "If"
+          },
+          "Type": "BooleanExpression",
+          "inPage": false
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID22",
+      "SecondaryAttribute": "Symptoms experienced",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "Which of the following did ${e://Field/subj} experience during or after this use? (Select all that apply)",
+        "DataExportTag": "Q13",
+        "QuestionType": "MC",
+        "Selector": "MAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Symptoms experienced",
+        "Choices": {
+          "1": {
+            "Display": "Anxiety or nervousness"
+          },
+          "2": {
+            "Display": "Low mood or sadness"
+          },
+          "3": {
+            "Display": "Irritability or anger"
+          },
+          "4": {
+            "Display": "Trouble sleeping / disrupted sleep"
+          },
+          "5": {
+            "Display": "Fatigue or low energy"
+          },
+          "6": {
+            "Display": "Difficulty concentrating"
+          },
+          "7": {
+            "Display": "Compulsive or excessive use / difficulty stopping"
+          },
+          "8": {
+            "Display": "Social withdrawal or avoiding people"
+          },
+          "9": {
+            "Display": "Loneliness or isolation"
+          },
+          "10": {
+            "Display": "Reduced self-esteem / negative self-image"
+          },
+          "11": {
+            "Display": "Body-image concerns"
+          },
+          "12": {
+            "Display": "Distressing or intrusive thoughts"
+          },
+          "13": {
+            "Display": "Confusion about what is real (e.g., AI vs. human)"
+          },
+          "14": {
+            "Display": "Emotional dependence on the platform"
+          },
+          "15": {
+            "Display": "Physical symptoms (headaches, eye strain, etc.)"
+          },
+          "16": {
+            "Display": "Other (please specify)",
+            "TextEntry": "true"
+          },
+          "17": {
+            "Display": "None of the above",
+            "ExclusiveAnswer": true
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "ForceResponseType": "ON",
+            "Type": "None"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 18,
+        "NextAnswerId": 1,
+        "QuestionID": "QID22"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID23",
+      "SecondaryAttribute": "For each of the following, how severe was it for ${e://Field/subj}?",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "For each of the following, how severe was it for ${e://Field/subj}?",
+        "DataExportTag": "Q14",
+        "QuestionType": "Matrix",
+        "Selector": "Likert",
+        "SubSelector": "SingleAnswer",
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText",
+          "TextPosition": "inline",
+          "ChoiceColumnWidth": 25,
+          "RepeatHeaders": "none",
+          "WhiteSpace": "OFF",
+          "MobileFirst": false
+        },
+        "QuestionDescription": "For each of the following, how severe was it for ${e://Field/subj}?",
+        "Choices": [],
+        "ChoiceOrder": [],
+        "Answers": {
+          "1": {
+            "Display": "Mild"
+          },
+          "2": {
+            "Display": "Moderate"
+          },
+          "3": {
+            "Display": "Severe"
+          },
+          "4": {
+            "Display": "Very Severe"
+          },
+          "5": {
+            "Display": "Extreme"
+          }
+        },
+        "AnswerOrder": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "ChoiceDataExportTags": false,
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "OFF",
+            "Type": "None"
+          }
+        },
+        "DynamicChoices": {
+          "DynamicType": "ChoiceGroup",
+          "Locator": "q://QID22/ChoiceGroup/SelectedChoicesTextEntry",
+          "Type": "Dynamic"
+        },
+        "DynamicChoicesData": [],
+        "Language": [],
+        "NextChoiceId": 1,
+        "NextAnswerId": 6,
+        "QuestionID": "QID23",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID24",
+      "SecondaryAttribute": "Attribution to platforms vs other causes",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "In ${e://Field/poss} view, how much of what ${e://Field/subj} experienced is due to using these platforms, versus other things going on in ${e://Field/poss} life?",
+        "DataExportTag": "Q15",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Attribution to platforms vs other causes",
+        "Choices": {
+          "1": {
+            "Display": "Entirely due to other causes"
+          },
+          "2": {
+            "Display": "Mostly other causes"
+          },
+          "3": {
+            "Display": "About equally both"
+          },
+          "4": {
+            "Display": "Mostly the platforms / AI"
+          },
+          "5": {
+            "Display": "Entirely the platforms / AI"
+          },
+          "6": {
+            "Display": "Not sure"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "Type": "None",
+            "ForceResponseType": "ON"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 7,
+        "NextAnswerId": 1,
+        "QuestionID": "QID24",
+        "DisplayLogic": {
+          "0": {
+            "0": {
+              "LogicType": "Question",
+              "QuestionID": "QID22",
+              "QuestionIsInLoop": "no",
+              "ChoiceLocator": "q://QID22/SelectableChoice/17",
+              "Operator": "NotSelected",
+              "QuestionIDFromLocator": "QID22",
+              "LeftOperand": "q://QID22/SelectableChoice/17",
+              "Type": "Expression",
+              "Description": "If Q13 None of the above Is Not Selected"
+            },
+            "Type": "If"
+          },
+          "Type": "BooleanExpression",
+          "inPage": false
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID25",
+      "SecondaryAttribute": "Timeframe of distress (AI)",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "When did ${e://Field/subj} most recently experience this distress from the Conversational AI platform(s)?",
+        "DataExportTag": "Q12_ai",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Timeframe of distress (AI)",
+        "Choices": {
+          "1": {
+            "Display": "Today / within the last few days"
+          },
+          "2": {
+            "Display": "Within the last week"
+          },
+          "3": {
+            "Display": "Within the last month"
+          },
+          "4": {
+            "Display": "Within the last 6 months"
+          },
+          "5": {
+            "Display": "More than 6 months ago"
+          },
+          "6": {
+            "Display": "It is ongoing"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "Type": "None",
+            "ForceResponseType": "ON"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 7,
+        "NextAnswerId": 1,
+        "QuestionID": "QID25",
+        "DisplayLogic": {
+          "0": {
+            "0": {
+              "LogicType": "Question",
+              "QuestionID": "QID11",
+              "QuestionIsInLoop": "no",
+              "ChoiceLocator": "q://QID11/SelectableChoice/3",
+              "Operator": "NotSelected",
+              "QuestionIDFromLocator": "QID11",
+              "LeftOperand": "q://QID11/SelectableChoice/3",
+              "Type": "Expression",
+              "Description": "If Q7 AI distress No Is Not Selected"
+            },
+            "Type": "If"
+          },
+          "Type": "BooleanExpression",
+          "inPage": false
+        }
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID26",
+      "SecondaryAttribute": "Location / country",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "In which country ${e://Field/beq} based? (Where did this mainly take place?)",
+        "DataExportTag": "Q_country",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Location / country",
+        "Choices": {
+          "1": {
+            "Display": "Country (please specify)",
+            "TextEntry": "true"
+          },
+          "2": {
+            "Display": "Prefer not to say",
+            "ExclusiveAnswer": true
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "OFF",
+            "Type": "None"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 3,
+        "NextAnswerId": 1,
+        "QuestionID": "QID26"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID27",
+      "SecondaryAttribute": "Kind of AI-related experience",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "What kind of AI-related experience ${e://Field/beq} reporting? (Select all that apply)",
+        "DataExportTag": "Q_aitype",
+        "QuestionType": "MC",
+        "Selector": "MAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Kind of AI-related experience",
+        "Choices": {
+          "1": {
+            "Display": "Direct AI conversations (e.g., AI chatbots, companion AI, dating AI)"
+          },
+          "2": {
+            "Display": "Deepfakes &amp; content (e.g., fake news, unauthorised AI use of personal images or video)"
+          },
+          "3": {
+            "Display": "Social-media algorithms (e.g., feed recommendations)"
+          },
+          "4": {
+            "Display": "Gaming &amp; virtual worlds (e.g., absorptive environments)"
+          },
+          "5": {
+            "Display": "Surveillance &amp; tracking (e.g., facial recognition, AI-facilitated coercive control)"
+          },
+          "6": {
+            "Display": "AI decision-making (e.g., health care, insurance)"
+          },
+          "7": {
+            "Display": "Work environment (e.g., employee monitoring)"
+          },
+          "8": {
+            "Display": "Other (please specify)",
+            "TextEntry": "true"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "ForceResponseType": "ON",
+            "Type": "MinChoices",
+            "MinChoices": "1"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 9,
+        "NextAnswerId": 1,
+        "QuestionID": "QID27"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID28",
+      "SecondaryAttribute": "Situation description",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "Please briefly describe the situation that you believe caused ${e://Field/poss} mental-health difficulties — what happened, and how it affected ${e://Field/subj}.",
+        "DefaultChoices": false,
+        "DataExportTag": "Q_situation",
+        "QuestionType": "TE",
+        "Selector": "ML",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Situation description",
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "OFF",
+            "Type": "None"
+          }
+        },
+        "GradingData": [],
+        "Language": [],
+        "NextChoiceId": 4,
+        "NextAnswerId": 1,
+        "SearchSource": {
+          "AllowFreeResponse": "false"
+        },
+        "QuestionID": "QID28"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID29",
+      "SecondaryAttribute": "Timeframe (recency)",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "When did this most recently happen?",
+        "DataExportTag": "Q_when",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Timeframe (recency)",
+        "Choices": {
+          "1": {
+            "Display": "Today / within the last few days"
+          },
+          "2": {
+            "Display": "Within the last week"
+          },
+          "3": {
+            "Display": "Within the last month"
+          },
+          "4": {
+            "Display": "Within the last 6 months"
+          },
+          "5": {
+            "Display": "More than 6 months ago"
+          },
+          "6": {
+            "Display": "It is ongoing"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "ForceResponseType": "ON",
+            "Type": "None"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 7,
+        "NextAnswerId": 1,
+        "QuestionID": "QID29"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID30",
+      "SecondaryAttribute": "Duration of exposure",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "Over what period ${e://Field/beq} exposed to this situation?",
+        "DataExportTag": "Q_duration",
+        "QuestionType": "MC",
+        "Selector": "SAVR",
+        "SubSelector": "TX",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Duration of exposure",
+        "Choices": {
+          "1": {
+            "Display": "Less than a day"
+          },
+          "2": {
+            "Display": "A few days"
+          },
+          "3": {
+            "Display": "A few weeks"
+          },
+          "4": {
+            "Display": "1–6 months"
+          },
+          "5": {
+            "Display": "6–12 months"
+          },
+          "6": {
+            "Display": "More than a year"
+          },
+          "7": {
+            "Display": "Not sure"
+          }
+        },
+        "ChoiceOrder": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "Validation": {
+          "Settings": {
+            "ForceResponse": "ON",
+            "ForceResponseType": "ON",
+            "Type": "None"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 8,
+        "NextAnswerId": 1,
+        "QuestionID": "QID30"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID31",
+      "SecondaryAttribute": "Thank you",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "<h3>Thank you.</h3><p>Your report has been recorded. The information you shared helps build a clearer picture of how AI systems can affect people's mental health. You may now close this window.</p>",
+        "DataExportTag": "Q_thanks",
+        "QuestionType": "DB",
+        "Selector": "TB",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Thank you",
+        "ChoiceOrder": [],
+        "GradingData": [],
+        "Validation": {
+          "Settings": {
+            "Type": "None"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 1,
+        "NextAnswerId": 1,
+        "QuestionID": "QID31"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "SQ",
+      "PrimaryAttribute": "QID32",
+      "SecondaryAttribute": "Under-16 ineligibility message",
+      "TertiaryAttribute": null,
+      "Payload": {
+        "QuestionText": "<h3>Thank you for your interest.</h3><p>This survey can only be completed by someone aged 16 or older. If you are under 16, please ask a parent, guardian, or another adult (aged 16 or older) to complete it on your behalf.</p><p>You can now close this window.</p>",
+        "DataExportTag": "Q_minor",
+        "QuestionType": "DB",
+        "Selector": "TB",
+        "DataVisibility": {
+          "Private": false,
+          "Hidden": false
+        },
+        "Configuration": {
+          "QuestionDescriptionOption": "UseText"
+        },
+        "QuestionDescription": "Under-16 ineligibility message",
+        "ChoiceOrder": [],
+        "GradingData": [],
+        "Validation": {
+          "Settings": {
+            "Type": "None"
+          }
+        },
+        "Language": [],
+        "NextChoiceId": 1,
+        "NextAnswerId": 1,
+        "QuestionID": "QID32"
+      }
+    },
+    {
+      "SurveyID": "SV_eA4y9ucLih6un8a",
+      "Element": "STAT",
+      "PrimaryAttribute": "Survey Statistics",
+      "SecondaryAttribute": null,
+      "TertiaryAttribute": null,
+      "Payload": {
+        "MobileCompatible": true,
+        "ID": "Survey Statistics"
+      }
+    }
+  ]
+}
