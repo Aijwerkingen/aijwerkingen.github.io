@@ -85,6 +85,12 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-08-20 - Phase 2 - eng (Hermes) - REVERT: internal auth gate (PR #38) rolled back at owner direction
+
+- Reverted merge `0cf7581` (feat/internal-auth-gate): `functions/_middleware.js` removed, `eslint.config.mjs`/`tsconfig.json` functions ignores reverted, `deploy.yml` restored to GitHub Pages deploy.
+- `INTERNAL_PASSWORD` secret deleted from the `aisafetywatch-internal` Pages project; project + custom domain `internal.aisafetywatch.com` kept, and the reverted build deployed there directly (no gate).
+- Staging deploys resume to `aijwerkingen.github.io` via Pages on the next push to `staging`.
+
 ### 2026-08-20 - Phase 2 - eng (Hermes) - staging survey embed pointed at a new Qualtrics form (owner direction)
 
 - `src/app/report/page.tsx` fallback updated: `SV_eA4y9ucLih6un8a` (host `qualtricsxmwdy4hl99w`) → `SV_ddoaHNEsGsbDnwi` (host `qualtricsxm6gyvfq8rn.qualtrics.com`). No `.env` override exists in CI, so this fallback is the effective URL on Pages.
