@@ -85,12 +85,11 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
-### 2026-08-20 - Phase 2 - eng (Hermes) - internal auth gate for staging (docs/INTERNAL_AUTH_PLAN.md)
+### 2026-08-20 - Phase 2 - eng (Hermes) - REVERT: internal auth gate (PR #38) rolled back at owner direction
 
-- `functions/_middleware.js` (new): Cloudflare Pages Function — HTTP Basic Auth, password-only (username ignored), constant-time SHA-256 compare. Active only when the `INTERNAL_PASSWORD` secret is set, so it is inert on main/prod.
-- `eslint.config.mjs` + `tsconfig.json`: `functions/**` ignored by lint and excluded from type-check (repo guardrails from the plan).
-- `.github/workflows/deploy.yml`: GitHub Pages deploy replaced with wrangler direct-upload to new CF Pages project `aisafetywatch-internal` (production branch `staging`).
-- Net effect: staging moves from `aijwerkingen.github.io` (ungated) to `internal.aisafetywatch.com` behind one shared password; GitHub Pages to be retired once the internal deploy is verified.
+- Reverted merge `0cf7581` (feat/internal-auth-gate): `functions/_middleware.js` removed, `eslint.config.mjs`/`tsconfig.json` functions ignores reverted, `deploy.yml` restored to GitHub Pages deploy.
+- `INTERNAL_PASSWORD` secret deleted from the `aisafetywatch-internal` Pages project; project + custom domain `internal.aisafetywatch.com` kept, and the reverted build deployed there directly (no gate).
+- Staging deploys resume to `aijwerkingen.github.io` via Pages on the next push to `staging`.
 
 ### 2026-08-20 - Phase 2 - eng (Hermes) - staging survey embed pointed at a new Qualtrics form (owner direction)
 
