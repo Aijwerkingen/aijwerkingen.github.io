@@ -26,5 +26,5 @@ and the research behind them - [Living guidelines for generative
 AI](https://doi.org/10.1038/d41586-023-03266-1) and [ChatGPT: five
 priorities for research](https://doi.org/10.1038/d41586-023-00288-7).
 
-The platform launches soon. When it is live, the report form will be at
-[/report](/report).
+The platform launches soon. When it is live, the report form will be
+[here](/report).
