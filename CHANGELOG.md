@@ -85,6 +85,12 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-08-20 - Phase 2 - eng (Hermes) - staging survey embed pointed at a new Qualtrics form (owner direction)
+
+- `src/app/report/page.tsx` fallback updated: `SV_eA4y9ucLih6un8a` (host `qualtricsxmwdy4hl99w`) → `SV_ddoaHNEsGsbDnwi` (host `qualtricsxm6gyvfq8rn.qualtrics.com`). No `.env` override exists in CI, so this fallback is the effective URL on Pages.
+- CSP `frame-src https://*.qualtrics.com` already covers the new host; no `layout.tsx` change needed.
+- **P0 gates unchanged and still open:** D3 (Qualtrics DPA/EU storage) and D4 (DPIA / Art. 9 basis) unresolved; new host is still a bare brand host with no `.eu.` segment (US datacenter), so P0-2 (ADR-006 EU residency) still applies. Not deployable for real submissions until Phase 4 closes.
+
 ### 2026-07-16 - Phase 1 - build (Claude Code) - remaining page set scaffolded: /about, /how-it-works, /contact + draft /privacy, /terms, /accessibility
 - **Status change:** none to the board. Phase 1's page table (spec §5) is now complete
   except `/news`; every route in that table exists, is linked, and emits its specified
