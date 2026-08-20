@@ -1,354 +1,419 @@
-# Plan: Password-gate the staging survey at `internal.aisafetywatch.com`
+# Plan: password-gate ONLY the `/report` survey embed (Level 2, edge-validated)
 
 **Audience:** a cold agent with no prior context. Follow top to bottom.
 
----
-
-## 0. Context you need
-
-- **Repo:** `Aijwerkingen/aijwerkingen.github.io` (GitHub). The git repo root is the
-  folder `aijwerkingen.github.io/` (inside the workspace). Remote alias: `github-ps`.
-- **Stack:** Next.js 16, **static export** (`next.config.ts` has `output: "export"`),
-  build command `npm run build`, build output directory `out/`. Node 24 in CI.
-- **Branches:**
-  - `main` → deployed by **Cloudflare Pages** to `aisafetywatch.com` (+ `*.pages.dev`).
-    Currently does not show the survey. **Must stay public and untouched.**
-  - `staging` → currently auto-deployed to **GitHub Pages** (`aijwerkingen.github.io`)
-    by `.github/workflows/deploy.yml`. This is the in-progress survey we must hide.
-- **Goal:** serve the `staging` build at **`internal.aisafetywatch.com`** behind a
-  **single shared password** (HTTP Basic Auth, **password only — username ignored**),
-  and **stop serving the ungated `aijwerkingen.github.io`** copy.
-- **Repo guardrails that will bite you (do not ignore):**
-  - `tsconfig.json` `include` globs `**/*.ts` → a `.ts` Pages Function would be
-    type-checked by `next build` and CI. **Write the function as `.js`.**
-  - `eslint.config.mjs` has a `no-restricted-syntax` rule banning literals incl.
-    `aisafetywatch`, `github.io`, `lareb`, `vaers`… `next build` runs lint, so a
-    hardcoded domain **breaks the build**. **Put no domain literals in the function**
-    and **eslint-ignore `functions/**`.**
-
-## 1. Approach (decided — do not redesign)
-
-1. A Cloudflare **Pages Function** `functions/_middleware.js` gates every request
-   with Basic Auth. It only activates when the env secret `INTERNAL_PASSWORD` is set.
-2. Serve `staging` from a **dedicated Cloudflare Pages project**
-   (`aisafetywatch-internal`) whose **production branch is `staging`**, using
-   **direct-upload deploys from GitHub Actions** (`wrangler pages deploy out`).
-   (A custom domain on a Pages project maps to its *production* branch, which is why
-   `staging` needs its own project rather than a branch alias on the existing one.)
-3. Custom domain **`internal.aisafetywatch.com`** on that project.
-4. **Retire the GitHub Pages deploy** so the ungated URL stops serving.
-
-**Why gate-by-secret-presence:** the public production project (`main`) will not have
-`INTERNAL_PASSWORD`, so even if `functions/_middleware.js` is later merged into `main`,
-production stays open. No hostname allowlist, no banned literals.
-
-**Locked choices:** password-only (blank/any username accepted); subdomain
-`internal.aisafetywatch.com`; gate active iff `INTERNAL_PASSWORD` secret is set.
-
-## 2. Prerequisites to collect before starting
-
-- `INTERNAL_PASSWORD` — the shared password value (**ask the human; never commit it**).
-- `CLOUDFLARE_API_TOKEN` — token with **Account · Cloudflare Pages · Edit**
-  (and **Zone · DNS · Edit** on the `aisafetywatch.com` zone, in case the custom-domain
-  CNAME must be added manually).
-- `CLOUDFLARE_ACCOUNT_ID`.
-- `gh` authenticated with repo admin (to set Actions secrets and disable Pages).
-
-If you lack the Cloudflare token, do the Cloudflare steps via the dashboard (noted inline)
-and hand the human the exact clicks.
+> Supersedes the earlier "whole-site Basic Auth" plan, which was wrong: it gated
+> the entire site and popped a browser username prompt (that work shipped as
+> PR #38 and was reverted by PR #39). **Do not reintroduce a site-wide gate.**
 
 ---
 
-## 3. Repo changes (on the `staging` branch)
+## 0. Context
 
-> Work inside the git repo root: `aijwerkingen.github.io/`. Branch: `staging`.
-> `git switch staging && git pull`.
+- **Repo:** `Aijwerkingen/aijwerkingen.github.io`. Git root is `aijwerkingen.github.io/`.
+- **Stack:** Next.js 16, **static export** (`next.config.ts` → `output: "export"`),
+  build `npm run build`, output `out/`, Node 24.
+- **Deploys:**
+  - `main` → Cloudflare Pages → `aisafetywatch.com`. `/report` there shows a
+    **"The reporting form launches soon"** placeholder (no survey).
+  - `staging` → Cloudflare Pages → **`internal.aisafetywatch.com`**. `/report`
+    there embeds the Qualtrics survey in an iframe. **This is the deploy we change.**
+    Because it's Cloudflare Pages, **Pages Functions are available** (Level 2 works).
+- **Survey embed:** `src/app/report/page.tsx`. On `staging` it renders an `<iframe>`
+  pointing at a Qualtrics URL (currently a hard-coded/`NEXT_PUBLIC_` fallback) and an
+  "open in a new tab" link with the same URL.
 
-### 3a. `functions/_middleware.js` (new file)
+## 1. Goal — exact behavior
+
+`/report` must be gated by a **single shared password**; **nothing else** on the
+site changes (home, about, blog, … stay fully public).
+
+- **Default / wrong / no password:** `/report` shows the **`main` placeholder**
+  ("The reporting form launches soon"). No 401, **no browser username dialog**.
+- **Correct password:** the Qualtrics **iframe** appears in place.
+- **The Qualtrics URL must NOT be in the static bundle** — it is served by an edge
+  Function only after the password is verified. (Otherwise the "gate" is pointless:
+  the URL is a public Qualtrics link reachable directly.)
+
+## 2. Design
+
+- A **Cloudflare Pages Function** `functions/api/report-access.js` holds the password
+  (`INTERNAL_PASSWORD`) and the survey URL (`QUALTRICS_SURVEY_URL`) as **project env**,
+  never in the bundle.
+  - `POST {password}` → correct: set an httpOnly cookie + return `{ url }`; wrong: `401`.
+  - `GET` → valid cookie: return `{ url }`; else `401`.
+- `/report` becomes: server page renders the **placeholder** by default and mounts a
+  small **client component** (`ReportGate`) that, on load, `GET`s the endpoint — if
+  unlocked it swaps in the iframe; otherwise it shows the placeholder plus a password
+  field. Submitting `POST`s the password.
+- **Fail-safe:** if `INTERNAL_PASSWORD` is unset (or the site is served somewhere with
+  no Functions, e.g. plain static), `GET`/`POST` never return a URL → the page stays on
+  the placeholder. Safe by construction.
+
+**Repo guardrails (will break `npm run build` if ignored):**
+- `tsconfig.json` `include` globs `**/*.ts` → write the Function as **`.js`** (not `.ts`).
+- `eslint.config.mjs` bans literals like `aisafetywatch`, `github.io`, `lareb`… and
+  `next build` runs lint. Keep **no** such literals in `functions/**` or `src/**`, and
+  **eslint-ignore `functions/**`**. (The Qualtrics URL is not a banned literal, but we
+  remove it from `src` anyway so it isn't bundled.)
+- CSP in `src/app/layout.tsx` already allows the same-origin fetch
+  (`connect-src 'self'`) and the iframe (`frame-src https://*.qualtrics.com`) — **no CSP
+  change needed.** Verify these lines still exist before finishing.
+
+---
+
+## 3. Repo changes (branch: `staging`)
+
+### 3a. NEW `functions/api/report-access.js`
 
 ```js
-// functions/_middleware.js
+// functions/api/report-access.js
 //
-// Cloudflare Pages Function — shared-password gate (HTTP Basic Auth).
+// Edge gate for the /report survey embed. The Qualtrics URL is NEVER in the
+// static bundle — it lives only in this Function's env and is returned only
+// after the shared password is verified. Only /report is affected; the rest of
+// the site is untouched.
 //
-// The `staging` branch is served at https://internal.aisafetywatch.com via the
-// "aisafetywatch-internal" Pages project. This puts one shared password in front
-// of EVERY request so only people we hand the password to can view the survey.
-//
-//  * Password-only: Basic Auth carries "username:password"; we ignore the
-//    username and validate only the password (blank/any username is fine).
-//  * Active ONLY when INTERNAL_PASSWORD is set on the project. The public
-//    production project (aisafetywatch.com / main) has no such secret, so this
-//    file is transparent there even if merged into main — production is never
-//    locked.
-//  * Constant-time comparison (SHA-256 digests) avoids timing leaks.
+//   POST { password }  -> correct: Set-Cookie(report_access) + { url }
+//                         wrong:   401
+//   GET                -> valid cookie: { url }   else 401
 
-export async function onRequest(context) {
-  const { request, env, next } = context;
-  const expected = env.INTERNAL_PASSWORD;
+const COOKIE = "report_access";
 
-  // No password configured => gate disabled, serve normally.
-  if (!expected) return next();
+export async function onRequestGet(context) {
+  const { request, env } = context;
+  const token = await accessToken(env.INTERNAL_PASSWORD);
+  if (token && cookieValue(request, COOKIE) === token) {
+    return json({ url: env.QUALTRICS_SURVEY_URL });
+  }
+  return json({ error: "locked" }, 401);
+}
 
-  const header = request.headers.get("Authorization") || "";
-  if (header.startsWith("Basic ")) {
-    let decoded = "";
-    try {
-      decoded = atob(header.slice(6));
-    } catch {
-      decoded = "";
-    }
-    const colon = decoded.indexOf(":"); // "username:password"
-    if (colon !== -1) {
-      const supplied = decoded.slice(colon + 1);
-      if (await timingSafeEqual(supplied, expected)) {
-        const res = await next();
-        const out = new Response(res.body, res);
-        out.headers.set("Cache-Control", "no-store");
-        return out;
-      }
-    }
+export async function onRequestPost(context) {
+  const { request, env } = context;
+  if (!env.INTERNAL_PASSWORD) return json({ error: "not-configured" }, 503);
+
+  let password = "";
+  try {
+    const body = await request.json();
+    password = typeof body?.password === "string" ? body.password : "";
+  } catch {
+    /* malformed body -> treated as empty */
   }
 
-  return new Response("Authentication required.", {
-    status: 401,
-    headers: {
-      "WWW-Authenticate": 'Basic realm="Internal preview", charset="UTF-8"',
-      "Cache-Control": "no-store",
-    },
+  if (await timingSafeEqual(password, env.INTERNAL_PASSWORD)) {
+    const token = await accessToken(env.INTERNAL_PASSWORD);
+    return json({ url: env.QUALTRICS_SURVEY_URL }, 200, {
+      // Path=/ so the cookie is also sent to /api/report-access on later GETs.
+      "Set-Cookie": `${COOKIE}=${token}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=43200`,
+    });
+  }
+  return json({ error: "wrong-password" }, 401);
+}
+
+function json(obj, status = 200, extraHeaders = {}) {
+  return new Response(JSON.stringify(obj), {
+    status,
+    headers: { "Content-Type": "application/json", "Cache-Control": "no-store", ...extraHeaders },
   });
 }
 
+function cookieValue(request, name) {
+  const raw = request.headers.get("Cookie") || "";
+  for (const part of raw.split(/;\s*/)) {
+    const eq = part.indexOf("=");
+    if (eq !== -1 && part.slice(0, eq) === name) return part.slice(eq + 1);
+  }
+  return "";
+}
+
+// Opaque, unforgeable cookie value derived from the secret (not the secret itself).
+async function accessToken(secret) {
+  return secret ? sha256Hex("report-access:" + secret) : "";
+}
+
+async function sha256Hex(s) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
 async function timingSafeEqual(a, b) {
-  const enc = new TextEncoder();
-  const [ah, bh] = await Promise.all([
-    crypto.subtle.digest("SHA-256", enc.encode(a)),
-    crypto.subtle.digest("SHA-256", enc.encode(b)),
-  ]);
-  const av = new Uint8Array(ah);
-  const bv = new Uint8Array(bh);
+  const [ah, bh] = await Promise.all([sha256Hex(a), sha256Hex(b)]);
   let diff = 0;
-  for (let i = 0; i < av.length; i++) diff |= av[i] ^ bv[i];
+  for (let i = 0; i < ah.length; i++) diff |= ah.charCodeAt(i) ^ bh.charCodeAt(i);
   return diff === 0;
 }
 ```
 
-### 3b. `eslint.config.mjs` — ignore `functions/**`
+### 3b. NEW `src/app/report/ReportGate.tsx` (client component)
 
-In the `globalIgnores([...])` array add `"functions/**"`:
+```tsx
+"use client";
 
-```js
-  globalIgnores([
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
-    "functions/**", // Cloudflare Pages Functions — not part of the Next app
-  ]),
+import { useEffect, useState } from "react";
+import Link from "next/link";
+
+type GateState =
+  | { status: "loading" }
+  | { status: "locked"; error?: string }
+  | { status: "unlocked"; url: string };
+
+export function ReportGate() {
+  const [state, setState] = useState<GateState>({ status: "loading" });
+  const [password, setPassword] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    let alive = true;
+    fetch("/api/report-access", { credentials: "same-origin" })
+      .then((r) => (r.ok ? r.json() : Promise.reject(r)))
+      .then((d) => alive && setState({ status: "unlocked", url: d.url }))
+      .catch(() => alive && setState({ status: "locked" }));
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      const r = await fetch("/api/report-access", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify({ password }),
+      });
+      if (r.ok) {
+        const d = await r.json();
+        setState({ status: "unlocked", url: d.url });
+      } else {
+        setState({ status: "locked", error: "That password didn’t work." });
+      }
+    } catch {
+      setState({ status: "locked", error: "Something went wrong. Please try again." });
+    } finally {
+      setSubmitting(false);
+      setPassword("");
+    }
+  }
+
+  if (state.status === "unlocked") {
+    return (
+      <>
+        <div className="mt-8 overflow-hidden rounded-2xl border border-line bg-surface shadow-sm">
+          <iframe
+            src={state.url}
+            title="Experience report form"
+            className="h-[900px] w-full"
+            referrerPolicy="no-referrer"
+            allowFullScreen={false}
+            sandbox="allow-scripts allow-forms allow-same-origin allow-popups"
+          />
+        </div>
+        <p className="mt-4 text-sm text-ink-soft">
+          Form not loading, or prefer a full page?{" "}
+          <a href={state.url} target="_blank" rel="noopener noreferrer" className="link">
+            Open it in a new tab
+          </a>
+          .
+        </p>
+      </>
+    );
+  }
+
+  // loading OR locked -> render the public "launches soon" placeholder (= main),
+  // plus the password field so the team can unlock the embed.
+  return (
+    <div className="mt-8 overflow-hidden rounded-2xl border border-line bg-surface p-10 text-center shadow-sm">
+      <h2 className="text-xl font-semibold">The reporting form launches soon</h2>
+      <p className="mx-auto mt-3 max-w-xl text-ink-soft">
+        The public reporting platform is nearly ready. When it launches, the anonymous
+        report form will appear on this page. Until then, you can read about what we are
+        building in the{" "}
+        <Link href="/blog/launching-soon-report-ai-side-effects" className="link">
+          launch announcement
+        </Link>
+        .
+      </p>
+
+      {state.status === "locked" && (
+        <form onSubmit={onSubmit} className="mx-auto mt-8 flex max-w-sm flex-col gap-3">
+          <label htmlFor="report-pw" className="text-sm text-ink-soft">
+            Team preview password
+          </label>
+          <input
+            id="report-pw"
+            type="password"
+            autoComplete="off"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="rounded-lg border border-line bg-canvas px-3 py-2"
+          />
+          <button
+            type="submit"
+            disabled={submitting || password.length === 0}
+            className="rounded-lg bg-accent px-4 py-2 font-medium text-white disabled:opacity-50"
+          >
+            {submitting ? "Checking…" : "Unlock preview"}
+          </button>
+          {state.error && <p className="text-sm text-red-600">{state.error}</p>}
+        </form>
+      )}
+    </div>
+  );
+}
 ```
 
-### 3c. `tsconfig.json` — exclude `functions` (belt-and-suspenders)
+> Match the exact class names / button styles to the project's design system if they
+> differ; the structure above is what matters. Reuse the `main` placeholder copy verbatim
+> so the locked state is pixel-identical to production.
 
-```json
-  "exclude": ["node_modules", "functions"]
+### 3c. EDIT `src/app/report/page.tsx`
+
+- Remove the `QUALTRICS_SURVEY_URL` constant and the inline `<iframe>` / "open in a new
+  tab" block (they move into `ReportGate`).
+- Remove the now-unused `NEXT_PUBLIC_QUALTRICS_SURVEY_URL` reference.
+- Import and render `<ReportGate />` where the iframe block used to be. Keep the header
+  `<section>` and the `CrisisHelpline` notice exactly as they are.
+- Optional: set `metadata.description` to the `main` "launches soon" copy so crawlers/SEO
+  see the public state (the survey never renders server-side anyway).
+
+Resulting body sketch:
+
+```tsx
+import type { Metadata } from "next";
+import { siteConfig } from "@/site.config";
+import { CrisisHelpline } from "@/components/CrisisHelpline";
+import { ReportGate } from "./ReportGate";
+
+export const metadata: Metadata = {
+  title: "Report your experience",
+  description:
+    "The public reporting platform launches soon. When it is live, the anonymous report form will appear here.",
+  alternates: { canonical: "/report" },
+};
+
+export default function ReportPage() {
+  // ...unchanged JSON-LD + <section> header + CrisisHelpline notice...
+  // then, in place of the old iframe block:
+  //   <ReportGate />
+}
 ```
 
-### 3d. Verify the build is still green, then commit
+### 3d. EDIT `eslint.config.mjs` — ignore `functions/**`
+
+Add `"functions/**"` to the `globalIgnores([...])` array.
+
+### 3e. EDIT `tsconfig.json` — exclude `functions`
+
+`"exclude": ["node_modules", "functions"]`.
+
+### 3f. EDIT `.env.example`
+
+Replace the `NEXT_PUBLIC_QUALTRICS_SURVEY_URL` entry with a note that the survey URL is
+now a **server-side** Pages env var `QUALTRICS_SURVEY_URL` (not `NEXT_PUBLIC_`, so it is
+never bundled), set on the Cloudflare project — see Section 4.
+
+### 3g. Build locally — must pass
 
 ```bash
 npm ci
-npm run build      # must pass: next lint + type-check + static export
+npm run build   # next lint + type-check + static export must all pass
 ```
-
-If green:
-
-```bash
-git add functions/_middleware.js eslint.config.mjs tsconfig.json
-git commit -m "Add Basic Auth gate for internal staging preview"
-```
-
-Do **not** push yet if you want to create Cloudflare infra first; either order works
-because the gate is inert until the secret exists. Recommended order: create the project
-and set the secret (Section 4–5), then push (Section 6 workflow triggers the deploy).
 
 ---
 
-## 4. Create the Cloudflare Pages project
+## 4. Cloudflare project config (the `staging` / internal.aisafetywatch.com project)
 
-Export env for the CLI:
+Set two env vars on the Pages project that serves `internal.aisafetywatch.com`
+(Production environment, since the custom domain serves production):
 
 ```bash
-export CLOUDFLARE_API_TOKEN=***   # Pages:Edit (+ DNS:Edit)
+export CLOUDFLARE_API_TOKEN=***      # Pages:Edit
 export CLOUDFLARE_ACCOUNT_ID=***
-```
+PROJECT=<the staging pages project name>   # e.g. aisafetywatch-internal
 
-Create a **direct-upload** project whose production branch is `staging`:
-
-```bash
-npx wrangler@latest pages project create aisafetywatch-internal \
-  --production-branch=staging
-```
-
-> Dashboard fallback: Workers & Pages → Create → Pages → "Direct upload" (or connect
-> the repo with production branch `staging`, build `npm run build`, output `out`).
-> Direct-upload from Actions is the model this plan uses.
-
-## 5. Set the shared password as a project secret
-
-```bash
 printf '%s' "$INTERNAL_PASSWORD" | \
-  npx wrangler@latest pages secret put INTERNAL_PASSWORD \
-  --project-name=aisafetywatch-internal
+  npx wrangler@latest pages secret put INTERNAL_PASSWORD --project-name="$PROJECT"
+
+printf '%s' "$QUALTRICS_SURVEY_URL" | \
+  npx wrangler@latest pages secret put QUALTRICS_SURVEY_URL --project-name="$PROJECT"
 ```
 
-(Sets it for the production environment. Secrets take effect on the **next** deploy.)
+`QUALTRICS_SURVEY_URL` value = the real survey link (e.g. the current
+`https://qualtricsxm6gyvfq8rn.qualtrics.com/jfe/form/SV_ddoaHNEsGsbDnwi`, or the real
+anonymous link when it's ready).
 
 > Dashboard fallback: project → Settings → Variables and Secrets → add **encrypted**
-> `INTERNAL_PASSWORD` (Production).
+> `INTERNAL_PASSWORD` and `QUALTRICS_SURVEY_URL` (Production). Secrets apply on the next
+> deploy.
 
-## 6. Wire the GitHub Actions deploy (replaces GitHub Pages)
+## 5. Deploy
 
-Add the repo Actions secrets:
-
-```bash
-gh secret set CLOUDFLARE_API_TOKEN  --repo Aijwerkingen/aijwerkingen.github.io
-gh secret set CLOUDFLARE_ACCOUNT_ID --repo Aijwerkingen/aijwerkingen.github.io
-```
-
-Replace `.github/workflows/deploy.yml` entirely with:
-
-```yaml
-name: Deploy staging to Cloudflare (internal)
-
-on:
-  push:
-    branches: [staging]
-  workflow_dispatch:
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm run build
-      - name: Deploy to Cloudflare Pages (internal)
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: >
-          npx wrangler@latest pages deploy out
-          --project-name=aisafetywatch-internal
-          --branch=staging
-```
-
-`wrangler pages deploy` automatically bundles `functions/` into the deployment, so the
-Basic Auth middleware ships with it. `--branch=staging` matches the project's production
-branch, so the deploy becomes the **production** deployment that the custom domain serves.
-
-Commit the workflow change together with Section 3, then push `staging`:
+Push `staging`; the existing pipeline builds and deploys to the Cloudflare project.
+`wrangler pages deploy` (or the Git integration) automatically bundles `functions/`, so
+`/api/report-access` ships with the build.
 
 ```bash
-git add .github/workflows/deploy.yml
-git commit -m "Deploy staging to Cloudflare internal project instead of GitHub Pages"
+git add functions/api/report-access.js src/app/report/ReportGate.tsx \
+        src/app/report/page.tsx eslint.config.mjs tsconfig.json .env.example
+git commit -m "Gate /report survey embed behind shared password (edge-validated)"
 git push origin staging
 ```
 
-Watch the run: `gh run watch --repo Aijwerkingen/aijwerkingen.github.io`.
-
-## 7. Attach the custom domain `internal.aisafetywatch.com`
-
-API (zone is on Cloudflare in the same account, so DNS is provisioned automatically):
-
-```bash
-curl -sS -X POST \
-  "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/aisafetywatch-internal/domains" \
-  -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-  -H "Content-Type: application/json" \
-  --data '{"name":"internal.aisafetywatch.com"}'
-```
-
-> Dashboard fallback: project → Custom domains → Set up a custom domain →
-> `internal.aisafetywatch.com` → accept the auto-created CNAME.
->
-> If DNS is **not** auto-created, add a proxied CNAME `internal` →
-> `aisafetywatch-internal.pages.dev` in the `aisafetywatch.com` zone.
-
-Wait for the domain to show **Active** (TLS cert issued — usually a minute or two).
-
-## 8. Retire the GitHub Pages exposure
-
-The workflow no longer publishes to Pages, but the existing site stays live until Pages
-is turned off. Disable it:
-
-```bash
-gh api -X DELETE repos/Aijwerkingen/aijwerkingen.github.io/pages
-```
-
-> Dashboard fallback: repo → Settings → Pages → Source → **None**.
-
-Note: this is a `*.github.io` **org/user** Pages repo, so this takes down the org root
-site `https://aijwerkingen.github.io`. That is intended.
-
 ---
 
-## 9. Verification
+## 6. Verification
 
 ```bash
+BASE=https://internal.aisafetywatch.com
 PW='the shared password'
 
-# Gate challenges anonymous requests:
-curl -sI https://internal.aisafetywatch.com/ | grep -Ei 'HTTP/|www-authenticate'
-#   expect: HTTP/2 401  +  www-authenticate: Basic realm="Internal preview"...
+# Rest of the site stays public:
+curl -sI "$BASE/" | grep -i 'HTTP/'                  # 200, no auth prompt
+curl -sI "$BASE/about" | grep -i 'HTTP/'             # 200
 
-# Password-only works (blank username, ':' prefix):
-curl -sI -u ":$PW" https://internal.aisafetywatch.com/ | grep -i 'HTTP/'
-#   expect: HTTP/2 200
+# /report page itself loads publicly (placeholder), no username dialog:
+curl -sI "$BASE/report" | grep -i 'HTTP/'            # 200
+
+# The survey URL is NOT in the page HTML:
+curl -s "$BASE/report" | grep -ci 'qualtrics'        # expect 0
+
+# Endpoint is locked without the cookie:
+curl -s "$BASE/api/report-access" | head             # {"error":"locked"} (401)
 
 # Wrong password rejected:
-curl -sI -u ":nope" https://internal.aisafetywatch.com/ | grep -i 'HTTP/'
-#   expect: HTTP/2 401
+curl -s -X POST "$BASE/api/report-access" \
+  -H 'Content-Type: application/json' --data '{"password":"nope"}'   # 401
 
-# Static assets are ALSO gated (no leak via /_next/...):
-curl -sI https://internal.aisafetywatch.com/_next/ | grep -i 'HTTP/'
-#   expect: HTTP/2 401
-
-# Production stays OPEN and untouched:
-curl -sI https://aisafetywatch.com/ | grep -i 'HTTP/'
-#   expect: HTTP/2 200 (no auth prompt)
-
-# Old GitHub Pages URL no longer serves the survey:
-curl -sI https://aijwerkingen.github.io/ | grep -i 'HTTP/'
-#   expect: 404 / not the survey
+# Correct password returns the URL and sets the cookie:
+curl -s -X POST "$BASE/api/report-access" \
+  -H 'Content-Type: application/json' --data "{\"password\":\"$PW\"}" -i | head
+#   expect: 200, Set-Cookie: report_access=...; and body {"url":"https://...qualtrics..."}
 ```
 
-Also open `https://internal.aisafetywatch.com` in a private browser window: the browser
-prompts for username+password — leave username blank, enter the shared password, confirm
-the survey loads.
+Browser check: open `$BASE/report` → placeholder + password field, no username dialog.
+Enter the wrong password → still placeholder, inline error. Enter the correct password →
+the Qualtrics iframe appears; reload → stays unlocked (cookie) with no re-entry.
 
-## 10. Rollback
+## 7. Rollback
 
-- **Re-open staging publicly:** delete the `INTERNAL_PASSWORD` secret and redeploy — the
-  gate goes inert (`next()` passthrough).
-- **Undo entirely:** `git revert` the two commits; remove the custom domain
-  (`DELETE .../pages/projects/aisafetywatch-internal/domains/internal.aisafetywatch.com`);
-  delete the project (`wrangler pages project delete aisafetywatch-internal`);
-  re-enable GitHub Pages (restore old `deploy.yml`, or Settings → Pages → source `staging`).
+- Revert the commit (`git revert`), push. `/report` returns to the plain iframe (or
+  restore `main`'s placeholder — your call).
+- Or just remove `INTERNAL_PASSWORD` from the project and redeploy → `/report` stays on
+  the placeholder for everyone (survey never unlocks).
 
-## 11. Gotchas / operational notes
+## 8. Notes / gotchas
 
-- **Password rotation:** re-run the Section 5 `secret put`, then trigger a redeploy
-  (`gh workflow run` / push) — secrets apply on the next deployment, not retroactively.
-- **"Logging out":** browsers cache Basic credentials for the origin until the window is
-  closed; use a private window to re-test the prompt.
-- **Sharing:** send guests the URL + the one password. Any username works; blank is fine.
-- **Do not** merge `functions/_middleware.js`'s activation to production by setting
-  `INTERNAL_PASSWORD` on the *main* project — that would lock `aisafetywatch.com`.
-- The middleware runs ahead of static assets (Pages Functions precede asset serving), so
-  HTML and `/_next/*` assets are equally protected — no `_routes.json` needed.
-- Everything is HTTPS via Cloudflare; Basic Auth must never be served over plain HTTP.
+- **Only `/report` is affected.** Do **not** add a `functions/_middleware.js` (that gates
+  the whole site and shows a browser username prompt — the reverted PR #38 mistake).
+- **Password rotation:** re-run `pages secret put INTERNAL_PASSWORD`, redeploy. Existing
+  cookies (derived from the old secret) stop matching automatically.
+- **"Log out":** cookie is `Max-Age=43200` (12h) and `HttpOnly`; clear cookies or use a
+  private window to re-lock sooner.
+- **Sharing:** hand colleagues the URL + the one password; they type only a password
+  (no username). They can also browse the rest of the site freely.
+- The real survey lives on Qualtrics. This gate hides the *entry point*; for hard
+  protection of the survey itself, also enable Qualtrics' own Survey Password Protection.
 ```
