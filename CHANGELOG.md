@@ -85,6 +85,14 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-08-20 - Phase 2 - eng (Hermes) - /report survey embed gated behind shared password (INTERNAL_AUTH_PLAN v2)
+
+- `functions/api/report-access.js` (new): edge Function — Qualtrics URL returned only after password verified (POST sets httpOnly `report_access` cookie; GET checks it). URL never in the static bundle.
+- `src/app/report/ReportGate.tsx` (new) + `page.tsx` edit: `/report` renders main's "The reporting form launches soon" placeholder by default; correct password swaps in the Qualtrics iframe. Only `/report` affected — rest of the site stays public.
+- `deploy.yml`: staging deploys back to CF Pages project `aisafetywatch-internal` (wrangler) so the Function ships; eslint/tsconfig ignore `functions/**`.
+- Project env: `INTERNAL_PASSWORD` + `QUALTRICS_SURVEY_URL` (server-side, never `NEXT_PUBLIC_`). Fail-safe: with `INTERNAL_PASSWORD` unset the page stays on the placeholder.
+- Survey ID unchanged (`SV_ddoaHNEsGsbDnwi`); P0 gates (D3/D4, EU residency) still open — this gates the staging entry point only.
+
 ### 2026-08-20 - Phase 2 - eng (Hermes) - REVERT: internal auth gate (PR #38) rolled back at owner direction
 
 - Reverted merge `0cf7581` (feat/internal-auth-gate): `functions/_middleware.js` removed, `eslint.config.mjs`/`tsconfig.json` functions ignores reverted, `deploy.yml` restored to GitHub Pages deploy.
