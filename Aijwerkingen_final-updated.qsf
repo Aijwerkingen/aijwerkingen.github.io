@@ -1,7 +1,7 @@
 {
   "SurveyEntry": {
     "SurveyID": "SV_eA4y9ucLih6un8a",
-    "SurveyName": "Aijwerkingen",
+    "SurveyName": "AISafetyWatch",
     "SurveyDescription": null,
     "SurveyOwnerID": "UR_1d4wYNEiJfrxJpQ",
     "SurveyBrandID": "qualtricsxmwdy4hl99w",
@@ -348,7 +348,13 @@
               },
               {
                 "Type": "EndSurvey",
-                "FlowID": "FL_32"
+                "FlowID": "FL_32",
+                "EndingType": "Advanced",
+                "Options": {
+                  "Advanced": "true",
+                  "SurveyTermination": "DefaultMessage",
+                  "ResponseFlag": "Screened"
+                }
               }
             ]
           },
@@ -537,7 +543,7 @@
         "ValidationMessage": "",
         "PreviousButton": "",
         "NextButton": "",
-        "SurveyTitle": "Qualtrics Survey | Qualtrics Experience Management",
+        "SurveyTitle": "AISafetyWatch",
         "SkinLibrary": "qualtricsxmwdy4hl99w",
         "SkinType": "component",
         "Skin": {
@@ -547,7 +553,7 @@
         },
         "NewScoring": 1,
         "SurveyMetaDescription": "The most powerful, simple and trusted way to gather experience data. Start your journey to experience management and try a free account today.",
-        "SurveyName": "Aijwerkingen",
+        "SurveyName": "AISafetyWatch",
         "ProtectSelectionIds": true
       }
     },
