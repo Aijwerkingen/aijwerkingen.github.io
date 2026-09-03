@@ -127,6 +127,11 @@ export default function RootLayout({
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data:",
     "connect-src 'self' https://ipapi.co",
+    // Allow embedding the Qualtrics survey iframe on /report. Wildcard (not the
+    // exact instance host) keeps the specific survey origin out of the static
+    // bundle, consistent with the report-access edge gate. See
+    // qualtrics-integration.md B2.
+    "frame-src https://*.qualtrics.com",
   ].join("; ");
 
   return (
