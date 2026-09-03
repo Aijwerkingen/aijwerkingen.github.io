@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { BrandName } from "@/brand/BrandLockup";
 import {
   ChatIcon,
   ClockIcon,
@@ -7,6 +6,22 @@ import {
   PulseIcon,
   ShieldIcon,
 } from "@/components/Icons";
+import { content } from "@/content.config";
+import { RichLine } from "@/content/RichText";
+
+const { hero, why, how, closing } = content.home;
+
+// Icons are presentation, not copy, so they stay here and zip with the config text.
+const whyIcons = [
+  <ShieldIcon key="shield" className="size-5" />,
+  <ClockIcon key="clock" className="size-5" />,
+  <PulseIcon key="pulse" className="size-5" />,
+];
+const howIcons = [
+  <ChatIcon key="chat" className="size-5" />,
+  <NoteIcon key="note" className="size-5" />,
+  <PulseIcon key="pulse" className="size-5" />,
+];
 
 export default function HomePage() {
   return (
@@ -15,34 +30,30 @@ export default function HomePage() {
         <HeroTrace />
 
         <div className="mx-auto max-w-3xl px-4 pt-20 pb-24 text-center sm:pt-24">
-          <p className="eyebrow">Anonymous · Free · A few minutes</p>
+          <p className="eyebrow">{hero.eyebrow}</p>
 
           <h1 className="font-display mt-4 text-4xl leading-[1.1] font-extrabold tracking-tight text-balance sm:text-5xl">
-            Feeling worse after using an AI tool or social media?
+            {hero.title}
           </h1>
 
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-ink-soft">
-            <BrandName /> lets you report distress you felt during or after
-            using a conversational AI tool, app, or social media platform - in a
-            few minutes, whether it happened to you or someone you support. Your
-            report helps spot patterns of harm earlier.
+            <RichLine spans={hero.body} />
           </p>
 
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
-            <Link href="/report" className="btn-primary">
-              Report your experience
-            </Link>
-            <Link href="/faq" className="btn-secondary">
-              Common questions
-            </Link>
+            {hero.ctas.map((cta, i) => (
+              <Link
+                key={cta.href}
+                href={cta.href}
+                className={i === 0 ? "btn-primary" : "btn-secondary"}
+              >
+                {cta.label}
+              </Link>
+            ))}
           </div>
 
           <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-ink-soft">
-            {[
-              "No account needed",
-              "You can stop at any point",
-              "Your words are enough",
-            ].map((item) => (
+            {hero.chips.map((item) => (
               <li key={item} className="flex items-center gap-2">
                 <CheckDot />
                 {item}
@@ -54,59 +65,43 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-5xl px-4 py-20">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow">Why report</p>
+          <p className="eyebrow">{why.eyebrow}</p>
           <h2 className="font-display mt-3 text-3xl font-extrabold tracking-tight text-balance">
-            For you alone, it may be a feeling. Together they are a signal.
+            {why.title}
           </h2>
         </div>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-3">
-          <TrustCard
-            icon={<ShieldIcon className="size-5" />}
-            title="Anonymous by default"
-            body="We collect only what's necessary to understand your report. No account required, and no name asked for."
-          />
-          <TrustCard
-            icon={<ClockIcon className="size-5" />}
-            title="A few minutes"
-            body="A short, plain-language form. No technical knowledge needed, and nothing you have to justify."
-          />
-          <TrustCard
-            icon={<PulseIcon className="size-5" />}
-            title="Built for monitoring"
-            body="Reports feed ongoing monitoring for patterns of harm across conversational AI tools and social media platforms."
-          />
+          {why.cards.map((card, i) => (
+            <TrustCard
+              key={card.title}
+              icon={whyIcons[i]}
+              title={card.title}
+              body={card.body}
+            />
+          ))}
         </div>
       </section>
 
       <section className="border-y border-line bg-canvas">
         <div className="mx-auto max-w-5xl px-4 py-20">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="eyebrow">How it works</p>
+            <p className="eyebrow">{how.eyebrow}</p>
             <h2 className="font-display mt-3 text-3xl font-extrabold tracking-tight text-balance">
-              Three steps, in your own words
+              {how.title}
             </h2>
           </div>
 
           <ol className="mt-12 grid gap-6 sm:grid-cols-3">
-            <Step
-              n={1}
-              icon={<ChatIcon className="size-5" />}
-              title="Describe how you felt"
-              body="In plain language. Mild or overwhelming, during use or afterwards - if you noticed it, it counts."
-            />
-            <Step
-              n={2}
-              icon={<NoteIcon className="size-5" />}
-              title="Add any context"
-              body="The tool or platform involved, and roughly when. An approximate name or a general description is fine."
-            />
-            <Step
-              n={3}
-              icon={<PulseIcon className="size-5" />}
-              title="It becomes a signal"
-              body="Your report is reviewed alongside others to surface patterns that a single experience can't show on its own."
-            />
+            {how.steps.map((step, i) => (
+              <Step
+                key={step.title}
+                n={i + 1}
+                icon={howIcons[i]}
+                title={step.title}
+                body={step.body}
+              />
+            ))}
           </ol>
         </div>
       </section>
@@ -114,15 +109,14 @@ export default function HomePage() {
       <section className="mx-auto max-w-5xl px-4 py-20">
         <div className="rounded-3xl border border-accent-line bg-accent-soft px-6 py-14 text-center">
           <h2 className="font-display text-3xl font-extrabold tracking-tight text-balance">
-            Ready when you are
+            {closing.title}
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-pretty text-ink-soft">
-            You don&apos;t need to be certain, and you don&apos;t need to name
-            every app. Start with what you remember.
+            {closing.body}
           </p>
           <div className="mt-8">
-            <Link href="/report" className="btn-primary">
-              Report your experience
+            <Link href={closing.cta.href} className="btn-primary">
+              {closing.cta.label}
             </Link>
           </div>
         </div>

@@ -13,6 +13,7 @@ import { BrandProvider } from "@/brand/BrandProvider";
 import { BrandLockup, BrandName } from "@/brand/BrandLockup";
 import { AdminDrawer } from "@/admin/AdminDrawer";
 import { CrisisHelpline } from "@/components/CrisisHelpline";
+import { content } from "@/content.config";
 
 // Matches the supplied lockup artwork: Nunito for the wordmark and headings,
 // Nunito Sans for running text. next/font self-hosts both at build time, so no
@@ -46,8 +47,7 @@ export const metadata: Metadata = {
     default: `${siteConfig.name} - Report distress from AI or social media`,
     template: `%s - ${siteConfig.name}`,
   },
-  description:
-    "Report distress you felt during or after using a conversational AI tool, app, or social media platform. Fast, confidential, and free.",
+  description: content.meta.defaultDescription,
   alternates: {
     canonical: "/",
   },
@@ -90,30 +90,9 @@ export const metadata: Metadata = {
   },
 };
 
-/** Header nav - kept short so the lockup and the CTA keep their room. */
-const nav = [
-  { href: "/about", label: "About" },
-  { href: "/blog", label: "Blog" },
-  { href: "/faq", label: "FAQ" },
-];
-
-const footerNav = {
-  Site: [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/how-it-works", label: "How it works" },
-    { href: "/blog", label: "Blog" },
-    { href: "/faq", label: "FAQ" },
-    { href: "/report", label: "Report your experience" },
-    { href: "/helplines", label: "Crisis helplines" },
-  ],
-  Legal: [
-    { href: "/privacy", label: "Privacy notice" },
-    { href: "/terms", label: "Terms & disclaimer" },
-    { href: "/accessibility", label: "Accessibility" },
-    { href: "/contact", label: "Contact" },
-  ],
-};
+// Nav and footer copy come from content.config.ts (single source for copy).
+const nav = content.nav;
+const footerNav = content.footerNav;
 
 export default function RootLayout({
   children,
@@ -176,7 +155,7 @@ export default function RootLayout({
               focus:z-50 focus:rounded-md focus:bg-ink focus:px-4 focus:py-2
               focus:text-sm focus:font-semibold focus:text-white"
           >
-            Skip to content
+            {content.header.skipToContent}
           </a>
 
           <header className="sticky top-0 z-30 border-b border-line bg-surface/85 backdrop-blur">
@@ -196,8 +175,10 @@ export default function RootLayout({
                   </Link>
                 ))}
                 <Link href="/report" className="btn-primary btn-sm">
-                  <span className="hidden sm:inline">Report your experience</span>
-                  <span className="sm:hidden">Report</span>
+                  <span className="hidden sm:inline">
+                    {content.header.reportCta}
+                  </span>
+                  <span className="sm:hidden">{content.header.reportCtaShort}</span>
                 </Link>
               </nav>
             </div>
@@ -282,7 +263,7 @@ function FooterProvenance() {
 
   return (
     <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
-      A research instrument from{" "}
+      {content.footerProvenanceLead}
       {institutionUrl ? (
         <a
           href={institutionUrl}

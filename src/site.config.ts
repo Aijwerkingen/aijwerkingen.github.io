@@ -166,6 +166,21 @@ export const siteConfig = {
     lastReviewed: "",
   },
 
+  /**
+   * Report-form embed (Qualtrics) postMessage handshake.
+   *
+   * The survey's own script posts `{ sender, event }` to the parent window when
+   * a respondent finishes, which is how the report page swaps the iframe for the
+   * thank-you state. These values must match that script EXACTLY - changing them
+   * here without updating the survey breaks completion detection. Kept in this
+   * file because ADR-008 forbids the brand-derived `sender` token from being
+   * hard-coded anywhere in app code.
+   */
+  reportEmbed: {
+    completedSender: "aijwerkingen-survey",
+    completedEvent: "completed",
+  },
+
   // ADR-010 satisfied: the final domain (aisafetywatch.com) is live and
   // confirmed, so the site opens to crawlers. Legal pages stay noindex
   // independently via `legal.approved` until DPO sign-off.

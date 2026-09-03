@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/blog";
 import { siteConfig } from "@/site.config";
+import { content } from "@/content.config";
 import { PostCard } from "./PostCard";
 
 export const metadata: Metadata = {
-  title: "Blog",
-  description:
-    "Articles on recognising distress linked to AI tools and social media, how reporting works, and what the reports are telling us.",
+  title: content.meta.pages.blog.title,
+  description: content.meta.pages.blog.description,
   alternates: {
     canonical: "/blog",
     // Lets browsers and feed readers auto-discover the RSS feed from any blog page.
@@ -46,23 +46,19 @@ export default function BlogIndexPage() {
 
       <section className="border-b border-line bg-canvas">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-          <p className="eyebrow">Blog</p>
+          <p className="eyebrow">{content.blog.eyebrow}</p>
           <h1 className="font-display mt-3 text-4xl font-extrabold tracking-tight text-balance">
-            Writing on AI, distress, and reporting
+            {content.blog.title}
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-pretty text-ink-soft">
-            Articles, in the public interest, on spotting when an AI tool or social
-            platform is affecting how you feel, and what happens to the reports
-            you send us.
+            {content.blog.intro}
           </p>
         </div>
       </section>
 
       <div className="mx-auto max-w-3xl px-4 py-16">
         {posts.length === 0 ? (
-          <p className="text-center text-ink-soft">
-            No posts yet - check back soon.
-          </p>
+          <p className="text-center text-ink-soft">{content.blog.empty}</p>
         ) : (
           <ul className="space-y-8">
             {posts.map((post) => (
