@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { siteConfig } from "@/site.config";
 import { CrisisHelpline } from "@/components/CrisisHelpline";
 import { ReportGate } from "./ReportGate";
