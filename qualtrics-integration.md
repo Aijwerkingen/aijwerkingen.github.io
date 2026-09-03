@@ -74,9 +74,11 @@ You now have the two values the app needs:
 Set env vars (spec `.env.example`):
 ```
 SURVEY_PROVIDER="qualtrics"
-QUALTRICS_SURVEY_URL="https://YOURBRAND.eu.qualtrics.com/jfe/form/SV_xxxxxxxx"
-QUALTRICS_ORIGIN="https://YOURBRAND.eu.qualtrics.com"
+QUALTRICS_SURVEY_URL="https://uva.fra1.qualtrics.com/jfe/form/SV_1zdQGq7PaFsv2Jg"
+QUALTRICS_ORIGIN="https://uva.fra1.qualtrics.com"
 ```
+> Current instance: UvA's EU datacenter is served from `*.fra1.qualtrics.com`
+> (Frankfurt), not the `*.eu.qualtrics.com` brand form - both are EU regions.
 `SURVEY_PROVIDER="qualtrics"` selects Mode A; the `/report` page renders the Qualtrics provider (spec §8.1–8.2). Switching to Mode B later is just changing this value + redeploy.
 
 ### B2. Content-Security-Policy - allow the Qualtrics frame
