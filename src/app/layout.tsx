@@ -44,7 +44,7 @@ const buildYear = new Date().getFullYear();
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.canonicalUrl),
   title: {
-    default: `${siteConfig.name} - Report distress from AI or social media`,
+    default: `${siteConfig.name} - `,
     template: `%s - ${siteConfig.name}`,
   },
   description: content.meta.defaultDescription,

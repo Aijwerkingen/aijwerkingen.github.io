@@ -63,8 +63,13 @@ export const content = {
      this is the default description and every per-page title + description. */
   meta: {
     defaultDescription:
-      "Report distress you felt during or after using a conversational AI tool, app, or social media platform. Fast, confidential, and free.",
+      "The global reporting platform for psychological harm due to AI technology.",
     pages: {
+      home: {
+        title: "",
+        description:
+          "Global reporting platform for psychological effects of AI technology. Report your subjective experience from any AI exposure or interaction.",
+      },
       about: {
         title: "About",
         description:
@@ -73,22 +78,22 @@ export const content = {
       howItWorks: {
         title: "How reporting works",
         description:
-          "What happens when you report distress linked to an AI tool or social media platform: what you're asked, what we store, and what your report contributes to.",
+          "What happens when you report psychological effects of AI - what you're asked, what we store, and what your report contributes to.",
       },
       faq: {
         title: "FAQ",
         description:
-          "Answers to common questions about reporting distress linked to an AI tool or social media platform: what to report, anonymity, what happens next, and who can report.",
+          "Answers to common questions about reporting incidents of psychological effects after AI exposure or interaction: what to report, privacy, what happens next, and who can report.",
       },
       blog: {
         title: "Blog",
         description:
-          "Articles on recognising distress linked to AI tools and social media, how reporting works, and what the reports are telling us.",
+          "Relevant articles and updates on the global reporting center for psychological effects due to AI technology",
       },
       report: {
         title: "Report your experience",
         description:
-          "The public reporting platform launches soon. When it is live, the anonymous report form will appear here.",
+          "The public reporting platform launches soon. When it is live, the report form will appear here.",
       },
       helplines: {
         title: "Crisis helplines & resources",

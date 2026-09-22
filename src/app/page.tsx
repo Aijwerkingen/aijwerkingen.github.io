@@ -8,6 +8,12 @@ import {
 } from "@/components/Icons";
 import { content } from "@/content.config";
 import { RichLine } from "@/content/RichText";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: content.meta.pages.home.title,
+  description: content.meta.pages.home.description,
+};
 
 const { hero, why, how, closing } = content.home;
 
