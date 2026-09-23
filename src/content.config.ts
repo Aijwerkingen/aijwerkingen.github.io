@@ -63,8 +63,13 @@ export const content = {
      this is the default description and every per-page title + description. */
   meta: {
     defaultDescription:
-      "Report distress you felt during or after using a conversational AI tool, app, or social media platform. Fast, confidential, and free.",
+      "The global reporting platform for psychological effects of AI technology.",
     pages: {
+      home: {
+        title: "",
+        description:
+          "Global reporting platform for psychological effects of AI technology. Report your subjective experience from any AI exposure or interaction.",
+      },
       about: {
         title: "About",
         description:
@@ -73,22 +78,22 @@ export const content = {
       howItWorks: {
         title: "How reporting works",
         description:
-          "What happens when you report distress linked to an AI tool or social media platform: what you're asked, what we store, and what your report contributes to.",
+          "What happens when you report psychological effects of AI - what you're asked, what we store, and what your report contributes to.",
       },
       faq: {
         title: "FAQ",
         description:
-          "Answers to common questions about reporting distress linked to an AI tool or social media platform: what to report, anonymity, what happens next, and who can report.",
+          "Answers to common questions about reporting incidents of psychological effects after AI exposure or interaction: what to report, privacy, what happens next, and who can report.",
       },
       blog: {
         title: "Blog",
         description:
-          "Articles on recognising distress linked to AI tools and social media, how reporting works, and what the reports are telling us.",
+          "Relevant articles and updates on the global reporting platform for psychological effects of AI technology",
       },
       report: {
         title: "Report your experience",
         description:
-          "The public reporting platform launches soon. When it is live, the anonymous report form will appear here.",
+          "The public reporting platform launches soon. When it is live, the report form will appear here.",
       },
       helplines: {
         title: "Crisis helplines & resources",
@@ -181,21 +186,28 @@ export const content = {
         "Your words are enough",
       ],
     },
-    why: {
-      eyebrow: "Why report",
-      title: "For you alone, it may be a feeling. Together they are a signal.",
+    whatWeDo: {
+      eyebrow: "What we do",
+      title: "A report becomes part of a wider picture",
       cards: [
         {
-          title: "Anonymous by default",
-          body: "We collect only what's necessary to understand your report. No account required, and no name asked for.",
+          title: ["About ", brand] as Span[],
+          body: [
+            brand,
+            " is a global reporting platform for psychological effects of AI technology. It gives people a place to describe what they experienced after an AI exposure or interaction, in their own words and without needing to prove what caused it.",
+          ] as Span[],
         },
         {
-          title: "A few minutes",
-          body: "A short, plain-language form. No technical knowledge needed, and nothing you have to justify.",
+          title: "What we do with your report",
+          body: [
+            "We review the information you choose to share and look for patterns across reports. A single report may describe one person's experience; together, reports can show where further attention or investigation is needed. We do not provide a diagnosis, emergency response, or individual medical advice.",
+          ] as Span[],
         },
         {
-          title: "Built for monitoring",
-          body: "Reports feed ongoing monitoring for patterns of harm across conversational AI tools and social media platforms.",
+          title: "What research we do",
+          body: [
+            "We study reported psychological effects of AI technology through structured online questionnaires and analysis of aggregated patterns. This helps us understand what people are experiencing, identify questions that need closer study, and improve how psychological effects of AI are monitored over time.",
+          ] as Span[],
         },
       ],
     },

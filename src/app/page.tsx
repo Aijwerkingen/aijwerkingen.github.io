@@ -1,26 +1,26 @@
 import Link from "next/link";
 import {
   ChatIcon,
-  ClockIcon,
   NoteIcon,
-  PulseIcon,
   ShieldIcon,
 } from "@/components/Icons";
 import { content } from "@/content.config";
 import { RichLine } from "@/content/RichText";
+import type { Span } from "@/content/rich";
+import type { Metadata } from "next";
 
-const { hero, why, how, closing } = content.home;
+export const metadata: Metadata = {
+  title: content.meta.pages.home.title,
+  description: content.meta.pages.home.description,
+};
+
+const { hero, whatWeDo, how, closing } = content.home;
 
 // Icons are presentation, not copy, so they stay here and zip with the config text.
-const whyIcons = [
-  <ShieldIcon key="shield" className="size-5" />,
-  <ClockIcon key="clock" className="size-5" />,
-  <PulseIcon key="pulse" className="size-5" />,
-];
 const howIcons = [
   <ChatIcon key="chat" className="size-5" />,
   <NoteIcon key="note" className="size-5" />,
-  <PulseIcon key="pulse" className="size-5" />,
+  <ShieldIcon key="shield" className="size-5" />,
 ];
 
 export default function HomePage() {
@@ -65,17 +65,16 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-5xl px-4 py-20">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow">{why.eyebrow}</p>
+          <p className="eyebrow">{whatWeDo.eyebrow}</p>
           <h2 className="font-display mt-3 text-3xl font-extrabold tracking-tight text-balance">
-            {why.title}
+            {whatWeDo.title}
           </h2>
         </div>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-3">
-          {why.cards.map((card, i) => (
-            <TrustCard
-              key={card.title}
-              icon={whyIcons[i]}
+          {whatWeDo.cards.map((card) => (
+            <InfoCard
+              key={typeof card.title === "string" ? card.title : card.title.join("")}
               title={card.title}
               body={card.body}
             />
@@ -173,23 +172,23 @@ function CheckDot() {
   );
 }
 
-function TrustCard({
-  icon,
+function InfoCard({
   title,
   body,
 }: {
-  icon: React.ReactNode;
-  title: string;
-  body: string;
+  title: string | readonly Span[];
+  body: string | readonly Span[];
 }) {
+  const renderCopy = (copy: string | readonly Span[]) =>
+    typeof copy === "string" ? copy : <RichLine spans={copy} />;
+
   return (
-    <div className="card transition-colors hover:border-accent-line">
-      <span className="flex size-10 items-center justify-center rounded-xl bg-accent-soft text-accent-strong">
-        {icon}
-      </span>
-      <h3 className="font-display mt-4 text-lg font-bold">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-ink-soft">{body}</p>
-    </div>
+    <article className="flex max-h-[27rem] min-h-[22rem] flex-col rounded-2xl border border-line bg-surface px-7 py-6 shadow-sm">
+      <h3 className="font-display text-xl font-bold leading-tight text-ink">{renderCopy(title)}</h3>
+      <div className="mt-5 min-h-0 overflow-y-auto pr-2 text-base leading-relaxed text-ink-soft [scrollbar-color:var(--line)_transparent]">
+        <p>{renderCopy(body)}</p>
+      </div>
+    </article>
   );
 }
 
