@@ -173,7 +173,6 @@ export const content = {
   /* ── Home ─────────────────────────────────────────────────────────────────── */
   home: {
     hero: {
-      eyebrow: "Anonymous · Free · A few minutes",
       title: "Feeling worse after using an AI tool or social media?",
       body: [
         brand,
@@ -532,25 +531,9 @@ export const content = {
       " (" + fillIn.crisisLine.dial + ") offers free, confidential support with suicidal thoughts or crisis.",
     ] as Span[],
     body: [
-      h2("General enquiries"),
+      h2("Contact form"),
       p(
-        "For questions about the platform or the research, email ",
-        a(email, `mailto:${email}`),
-        ".",
-      ),
-      h2("Your data"),
-      p(
-        "To ask what we hold about you, to have it corrected or erased, or to object to how it is used, contact ",
-        a(dataContact, `mailto:${dataContact}`),
-        ". Reports are anonymous by default, so we may be unable to link a request to a specific submission - the ",
-        a("privacy notice", "/privacy"),
-        " explains what that means for your rights.",
-      ),
-      h2("Reporting an experience"),
-      p(
-        "Please don’t email reports - they can’t be included in the analysis that way. Use the ",
-        a("report form", "/report"),
-        " instead, which is anonymous and takes a few minutes.",
+        "Use the form below to contact us about the platform, the research, or your data. Your message will be handled through the contact form.",
       ),
     ] as Block[],
   },

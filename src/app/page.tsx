@@ -30,8 +30,6 @@ export default function HomePage() {
         <HeroTrace />
 
         <div className="mx-auto max-w-3xl px-4 pt-20 pb-24 text-center sm:pt-24">
-          <p className="eyebrow">{hero.eyebrow}</p>
-
           <h1 className="font-display mt-4 text-4xl leading-[1.1] font-extrabold tracking-tight text-balance sm:text-5xl">
             {hero.title}
           </h1>

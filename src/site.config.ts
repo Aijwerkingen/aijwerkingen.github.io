@@ -181,6 +181,10 @@ export const siteConfig = {
     completedEvent: "completed",
   },
 
+  contactEmbed: {
+    url: "https://uva.fra1.qualtrics.com/jfe/form/SV_9XnaWyi3KkasT2e",
+  },
+
   // ADR-010 satisfied: the final domain (aisafetywatch.com) is live and
   // confirmed, so the site opens to crawlers. Legal pages stay noindex
   // independently via `legal.approved` until DPO sign-off.
