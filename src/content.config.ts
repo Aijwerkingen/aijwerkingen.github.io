@@ -88,7 +88,7 @@ export const content = {
       blog: {
         title: "Blog",
         description:
-          "Relevant articles and updates on the global reporting center for psychological effects due to AI technology",
+          "Relevant articles and updates on the global reporting platform for psychological effects of AI technology",
       },
       report: {
         title: "Report your experience",

@@ -44,7 +44,7 @@ const buildYear = new Date().getFullYear();
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.canonicalUrl),
   title: {
-    default: `${siteConfig.name} - `,
+    default: `${siteConfig.name} - Report psychological effects of using AI technology`,
     template: `%s - ${siteConfig.name}`,
   },
   description: content.meta.defaultDescription,

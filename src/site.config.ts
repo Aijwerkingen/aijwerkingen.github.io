@@ -41,7 +41,7 @@ export const brandVariants = {
     name: "AISafetyWatch",
     legalName: "", // TODO(D11/NAP): set once the operating entity is registered.
     tagline:
-      "The global reporting platform for psychological harm due to AI technology.",
+      "The global reporting platform for psychological effects of AI technology.",
     wordmark: { lead: "AI", tail: "SafetyWatch", accent: "lead" },
   },
   aijwerkingen: {
@@ -49,7 +49,7 @@ export const brandVariants = {
     name: "AIjwerkingen",
     legalName: "",
     tagline:
-      "The global reporting platform for psychological harm due to AI technology.",
+      "The global reporting platform for psychological effects of AI technology.",
     wordmark: { lead: "AI", tail: "jwerkingen", accent: "lead" },
   },
   adverseai: {
@@ -57,7 +57,7 @@ export const brandVariants = {
     name: "AdverseAI",
     legalName: "", // TODO(D11/NAP): set once the operating entity is registered.
     tagline:
-      "The global reporting platform for psychological harm due to AI technology.",
+      "The global reporting platform for psychological effects of AI technology.",
     wordmark: { lead: "Adverse", tail: "AI", accent: "tail" },
   },
 } as const satisfies Record<string, BrandVariant>;
