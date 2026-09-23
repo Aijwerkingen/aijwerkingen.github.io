@@ -186,21 +186,21 @@ export const content = {
         "Your words are enough",
       ],
     },
-    why: {
-      eyebrow: "Why report",
-      title: "For you alone, it may be a feeling. Together they are a signal.",
+    whatWeDo: {
+      eyebrow: "What we do",
+      title: "A report becomes part of a wider picture",
       cards: [
         {
-          title: "Anonymous by default",
-          body: "We collect only what's necessary to understand your report. No account required, and no name asked for.",
+          title: "About AISafetyWatch",
+          body: "AISafetyWatch is a global reporting platform for psychological effects of AI technology. It gives people a place to describe what they experienced after an AI exposure or interaction, in their own words and without needing to prove what caused it.",
         },
         {
-          title: "A few minutes",
-          body: "A short, plain-language form. No technical knowledge needed, and nothing you have to justify.",
+          title: "What we do with your report",
+          body: "We review the information you choose to share and look for patterns across reports. A single report may describe one person's experience; together, reports can show where further attention or investigation is needed. We do not provide a diagnosis, emergency response, or individual medical advice.",
         },
         {
-          title: "Built for monitoring",
-          body: "Reports feed ongoing monitoring for patterns of harm across conversational AI tools and social media platforms.",
+          title: "What research we do",
+          body: "We study reported psychological effects of AI technology through structured online questionnaires and analysis of aggregated patterns. This helps us understand what people are experiencing, identify questions that need closer study, and improve how psychological effects of AI are monitored over time.",
         },
       ],
     },
