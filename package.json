@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "js-yaml": "^5.3.0",
-    "marked": "^18.0.9",
+    "marked": "^18.0.13",
     "marked-gfm-heading-id": "^4.1.4",
     "next": "16.3.0",
     "react": "19.2.8",
