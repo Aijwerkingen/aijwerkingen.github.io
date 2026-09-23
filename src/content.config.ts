@@ -63,7 +63,7 @@ export const content = {
      this is the default description and every per-page title + description. */
   meta: {
     defaultDescription:
-      "The global reporting platform for psychological harm due to AI technology.",
+      "The global reporting platform for psychological effects of AI technology.",
     pages: {
       home: {
         title: "",
