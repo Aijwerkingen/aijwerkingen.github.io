@@ -191,16 +191,23 @@ export const content = {
       title: "A report becomes part of a wider picture",
       cards: [
         {
-          title: "About AISafetyWatch",
-          body: "AISafetyWatch is a global reporting platform for psychological effects of AI technology. It gives people a place to describe what they experienced after an AI exposure or interaction, in their own words and without needing to prove what caused it.",
+          title: ["About ", brand] as Span[],
+          body: [
+            brand,
+            " is a global reporting platform for psychological effects of AI technology. It gives people a place to describe what they experienced after an AI exposure or interaction, in their own words and without needing to prove what caused it.",
+          ] as Span[],
         },
         {
           title: "What we do with your report",
-          body: "We review the information you choose to share and look for patterns across reports. A single report may describe one person's experience; together, reports can show where further attention or investigation is needed. We do not provide a diagnosis, emergency response, or individual medical advice.",
+          body: [
+            "We review the information you choose to share and look for patterns across reports. A single report may describe one person's experience; together, reports can show where further attention or investigation is needed. We do not provide a diagnosis, emergency response, or individual medical advice.",
+          ] as Span[],
         },
         {
           title: "What research we do",
-          body: "We study reported psychological effects of AI technology through structured online questionnaires and analysis of aggregated patterns. This helps us understand what people are experiencing, identify questions that need closer study, and improve how psychological effects of AI are monitored over time.",
+          body: [
+            "We study reported psychological effects of AI technology through structured online questionnaires and analysis of aggregated patterns. This helps us understand what people are experiencing, identify questions that need closer study, and improve how psychological effects of AI are monitored over time.",
+          ] as Span[],
         },
       ],
     },

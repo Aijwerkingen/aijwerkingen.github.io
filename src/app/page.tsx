@@ -6,6 +6,7 @@ import {
 } from "@/components/Icons";
 import { content } from "@/content.config";
 import { RichLine } from "@/content/RichText";
+import type { Span } from "@/content/rich";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -72,7 +73,11 @@ export default function HomePage() {
 
         <div className="mt-12 grid gap-5 sm:grid-cols-3">
           {whatWeDo.cards.map((card) => (
-            <InfoCard key={card.title} title={card.title} body={card.body} />
+            <InfoCard
+              key={typeof card.title === "string" ? card.title : card.title.join("")}
+              title={card.title}
+              body={card.body}
+            />
           ))}
         </div>
       </section>
@@ -171,14 +176,17 @@ function InfoCard({
   title,
   body,
 }: {
-  title: string;
-  body: string;
+  title: string | readonly Span[];
+  body: string | readonly Span[];
 }) {
+  const renderCopy = (copy: string | readonly Span[]) =>
+    typeof copy === "string" ? copy : <RichLine spans={copy} />;
+
   return (
     <article className="flex max-h-[27rem] min-h-[22rem] flex-col rounded-2xl border border-line bg-surface px-7 py-6 shadow-sm">
-      <h3 className="font-display text-xl font-bold leading-tight text-ink">{title}</h3>
+      <h3 className="font-display text-xl font-bold leading-tight text-ink">{renderCopy(title)}</h3>
       <div className="mt-5 min-h-0 overflow-y-auto pr-2 text-base leading-relaxed text-ink-soft [scrollbar-color:var(--line)_transparent]">
-        <p>{body}</p>
+        <p>{renderCopy(body)}</p>
       </div>
     </article>
   );
