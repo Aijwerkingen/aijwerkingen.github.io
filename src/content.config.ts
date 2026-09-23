@@ -173,7 +173,6 @@ export const content = {
   /* ── Home ─────────────────────────────────────────────────────────────────── */
   home: {
     hero: {
-      eyebrow: "Anonymous · Free · A few minutes",
       title: "Feeling worse after using an AI tool or social media?",
       body: [
         brand,
