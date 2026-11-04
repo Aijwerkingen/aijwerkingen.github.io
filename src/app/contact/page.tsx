@@ -3,6 +3,7 @@ import { siteConfig } from "@/site.config";
 import { content } from "@/content.config";
 import { Prose, RichLine } from "@/content/RichText";
 import { DocBody, DocHeader, ProvenanceList } from "@/components/DocPage";
+import { ContactForm } from "./ContactForm";
 
 const { header, crisisNote, body } = content.contact;
 
@@ -49,6 +50,7 @@ export default function ContactPage() {
         </aside>
 
         <Prose blocks={body} />
+        <ContactForm />
 
         <ProvenanceList className="mt-10 rounded-xl border border-line bg-canvas p-5" />
       </DocBody>

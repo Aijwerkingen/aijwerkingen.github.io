@@ -85,6 +85,17 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-09-22 - Phase 1 - Hermes
+- **Status change:** Phase 1 in_progress → in_progress
+- **What changed:** Updated all brand taglines and the AISafetyWatch SEO/meta copy for the home, How it works, FAQ, Blog, and Report pages on the staging branch.
+- **Decisions:** Used the supplied psychological-effects language; the existing Open Graph alt remains derived from the shared tagline.
+- **Acceptance criteria progress:**
+  - [x] Shared tagline updated for AISafetyWatch, AIjwerkingen, and AdverseAI.
+  - [x] Default site description and requested per-page descriptions updated.
+  - [ ] Final SEO/legal review remains open.
+- **Blockers / risks:** None for this copy-only staging change; production is unchanged.
+
+
 ### 2026-08-20 - Phase 2 - eng (Hermes) - /report survey embed gated behind shared password (INTERNAL_AUTH_PLAN v2)
 
 - `functions/api/report-access.js` (new): edge Function — Qualtrics URL returned only after password verified (POST sets httpOnly `report_access` cookie; GET checks it). URL never in the static bundle.

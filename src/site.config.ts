@@ -41,7 +41,7 @@ export const brandVariants = {
     name: "AISafetyWatch",
     legalName: "", // TODO(D11/NAP): set once the operating entity is registered.
     tagline:
-      "Report distress you felt during or after using AI tools or social media.",
+      "The global reporting platform for psychological effects of AI technology.",
     wordmark: { lead: "AI", tail: "SafetyWatch", accent: "lead" },
   },
   aijwerkingen: {
@@ -49,7 +49,7 @@ export const brandVariants = {
     name: "AIjwerkingen",
     legalName: "",
     tagline:
-      "Report distress you felt during or after using AI tools or social media.",
+      "The global reporting platform for psychological effects of AI technology.",
     wordmark: { lead: "AI", tail: "jwerkingen", accent: "lead" },
   },
   adverseai: {
@@ -57,7 +57,7 @@ export const brandVariants = {
     name: "AdverseAI",
     legalName: "", // TODO(D11/NAP): set once the operating entity is registered.
     tagline:
-      "Report distress you felt during or after using AI tools or social media.",
+      "The global reporting platform for psychological effects of AI technology.",
     wordmark: { lead: "Adverse", tail: "AI", accent: "tail" },
   },
 } as const satisfies Record<string, BrandVariant>;
@@ -179,6 +179,10 @@ export const siteConfig = {
   reportEmbed: {
     completedSender: "aijwerkingen-survey",
     completedEvent: "completed",
+  },
+
+  contactEmbed: {
+    url: "https://uva.fra1.qualtrics.com/jfe/form/SV_9XnaWyi3KkasT2e",
   },
 
   // ADR-010 satisfied: the final domain (aisafetywatch.com) is live and
