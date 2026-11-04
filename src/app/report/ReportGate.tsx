@@ -8,6 +8,11 @@ import { RichLine } from "@/content/RichText";
 const gate = content.report.gate;
 const { completedSender, completedEvent } = siteConfig.reportEmbed;
 
+// Inlined at build time. Only the staging deploy sets it (deploy.yml); without
+// it (production) the gate never fetches or offers a password, and /report
+// stays the plain "launches soon" placeholder.
+const gateEnabled = process.env.NEXT_PUBLIC_REPORT_GATE === "1";
+
 type GateState =
   | { status: "loading" }
   | { status: "locked"; error?: string }
@@ -22,6 +27,7 @@ export function ReportGate() {
   const qualtricsOrigin = useRef<string>("");
 
   useEffect(() => {
+    if (!gateEnabled) return;
     let alive = true;
     fetch("/api/report-access", { credentials: "same-origin" })
       .then((r) => (r.ok ? r.json() : Promise.reject(r)))
@@ -160,7 +166,7 @@ export function ReportGate() {
         <RichLine spans={gate.launchBody} />
       </p>
 
-      {state.status === "locked" && (
+      {gateEnabled && state.status === "locked" && (
         <form onSubmit={onSubmit} className="mx-auto mt-8 flex max-w-sm flex-col gap-3">
           <label htmlFor="report-pw" className="text-sm text-ink-soft">
             {gate.passwordLabel}

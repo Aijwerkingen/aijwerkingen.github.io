@@ -26,7 +26,7 @@ export function ContactForm() {
       <iframe
         ref={frameRef}
         src={CONTACT_FORM_URL}
-        title="AISafetyWatch contact form"
+        title={`${siteConfig.name} contact form`}
         className="h-[900px] w-full"
         referrerPolicy="no-referrer"
         allowFullScreen={false}
