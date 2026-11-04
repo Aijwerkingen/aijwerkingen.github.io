@@ -509,11 +509,11 @@ export const content = {
       eyebrow: "Contact",
       title: "Get in touch",
       intro:
-        "For questions about the platform, the research, or your data. Please don't use these routes for anything urgent.",
+        "For questions about the platform, the research, or your data. Please don't use this form for anything urgent.",
     },
     crisisNote: [
       b("Not a crisis service."),
-      " Nobody monitors these routes in real time. If you or someone else is in immediate danger, contact your local emergency number. In the Netherlands, ",
+      " Nobody monitors this form in real time. If you or someone else is in immediate danger, contact your local emergency number. In the Netherlands, ",
       a(fillIn.crisisLine.name, fillIn.crisisLine.url),
       " (" + fillIn.crisisLine.dial + ") offers free, confidential support with suicidal thoughts or crisis.",
     ] as Span[],
