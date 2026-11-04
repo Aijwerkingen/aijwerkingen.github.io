@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: content.meta.pages.home.description,
 };
 
-const { hero, whatWeDo, how, closing } = content.home;
+const { hero, whatWeDo, how } = content.home;
 
 // Icons are presentation, not copy, so they stay here and zip with the config text.
 const howIcons = [
@@ -84,9 +84,6 @@ export default function HomePage() {
         <div className="mx-auto max-w-5xl px-4 py-20">
           <div className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">{how.eyebrow}</p>
-            <h2 className="font-display mt-3 text-3xl font-extrabold tracking-tight text-balance">
-              {how.title}
-            </h2>
           </div>
 
           <ol className="mt-12 grid gap-6 sm:grid-cols-3">
@@ -96,26 +93,9 @@ export default function HomePage() {
                 n={i + 1}
                 icon={howIcons[i]}
                 title={step.title}
-                body={step.body}
               />
             ))}
           </ol>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-5xl px-4 py-20">
-        <div className="rounded-3xl border border-accent-line bg-accent-soft px-6 py-14 text-center">
-          <h2 className="font-display text-3xl font-extrabold tracking-tight text-balance">
-            {closing.title}
-          </h2>
-          <p className="mx-auto mt-4 max-w-lg text-pretty text-ink-soft">
-            {closing.body}
-          </p>
-          <div className="mt-8">
-            <Link href={closing.cta.href} className="btn-primary">
-              {closing.cta.label}
-            </Link>
-          </div>
         </div>
       </section>
     </>
@@ -194,12 +174,10 @@ function Step({
   n,
   icon,
   title,
-  body,
 }: {
   n: number;
   icon: React.ReactNode;
   title: string;
-  body: string;
 }) {
   return (
     <li className="card bg-surface">
@@ -215,7 +193,6 @@ function Step({
         </span>
       </div>
       <h3 className="font-display mt-4 text-lg font-bold">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-ink-soft">{body}</p>
     </li>
   );
 }

@@ -49,9 +49,6 @@ export const fillIn = {
 };
 
 /* Derived contacts — computed from site.config so copy can't drift from it. */
-const email = siteConfig.organization.email;
-const privacyContact = siteConfig.research.dpoEmail || email;
-const dataContact = siteConfig.research.dpoEmail || email;
 /** Named data controller: the institution once set, otherwise the brand. */
 const controller = siteConfig.research.institution || siteConfig.name;
 
@@ -62,13 +59,15 @@ export const content = {
      The home <title>/template are built from the brand name in layout.tsx;
      this is the default description and every per-page title + description. */
   meta: {
+    /** Brand-agnostic descriptor: home <title> and OG image alt are "<brand> - <this>". */
+    descriptor: "Global reporting center for the psychological effects of AI technology",
     defaultDescription:
-      "The global reporting platform for psychological effects of AI technology.",
+      "Global reporting center for the psychological effects of AI technology.",
     pages: {
       home: {
         title: "",
         description:
-          "Global reporting platform for psychological effects of AI technology. Report your subjective experience from any AI exposure or interaction.",
+          "Global reporting center for the psychological effects of AI technology. Report any subjective experience you have after any AI exposure or interaction.",
       },
       about: {
         title: "About",
@@ -78,17 +77,17 @@ export const content = {
       howItWorks: {
         title: "How reporting works",
         description:
-          "What happens when you report psychological effects of AI - what you're asked, what we store, and what your report contributes to.",
+          "What happens when you report a psychological effect of AI: what you're asked, what we store, and what your report contributes to.",
       },
       faq: {
         title: "FAQ",
         description:
-          "Answers to common questions about reporting incidents of psychological effects after AI exposure or interaction: what to report, privacy, what happens next, and who can report.",
+          "Answers to common questions about reporting experiences of psychological effects after AI exposure or interaction: what to report, privacy, what happens next, and who can report.",
       },
       blog: {
         title: "Blog",
         description:
-          "Relevant articles and updates on the global reporting platform for psychological effects of AI technology",
+          "Relevant articles and updates on the global reporting center for the psychological effects of AI technology.",
       },
       report: {
         title: "Report your experience",
@@ -108,7 +107,7 @@ export const content = {
       privacy: {
         title: "Privacy notice",
         description:
-          "What we collect when you report distress linked to an AI tool or social media platform, why, how long we keep it, and your rights.",
+          "What we collect when you report an experience linked to an AI tool or social media platform, why, how long we keep it, and your rights.",
       },
       terms: {
         title: "Terms & disclaimer",
@@ -173,10 +172,10 @@ export const content = {
   /* ── Home ─────────────────────────────────────────────────────────────────── */
   home: {
     hero: {
-      title: "Feeling worse after using an AI tool or social media?",
+      title: "Has an AI tool or social media affected how you feel?",
       body: [
         brand,
-        " lets you report distress you felt during or after using a conversational AI tool, app, or social media platform - in a few minutes, whether it happened to you or someone you support. Your report helps spot patterns of harm earlier.",
+        " lets you report any way it affected how you felt, thought, or behaved during or after using a conversational AI tool, app, or social media platform - in a few minutes, whether it happened to you or someone you support. Your report helps spot patterns earlier.",
       ] as Span[],
       ctas: [CTA_REPORT, { label: "Common questions", href: "/faq" }],
       chips: [
@@ -212,26 +211,14 @@ export const content = {
     },
     how: {
       eyebrow: "How it works",
-      title: "Three steps, in your own words",
       steps: [
+        { title: "Select the AI technology" },
         {
-          title: "Describe how you felt",
-          body: "In plain language. Mild or overwhelming, during use or afterwards - if you noticed it, it counts.",
+          title:
+            "Describe when and how the AI technology affected you.",
         },
-        {
-          title: "Add any context",
-          body: "The tool or platform involved, and roughly when. An approximate name or a general description is fine.",
-        },
-        {
-          title: "It becomes a signal",
-          body: "Your report is reviewed alongside others to surface patterns that a single experience can't show on its own.",
-        },
+        { title: "Indicate symptoms you experience" },
       ],
-    },
-    closing: {
-      title: "Ready when you are",
-      body: "You don’t need to be certain, and you don’t need to name every app. Start with what you remember.",
-      cta: CTA_REPORT,
     },
   },
 
@@ -254,7 +241,7 @@ export const content = {
         text: "Which tool or platform, and roughly when. An approximate name or a general description is enough. Everything beyond the essentials is optional.",
       },
       {
-        name: "Submit anonymously",
+        name: "Submit with privacy protected",
         text: "No account, no name. Contact details are optional and only used if you invite follow-up questions. You can stop at any point before submitting.",
       },
       {
@@ -265,7 +252,7 @@ export const content = {
     body: [
       h2("What we store"),
       p(
-        "Only what is needed to understand the report: what you described, the tool or platform involved, and any optional context you chose to add. Reporting is anonymous by default - we do not ask for your name and you do not need an account. If you supply contact details, they are optional, clearly marked, and used only for follow-up.",
+        "Only what is needed to understand the report: what you described, the tool or platform involved, and any optional context you chose to add. Your privacy is protected by default - we do not ask for your name and you do not need an account. If you supply contact details, they are optional, clearly marked, and used only for follow-up.",
       ),
       p(
         "The ",
@@ -287,23 +274,23 @@ export const content = {
       title: "Why this exists",
       intro: [
         brand,
-        " collects reports of distress that people notice during or after using conversational AI tools and social media, so that patterns of harm can be studied rather than guessed at.",
+        " collects reports of effects that people notice during or after using conversational AI tools and social media, so that patterns can be studied rather than guessed at.",
       ] as Span[],
     },
     body: [
       h2("The problem"),
       p(
-        "When a medicine causes an unexpected effect, there is somewhere to report it, and those reports accumulate into evidence. When a conversational AI tool or a social media platform leaves someone feeling worse - more anxious, more isolated, worse about their body, unable to stop - there is usually nowhere for that to go. It stays a private experience, and nothing aggregates.",
+        "When a medicine causes an unexpected effect, there is somewhere to report it, and those reports accumulate into evidence. When a conversational AI tool or a social media platform affects someone - leaving them more anxious, more isolated, worse about their body, or unable to stop - there is usually nowhere for that to go. It stays a private experience, and nothing aggregates.",
       ),
       p(
-        "That absence is the gap this platform addresses. Not by treating digital tools as if they were drugs, but by taking seriously that distress linked to their use is real, is reportable, and becomes legible once enough people describe it.",
+        "That absence is the gap this platform addresses. Not by treating digital tools as if they were drugs, but by taking seriously that the psychological effects linked to their use are real, is reportable, and becomes legible once enough people describe it.",
       ),
       h2("What we do with reports"),
       p(
-        "Reports are reviewed as part of ongoing monitoring for patterns across tools and platforms. A single report is not a diagnosis and is never treated as one - it is one account among many. What makes it valuable is the aggregate: recurring descriptions, from unrelated people, of the same kind of harm around the same kind of product.",
+        "Reports are reviewed as part of ongoing monitoring for patterns across tools and platforms. A single report is not a diagnosis and is never treated as one - it is one account among many. What makes it valuable is the aggregate: recurring descriptions, from unrelated people, of the same kind of effect around the same kind of product.",
       ),
       p(
-        "We collect as little as possible to do that. Reporting is anonymous by default, needs no account, and asks for no name. Contact details are optional and only used if you invite follow-up.",
+        "We collect as little as possible to do that. Your privacy is protected by default: reporting needs no account and asks for no name. Contact details are optional and only used if you invite follow-up.",
       ),
       h2("What this is not"),
       p(
@@ -326,7 +313,7 @@ export const content = {
       p(
         "The ",
         a("FAQ", "/faq"),
-        " answers what to report, how anonymity works, and what happens next. For anything else, ",
+        " answers what to report, how your privacy is protected, and what happens next. For anything else, ",
         a("contact us", "/contact"),
         " - though please don’t use it for anything urgent.",
       ),
@@ -342,14 +329,14 @@ export const content = {
         "Tell us how using an AI tool or social media left you feeling. This takes a few minutes. You don’t need an account, you don’t need proof, and you can stop at any point.",
     },
     chips: [
-      "Anonymous by default",
+      "High privacy standards",
       "No account required",
       "Contact details optional",
     ],
     gate: {
       launchTitle: "The reporting form launches soon",
       launchBody: [
-        "The public reporting platform is nearly ready. When it launches, the anonymous report form will appear on this page. Until then, you can read about what we are building in the ",
+        "The public reporting platform is nearly ready. When it launches, the report form will appear on this page. Until then, you can read about what we are building in the ",
         a("launch announcement", "/blog/launching-soon-report-ai-side-effects"),
         ".",
       ] as Span[],
@@ -385,7 +372,7 @@ export const content = {
       eyebrow: "Questions",
       title: "Frequently asked questions",
       intro: [
-        "Short, direct answers about reporting distress linked to AI tools and social media with ",
+        "Short, direct answers about reporting experiences linked to AI tools and social media with ",
         brand,
         ". Still unsure about something? ",
         a("Start a report", "/report"),
@@ -395,7 +382,7 @@ export const content = {
     items: [
       {
         q: "What should I report?",
-        a: "Anything you felt that seems linked to using a conversational AI tool, app, or social media platform - during use or afterwards. Distress, anxiety, low mood, trouble sleeping, feeling worse about yourself, or something you can't quite put a name to. Mild or overwhelming. You don't need proof of a link; noticing it is enough. If you're unsure whether it qualifies, report it anyway and let it be assessed.",
+        a: "Anything you felt that seems linked to using a conversational AI tool, app, or social media platform - during use or afterwards. An effect on your mood, anxiety, sleep, how you feel about yourself, or something you can't quite put a name to. Mild or strong, helpful or unsettling. You don't need proof of a link; noticing it is enough. If you're unsure whether it qualifies, report it anyway and let it be assessed.",
       },
       {
         q: "Which tools and platforms can I report?",
@@ -406,12 +393,12 @@ export const content = {
         a: "That's fine - describe what you were using and how you felt as best you can. You're not expected to name every app with certainty; a general description of the tool or platform is enough to start a report.",
       },
       {
-        q: "Is my report anonymous?",
-        a: "Yes, by default. We don't require your name, and we collect only what's necessary to understand the report. If you choose to share contact details for follow-up questions, that's optional and clearly marked before you submit.",
+        q: "Is my report private?",
+        a: "Yes. We hold ourselves to high privacy standards: we don't require your name, and we collect only what's necessary to understand the report. If you choose to share contact details for follow-up questions, that's optional and clearly marked before you submit.",
       },
       {
         q: "What happens after I submit a report?",
-        a: "Your report is logged and reviewed as part of ongoing monitoring for patterns of harm. An individual report isn't a diagnosis and isn't treated as one - it contributes to a broader signal that gets investigated over time.",
+        a: "Your report is logged and reviewed as part of ongoing monitoring for patterns. An individual report isn't a diagnosis and isn't treated as one - it contributes to a broader signal that gets investigated over time.",
       },
       {
         q: "Can professionals report too?",
@@ -556,8 +543,8 @@ export const content = {
       h2("Who is responsible"),
       p(
         controller +
-          " is the controller for the personal data described here. For anything in this notice, or to exercise the rights below, contact ",
-        a(privacyContact, `mailto:${privacyContact}`),
+          " is the controller for the personal data described here. For anything in this notice, or to exercise the rights below, use our ",
+        a("contact form", "/contact"),
         ".",
       ),
       h2("What we collect"),
@@ -581,15 +568,15 @@ export const content = {
       ),
       h2("Why we collect it"),
       p(
-        "To monitor for patterns of harm associated with conversational AI tools and social media, and to study them. Reports are analysed in aggregate. An individual report is not assessed as a clinical case and does not produce advice, a diagnosis, or a response to you.",
+        "To monitor for patterns of psychological effects associated with conversational AI tools and social media, and to study them. Reports are analysed in aggregate. An individual report is not assessed as a clinical case and does not produce advice, a diagnosis, or a response to you.",
       ),
       h2("Our lawful basis"),
       p(
         "We propose to process this data as a task carried out in the public interest (Art. 6(1)(e)), relying on the scientific-research condition in Art. 9(2)(j) for special-category data, subject to the safeguards in Art. 89(1) - including data minimisation and, wherever it does not defeat the research purpose, pseudonymisation.",
       ),
-      h2("Anonymity"),
+      h2("Privacy by default"),
       p(
-        "Reporting is anonymous by default. Because we do not know who you are, we generally cannot connect a later request to a specific report - see ",
+        "Your privacy is protected by default. Because we do not ask for your name, we generally cannot connect a later request to a specific report - see ",
         a("your rights", "#rights"),
         " for what that means in practice. If you include details that identify you inside a free-text answer, they are stored as part of the report.",
       ),
@@ -624,11 +611,11 @@ export const content = {
         ["provide it in a portable form, where that right applies."],
       ),
       p(
-        "Because reports are anonymous by default, we usually cannot identify which report is yours, and Art. 11 means we are not required to acquire more information purely to find it. If you want to be able to withdraw a report later, include contact details when you submit — otherwise we will likely be unable to act on a request about it.",
+        "Because we do not ask for your name by default, we usually cannot identify which report is yours, and Art. 11 means we are not required to acquire more information purely to find it. If you want to be able to withdraw a report later, include contact details when you submit — otherwise we will likely be unable to act on a request about it.",
       ),
       p(
-        "To make a request, contact ",
-        a(privacyContact, `mailto:${privacyContact}`),
+        "To make a request, use our ",
+        a("contact form", "/contact"),
         ".",
       ),
     ] as Block[],
@@ -643,8 +630,8 @@ export const content = {
       ),
       h2("Complaints"),
       p(
-        "If you are unhappy with how we handle your data, please tell us first at ",
-        a(privacyContact, `mailto:${privacyContact}`),
+        "If you are unhappy with how we handle your data, please tell us first through our ",
+        a("contact form", "/contact"),
         ". You also have the right to complain to your national supervisory authority - in the Netherlands, the ",
         a(fillIn.supervisoryAuthority.name, fillIn.supervisoryAuthority.url),
         ".",
@@ -687,7 +674,7 @@ export const content = {
           "you are not submitting anyone else’s identifying details unnecessarily - describe what happened without naming other people where you can;",
         ],
         [
-          "you understand reporting is anonymous by default and that we therefore may not be able to find or withdraw your report later (see the ",
+          "you understand that we do not ask for your name by default and that we therefore may not be able to find or withdraw your report later (see the ",
           a("privacy notice", "/privacy"),
           ").",
         ],
@@ -750,8 +737,8 @@ export const content = {
       ),
       h2("If something blocks you"),
       p(
-        "Please tell us - a specific report of what failed is the fastest route to fixing it. Email ",
-        a(dataContact, `mailto:${dataContact}`),
+        "Please tell us - a specific report of what failed is the fastest route to fixing it. Use our ",
+        a("contact form", "/contact"),
         " and, if you can, say what page you were on, what you were trying to do, and what you use to browse.",
       ),
       p(
@@ -775,7 +762,7 @@ export const content = {
   /* ── Blog index (posts themselves live in content/blog/*.md) ───────────────── */
   blog: {
     eyebrow: "Blog",
-    title: "Writing on AI, distress, and reporting",
+    title: "Writing on AI, wellbeing, and reporting",
     intro:
       "Articles, in the public interest, on spotting when an AI tool or social platform is affecting how you feel, and what happens to the reports you send us.",
     empty: "No posts yet - check back soon.",
@@ -784,20 +771,20 @@ export const content = {
   /* ── llms.txt (AI-assistant hand-hold, emitted at build) ───────────────────── */
   llms: {
     summary: [
-      "is a public service for reporting perceived adverse",
+      "is a public service for reporting perceived psychological",
       "effects of conversational AI tools and digital/social media. Anyone",
       "affected — and parents, carers, and professionals supporting someone",
-      "else — can submit reports to help identify patterns of harm. This is not",
+      "else — can submit reports to help identify patterns. This is not",
       "a crisis or emergency service; in an emergency, contact your local",
       "emergency number.",
     ],
     corePages: [
       ["/", "Home", "what the service is and how to report an experience."],
-      ["/report", "Report a side effect", "the reporting form — the main action."],
+      ["/report", "Report your experience", "the reporting form — the main action."],
       ["/how-it-works", "How reporting works", "step-by-step of what happens to a report."],
       ["/about", "About us", "who we are, our mission, and governance."],
       ["/faq", "FAQ", "common questions with direct answers."],
-      ["/blog", "Blog", "Articles, in the public interest, on distress linked to AI tools and social media, and what the reports reveal."],
+      ["/blog", "Blog", "Articles, in the public interest, on the psychological effects of AI tools and social media, and what the reports reveal."],
       ["/helplines", "Crisis helplines", "immediate support lines — this site is not itself a crisis service."],
       ["/contact", "Contact", "how to reach us (not for emergencies)."],
     ] as Array<[string, string, string]>,
@@ -807,9 +794,9 @@ export const content = {
       ["/terms", "Terms & disclaimer", "not a crisis service; emergency guidance."],
     ] as Array<[string, string, string]>,
     keyFacts: [
-      "Purpose: collect perceived adverse-effect reports about conversational AI tools and digital/social media platforms, from the public and professionals.",
+      "Purpose: collect perceived psychological-effect reports about conversational AI tools and digital/social media platforms, from the public and professionals.",
       "Audience: people affected, plus the parents, carers, and professionals supporting them.",
-      "Reports can be submitted anonymously.",
+      "Reports are handled to high privacy standards; no account or name is required.",
       "Not a diagnosis, treatment, crisis, or moderation-enforcement service.",
     ],
   },

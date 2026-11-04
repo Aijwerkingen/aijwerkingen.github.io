@@ -111,7 +111,7 @@ export const siteConfig = {
   appleIcon: { file: "appicon-light-512.png", size: 320 },
   organization: {
     legalName: defaultBrand.legalName,
-    email: "hello@weareaivi.com",
+    email: "",
     phone: "",
     address: {
       street: "",

@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
   return {
     title: `${result.tag} — blog`,
-    description: `Articles tagged "${result.tag}" on ${siteConfig.name}: recognising distress linked to AI tools and social media, and what reporting does.`,
+    description: `Articles tagged "${result.tag}" on ${siteConfig.name}: recognising the effects of AI tools and social media, and what reporting does.`,
     alternates: { canonical: `/blog/tags/${tag}` },
   };
 }

@@ -18,7 +18,7 @@ export default function HowItWorksPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to report distress linked to an AI tool or social media",
+    name: "How to report an experience linked to an AI tool or social media",
     description: content.meta.pages.howItWorks.description,
     url: `${siteConfig.canonicalUrl}/how-it-works`,
     step: steps.map((step, index) => ({
