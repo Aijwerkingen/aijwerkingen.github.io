@@ -1,12 +1,27 @@
 import Link from "next/link";
-import { BrandName } from "@/brand/BrandLockup";
 import {
   ChatIcon,
-  ClockIcon,
   NoteIcon,
-  PulseIcon,
   ShieldIcon,
 } from "@/components/Icons";
+import { content } from "@/content.config";
+import { RichLine } from "@/content/RichText";
+import type { Span } from "@/content/rich";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: content.meta.pages.home.title,
+  description: content.meta.pages.home.description,
+};
+
+const { hero, whatWeDo, how } = content.home;
+
+// Icons are presentation, not copy, so they stay here and zip with the config text.
+const howIcons = [
+  <ChatIcon key="chat" className="size-5" />,
+  <NoteIcon key="note" className="size-5" />,
+  <ShieldIcon key="shield" className="size-5" />,
+];
 
 export default function HomePage() {
   return (
@@ -15,34 +30,28 @@ export default function HomePage() {
         <HeroTrace />
 
         <div className="mx-auto max-w-3xl px-4 pt-20 pb-24 text-center sm:pt-24">
-          <p className="eyebrow">Anonymous · Free · A few minutes</p>
-
           <h1 className="font-display mt-4 text-4xl leading-[1.1] font-extrabold tracking-tight text-balance sm:text-5xl">
-            Feeling worse after using an AI tool or social media?
+            {hero.title}
           </h1>
 
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-ink-soft">
-            <BrandName /> lets you report distress you felt during or after
-            using a conversational AI tool, app, or social media platform - in a
-            few minutes, whether it happened to you or someone you support. Your
-            report helps spot patterns of harm earlier.
+            <RichLine spans={hero.body} />
           </p>
 
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
-            <Link href="/report" className="btn-primary">
-              Report your experience
-            </Link>
-            <Link href="/faq" className="btn-secondary">
-              Common questions
-            </Link>
+            {hero.ctas.map((cta, i) => (
+              <Link
+                key={cta.href}
+                href={cta.href}
+                className={i === 0 ? "btn-primary" : "btn-secondary"}
+              >
+                {cta.label}
+              </Link>
+            ))}
           </div>
 
           <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-ink-soft">
-            {[
-              "No account needed",
-              "You can stop at any point",
-              "Your words are enough",
-            ].map((item) => (
+            {hero.chips.map((item) => (
               <li key={item} className="flex items-center gap-2">
                 <CheckDot />
                 {item}
@@ -54,77 +63,39 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-5xl px-4 py-20">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow">Why report</p>
+          <p className="eyebrow">{whatWeDo.eyebrow}</p>
           <h2 className="font-display mt-3 text-3xl font-extrabold tracking-tight text-balance">
-            For you alone, it may be a feeling. Together they are a signal.
+            {whatWeDo.title}
           </h2>
         </div>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-3">
-          <TrustCard
-            icon={<ShieldIcon className="size-5" />}
-            title="Anonymous by default"
-            body="We collect only what's necessary to understand your report. No account required, and no name asked for."
-          />
-          <TrustCard
-            icon={<ClockIcon className="size-5" />}
-            title="A few minutes"
-            body="A short, plain-language form. No technical knowledge needed, and nothing you have to justify."
-          />
-          <TrustCard
-            icon={<PulseIcon className="size-5" />}
-            title="Built for monitoring"
-            body="Reports feed ongoing monitoring for patterns of harm across conversational AI tools and social media platforms."
-          />
+          {whatWeDo.cards.map((card) => (
+            <InfoCard
+              key={typeof card.title === "string" ? card.title : card.title.join("")}
+              title={card.title}
+              body={card.body}
+            />
+          ))}
         </div>
       </section>
 
       <section className="border-y border-line bg-canvas">
         <div className="mx-auto max-w-5xl px-4 py-20">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="eyebrow">How it works</p>
-            <h2 className="font-display mt-3 text-3xl font-extrabold tracking-tight text-balance">
-              Three steps, in your own words
-            </h2>
+            <p className="eyebrow">{how.eyebrow}</p>
           </div>
 
           <ol className="mt-12 grid gap-6 sm:grid-cols-3">
-            <Step
-              n={1}
-              icon={<ChatIcon className="size-5" />}
-              title="Describe how you felt"
-              body="In plain language. Mild or overwhelming, during use or afterwards - if you noticed it, it counts."
-            />
-            <Step
-              n={2}
-              icon={<NoteIcon className="size-5" />}
-              title="Add any context"
-              body="The tool or platform involved, and roughly when. An approximate name or a general description is fine."
-            />
-            <Step
-              n={3}
-              icon={<PulseIcon className="size-5" />}
-              title="It becomes a signal"
-              body="Your report is reviewed alongside others to surface patterns that a single experience can't show on its own."
-            />
+            {how.steps.map((step, i) => (
+              <Step
+                key={step.title}
+                n={i + 1}
+                icon={howIcons[i]}
+                title={step.title}
+              />
+            ))}
           </ol>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-5xl px-4 py-20">
-        <div className="rounded-3xl border border-accent-line bg-accent-soft px-6 py-14 text-center">
-          <h2 className="font-display text-3xl font-extrabold tracking-tight text-balance">
-            Ready when you are
-          </h2>
-          <p className="mx-auto mt-4 max-w-lg text-pretty text-ink-soft">
-            You don&apos;t need to be certain, and you don&apos;t need to name
-            every app. Start with what you remember.
-          </p>
-          <div className="mt-8">
-            <Link href="/report" className="btn-primary">
-              Report your experience
-            </Link>
-          </div>
         </div>
       </section>
     </>
@@ -179,23 +150,23 @@ function CheckDot() {
   );
 }
 
-function TrustCard({
-  icon,
+function InfoCard({
   title,
   body,
 }: {
-  icon: React.ReactNode;
-  title: string;
-  body: string;
+  title: string | readonly Span[];
+  body: string | readonly Span[];
 }) {
+  const renderCopy = (copy: string | readonly Span[]) =>
+    typeof copy === "string" ? copy : <RichLine spans={copy} />;
+
   return (
-    <div className="card transition-colors hover:border-accent-line">
-      <span className="flex size-10 items-center justify-center rounded-xl bg-accent-soft text-accent-strong">
-        {icon}
-      </span>
-      <h3 className="font-display mt-4 text-lg font-bold">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-ink-soft">{body}</p>
-    </div>
+    <article className="flex max-h-[27rem] min-h-[22rem] flex-col rounded-2xl border border-line bg-surface px-7 py-6 shadow-sm">
+      <h3 className="font-display text-xl font-bold leading-tight text-ink">{renderCopy(title)}</h3>
+      <div className="mt-5 min-h-0 overflow-y-auto pr-2 text-base leading-relaxed text-ink-soft [scrollbar-color:var(--line)_transparent]">
+        <p>{renderCopy(body)}</p>
+      </div>
+    </article>
   );
 }
 
@@ -203,12 +174,10 @@ function Step({
   n,
   icon,
   title,
-  body,
 }: {
   n: number;
   icon: React.ReactNode;
   title: string;
-  body: string;
 }) {
   return (
     <li className="card bg-surface">
@@ -224,7 +193,6 @@ function Step({
         </span>
       </div>
       <h3 className="font-display mt-4 text-lg font-bold">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-ink-soft">{body}</p>
     </li>
   );
 }

@@ -1,5 +1,6 @@
 import { getAllPosts } from "@/lib/blog";
 import { siteConfig } from "@/site.config";
+import { content } from "@/content.config";
 
 // Emitted to a static /llms.txt at build time (no server under `output: export`).
 // Like robots.ts / sitemap.ts, every value derives from site.config.ts, so the
@@ -16,27 +17,14 @@ export function GET(): Response {
   const base = siteConfig.canonicalUrl;
 
   // Core, always-public pages — mirrors the always-listed routes in sitemap.ts.
-  const corePages: Array<[string, string, string]> = [
-    ["/", "Home", "what the service is and how to report an experience."],
-    ["/report", "Report a side effect", "the reporting form — the main action."],
-    ["/how-it-works", "How reporting works", "step-by-step of what happens to a report."],
-    ["/about", "About us", "who we are, our mission, and governance."],
-    ["/faq", "FAQ", "common questions with direct answers."],
-    ["/blog", "Blog", "Articles, in the public interest, on distress linked to AI tools and social media, and what the reports reveal."],
-    ["/helplines", "Crisis helplines", "immediate support lines — this site is not itself a crisis service."],
-    ["/contact", "Contact", "how to reach us (not for emergencies)."],
-  ];
+  const corePages = content.llms.corePages;
 
   // Legal documents are draft/noindex until DPO sign-off (site.config
   // `legal.approved`), exactly as in sitemap.ts. Listing them here before
   // approval would point assistants at statements nobody has approved, so they
   // join the map on the same flag that lets them into the sitemap.
   const legalPages: Array<[string, string, string]> = siteConfig.legal.approved
-    ? [
-      ["/privacy", "Privacy statement", "how personal and health data is handled (GDPR)."],
-      ["/accessibility", "Accessibility statement", "WCAG 2.2 AA conformance."],
-      ["/terms", "Terms & disclaimer", "not a crisis service; emergency guidance."],
-    ]
+    ? content.llms.legalPages
     : [];
 
   const link = ([path, label, note]: [string, string, string]) =>
@@ -49,15 +37,16 @@ export function GET(): Response {
         `- [${post.title}](${base}/blog/${post.slug}): ${post.description}`,
     );
 
+  // The summary blurb: first line is prefixed with the brand name, the rest
+  // continue it. Both name and prose come from config.
+  const summary = content.llms.summary.map((line, i) =>
+    i === 0 ? `> ${siteConfig.name} ${line}` : `> ${line}`,
+  );
+
   const sections: string[] = [
     `# ${siteConfig.name}`,
     "",
-    `> ${siteConfig.name} is a public service for reporting perceived adverse`,
-    "> effects of conversational AI tools and digital/social media. Anyone",
-    "> affected — and parents, carers, and professionals supporting someone",
-    "> else — can submit reports to help identify patterns of harm. This is not",
-    "> a crisis or emergency service; in an emergency, contact your local",
-    "> emergency number.",
+    ...summary,
     "",
     "## Core pages",
     ...corePages.map(link),
@@ -74,10 +63,7 @@ export function GET(): Response {
   sections.push(
     "",
     "## Key facts",
-    "- Purpose: collect perceived adverse-effect reports about conversational AI tools and digital/social media platforms, from the public and professionals.",
-    "- Audience: people affected, plus the parents, carers, and professionals supporting them.",
-    "- Reports can be submitted anonymously.",
-    "- Not a diagnosis, treatment, crisis, or moderation-enforcement service.",
+    ...content.llms.keyFacts.map((fact) => `- ${fact}`),
     "",
   );
 

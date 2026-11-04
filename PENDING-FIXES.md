@@ -149,6 +149,11 @@ must be recorded as a go/no-go: either provision the survey in an EU-region Qual
 record that Mode A cannot meet ADR-006 (spec §13.5 makes this "a **go/no-go** input for choosing
 Mode B"). Until resolved, don't embed any survey that a real person could reach.
 
+**Update (2026-09-03):** the survey now points at the UvA EU instance
+`https://uva.fra1.qualtrics.com/jfe/form/SV_1zdQGq7PaFsv2Jg` (`fra1` = Frankfurt, EU
+region), served via the `QUALTRICS_SURVEY_URL` env var rather than the hardcoded value
+above. This satisfies the EU-datacenter requirement; the residency go/no-go is met.
+
 ### P0-3. `.qualtrics` plaintext backup codes still sitting in the workspace
 
 **File:** `../.qualtrics` (parent workspace, outside the repo - correctly gitignored, never committed)

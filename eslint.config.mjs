@@ -38,6 +38,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "functions/**", // Cloudflare Pages Functions — not part of the Next app
   ]),
 ]);
 

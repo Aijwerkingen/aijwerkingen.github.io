@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/site.config";
+import { content } from "@/content.config";
 
 /**
  * Shared furniture for the long-form pages (about, how-it-works, contact,
@@ -67,13 +68,8 @@ export function DraftNotice() {
       role="note"
       className="notice mb-8 border-notice-line bg-notice-soft text-notice"
     >
-      <p className="font-semibold">Draft for review - not yet in force.</p>
-      <p className="mt-1">
-        This document has not been approved by our data protection officer or
-        legal owner. Every specific below - retention periods, lawful bases,
-        named processors - is a proposal for review, not an approved fact. Do
-        not rely on it.
-      </p>
+      <p className="font-semibold">{content.legalDraftNotice.title}</p>
+      <p className="mt-1">{content.legalDraftNotice.body}</p>
     </aside>
   );
 }

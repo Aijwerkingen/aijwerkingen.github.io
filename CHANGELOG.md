@@ -85,6 +85,37 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-09-22 - Phase 1 - Hermes
+- **Status change:** Phase 1 in_progress → in_progress
+- **What changed:** Updated all brand taglines and the AISafetyWatch SEO/meta copy for the home, How it works, FAQ, Blog, and Report pages on the staging branch.
+- **Decisions:** Used the supplied psychological-effects language; the existing Open Graph alt remains derived from the shared tagline.
+- **Acceptance criteria progress:**
+  - [x] Shared tagline updated for AISafetyWatch, AIjwerkingen, and AdverseAI.
+  - [x] Default site description and requested per-page descriptions updated.
+  - [ ] Final SEO/legal review remains open.
+- **Blockers / risks:** None for this copy-only staging change; production is unchanged.
+
+
+### 2026-08-20 - Phase 2 - eng (Hermes) - /report survey embed gated behind shared password (INTERNAL_AUTH_PLAN v2)
+
+- `functions/api/report-access.js` (new): edge Function — Qualtrics URL returned only after password verified (POST sets httpOnly `report_access` cookie; GET checks it). URL never in the static bundle.
+- `src/app/report/ReportGate.tsx` (new) + `page.tsx` edit: `/report` renders main's "The reporting form launches soon" placeholder by default; correct password swaps in the Qualtrics iframe. Only `/report` affected — rest of the site stays public.
+- `deploy.yml`: staging deploys back to CF Pages project `aisafetywatch-internal` (wrangler) so the Function ships; eslint/tsconfig ignore `functions/**`.
+- Project env: `INTERNAL_PASSWORD` + `QUALTRICS_SURVEY_URL` (server-side, never `NEXT_PUBLIC_`). Fail-safe: with `INTERNAL_PASSWORD` unset the page stays on the placeholder.
+- Survey ID unchanged (`SV_ddoaHNEsGsbDnwi`); P0 gates (D3/D4, EU residency) still open — this gates the staging entry point only.
+
+### 2026-08-20 - Phase 2 - eng (Hermes) - REVERT: internal auth gate (PR #38) rolled back at owner direction
+
+- Reverted merge `0cf7581` (feat/internal-auth-gate): `functions/_middleware.js` removed, `eslint.config.mjs`/`tsconfig.json` functions ignores reverted, `deploy.yml` restored to GitHub Pages deploy.
+- `INTERNAL_PASSWORD` secret deleted from the `aisafetywatch-internal` Pages project; project + custom domain `internal.aisafetywatch.com` kept, and the reverted build deployed there directly (no gate).
+- Staging deploys resume to `aijwerkingen.github.io` via Pages on the next push to `staging`.
+
+### 2026-08-20 - Phase 2 - eng (Hermes) - staging survey embed pointed at a new Qualtrics form (owner direction)
+
+- `src/app/report/page.tsx` fallback updated: `SV_eA4y9ucLih6un8a` (host `qualtricsxmwdy4hl99w`) → `SV_ddoaHNEsGsbDnwi` (host `qualtricsxm6gyvfq8rn.qualtrics.com`). No `.env` override exists in CI, so this fallback is the effective URL on Pages.
+- CSP `frame-src https://*.qualtrics.com` already covers the new host; no `layout.tsx` change needed.
+- **P0 gates unchanged and still open:** D3 (Qualtrics DPA/EU storage) and D4 (DPIA / Art. 9 basis) unresolved; new host is still a bare brand host with no `.eu.` segment (US datacenter), so P0-2 (ADR-006 EU residency) still applies. Not deployable for real submissions until Phase 4 closes.
+
 ### 2026-07-16 - Phase 1 - build (Claude Code) - remaining page set scaffolded: /about, /how-it-works, /contact + draft /privacy, /terms, /accessibility
 - **Status change:** none to the board. Phase 1's page table (spec §5) is now complete
   except `/news`; every route in that table exists, is linked, and emits its specified

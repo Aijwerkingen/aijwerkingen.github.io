@@ -7,6 +7,9 @@ import {
   defaultCountryCode,
   type HelplineEntry,
 } from "@/data/helplines";
+import { content } from "@/content.config";
+
+const c = content.crisis;
 
 /**
  * Dynamic crisis-helpline notice.
@@ -128,20 +131,19 @@ export function CrisisHelpline({ variant = "notice" }: { variant?: Variant }) {
 
   return (
     <p>
-      <span className={styles.heading}>Not a crisis service.</span>{" "}
-      If you or someone else is in immediate danger, contact your local
-      emergency number
+      <span className={styles.heading}>{c.notCrisis}</span>{" "}
+      {c.dangerLead}
       {entry.emergency ? ` (${entry.emergency})` : ""}.{" "}
       {/* Country selector */}
       <span className="relative inline-block" ref={dropdownRef}>
-        In{" "}
+        {c.inCountryPrefix}{" "}
         <button
           type="button"
           onClick={() => setOpen(!open)}
           className={`${styles.link} inline cursor-pointer`}
           aria-expanded={open}
           aria-haspopup="listbox"
-          title="Click to choose your country"
+          title={c.chooseCountryTitle}
         >
           {entry.country}
           <svg
@@ -172,7 +174,7 @@ export function CrisisHelpline({ variant = "notice" }: { variant?: Variant }) {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search country…"
+                placeholder={c.searchPlaceholder}
                 className="w-full bg-transparent text-sm text-ink outline-none placeholder:text-ink-soft"
                 aria-label="Search countries"
               />
@@ -180,7 +182,7 @@ export function CrisisHelpline({ variant = "notice" }: { variant?: Variant }) {
             <span className="max-h-52 overflow-y-auto">
               {filtered.length === 0 ? (
                 <span className="block px-3 py-2 text-sm text-ink-soft">
-                  No match
+                  {c.noMatch}
                 </span>
               ) : (
                 filtered.map((h) => (
@@ -213,18 +215,16 @@ export function CrisisHelpline({ variant = "notice" }: { variant?: Variant }) {
       >
         {entry.name}
       </a>{" "}
-      ({entry.phone}) offers free, confidential crisis support.
+      ({entry.phone}) {c.support}
       {!geoResolved && (
         <>
           {" "}
-          <span className="text-ink-soft">
-            Country detected automatically.
-          </span>
+          <span className="text-ink-soft">{c.detectedNote}</span>
         </>
       )}
       {" "}
       <a href="/helplines" className={styles.link}>
-        See all helplines →
+        {c.seeAll}
       </a>
     </p>
   );
