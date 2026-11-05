@@ -89,6 +89,7 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 - `src/app/page.tsx` + `src/content.config.ts`: the hero call to action is now a single `Report your experience` button sitting on the page background. Removed the tinted `bg-accent-soft` panel, the invite paragraph, the three reassurance chips and the secondary `Common questions` button (owner feedback: keep it simple; with no text there is no reason to highlight the panel).
 - Hero section no longer sets `bg-canvas`, so it inherits the body surface - the hero and the "What we do" section now share one background and are separated by a hairline border instead of a colour band (owner feedback: too many background colours).
+- Removed the crisis-helpline notice panel from the top of the home page (`CrisisHelpline` import dropped); hero padding increased so the heading sits at the top. The helpline remains in the site footer.
 - Copy-only + layout; no change to `/report` or the report gate.
 
 ### 2026-11-05 - Phase 5 - Hermes - Domain move to aiimpactregistry.org; default brand is AI Impact Registry

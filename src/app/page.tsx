@@ -7,7 +7,6 @@ import {
 } from "@/components/Icons";
 import { content } from "@/content.config";
 import { PartnerLogos } from "@/components/PartnerLogos";
-import { CrisisHelpline } from "@/components/CrisisHelpline";
 import { RichLine } from "@/content/RichText";
 import type { Span } from "@/content/rich";
 import type { Metadata } from "next";
@@ -40,12 +39,8 @@ export default function HomePage() {
       <section className="relative isolate overflow-hidden border-b border-line">
         <HeroTrace />
 
-        <div className="mx-auto max-w-5xl px-4 pt-4 pb-16 text-center sm:pt-5">
-          <aside className="notice border-line bg-surface py-2.5 text-left text-ink-soft">
-            <CrisisHelpline variant="notice" />
-          </aside>
-
-          <h1 className="font-display mx-auto mt-7 max-w-2xl text-3xl leading-[1.1] font-extrabold tracking-tight text-balance sm:text-4xl">
+        <div className="mx-auto max-w-5xl px-4 pt-10 pb-16 text-center sm:pt-12">
+          <h1 className="font-display mx-auto max-w-2xl text-3xl leading-[1.1] font-extrabold tracking-tight text-balance sm:text-4xl">
             {hero.title}
           </h1>
 
