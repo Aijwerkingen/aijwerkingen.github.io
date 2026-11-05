@@ -44,10 +44,10 @@ export default function HomePage() {
             {hero.title}
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-pretty text-ink-soft sm:text-lg">
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-left sm:text-justify text-ink-soft sm:text-lg">
             <RichLine spans={hero.body} />
           </p>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-pretty text-ink-soft">
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-left sm:text-justify text-ink-soft">
             {hero.detail}
           </p>
 
@@ -185,10 +185,12 @@ function InfoCard({
 
   return (
     <article className="flex max-h-[27rem] min-h-[22rem] flex-col rounded-2xl border border-line bg-surface px-7 py-6 shadow-sm">
-      <span className="flex size-10 items-center justify-center rounded-xl bg-accent-soft text-accent-strong">
-        {icon}
-      </span>
-      <h3 className="font-display mt-4 text-xl font-bold leading-tight text-ink">{renderCopy(title)}</h3>
+      <div className="flex min-h-[3.25rem] items-center gap-3">
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-accent-strong">
+          {icon}
+        </span>
+        <h3 className="font-display text-xl font-bold leading-tight text-ink">{renderCopy(title)}</h3>
+      </div>
       <div className="mt-4 min-h-0 overflow-y-auto pr-2 text-base leading-relaxed text-ink-soft [scrollbar-color:var(--line)_transparent]">
         <p>{renderCopy(body)}</p>
       </div>

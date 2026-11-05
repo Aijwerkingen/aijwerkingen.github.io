@@ -196,7 +196,7 @@ export const content = {
           title: ["About ", brand] as Span[],
           body: [
             brand,
-            " is a global reporting platform for psychological effects of AI technology. It gives people a place to describe what they experienced after an AI exposure or interaction, in their own words and without needing to prove what caused it.",
+            " is a global registry for possible adverse effects of AI tools. It gives people a place to describe what they experienced after an AI exposure or interaction, in their own words and without needing to prove what caused it.",
           ] as Span[],
         },
         {
@@ -208,7 +208,7 @@ export const content = {
         {
           title: "What research we do",
           body: [
-            "We study reported psychological effects of AI technology through structured online questionnaires and analysis of aggregated patterns. This helps us understand what people are experiencing, identify questions that need closer study, and improve how psychological effects of AI are monitored over time.",
+            "We study reported possible adverse effects of AI tools through structured online questionnaires and analysis of aggregated patterns. This helps us understand what people are experiencing, identify questions that need closer study, and improve how the effects of AI are monitored over time.",
           ] as Span[],
         },
       ],
@@ -287,7 +287,7 @@ export const content = {
         "When a medicine causes an unexpected effect, there is somewhere to report it, and those reports accumulate into evidence. When an AI tool or system affects someone - a chatbot, a social media algorithm, an automated decision - leaving them more anxious, more isolated, worse about their body, or unable to stop - there is usually nowhere for that to go. It stays a private experience, and nothing aggregates.",
       ),
       p(
-        "That absence is the gap this platform addresses. Not by treating digital tools as if they were drugs, but by taking seriously that the psychological effects linked to their use are real, is reportable, and becomes legible once enough people describe it.",
+        "That absence is the gap this platform addresses. Not by treating digital tools as if they were drugs, but by taking seriously that the effects linked to their use are real, reportable, and becomes legible once enough people describe it.",
       ),
       h2("What we do with reports"),
       p(
