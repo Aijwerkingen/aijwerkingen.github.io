@@ -60,7 +60,7 @@ export const content = {
      this is the default description and every per-page title + description. */
   meta: {
     /** Brand-agnostic descriptor: home <title> and OG image alt are "<brand> - <this>". */
-    descriptor: "Global reporting center for the psychological effects of AI technology",
+    descriptor: "Global registry for possible adverse effects of AI tools",
     defaultDescription:
       "Global reporting center for the psychological effects of AI technology. It records possible adverse effects of AI tools, including ones that only emerge later.",
     pages: {
