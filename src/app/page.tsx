@@ -10,7 +10,9 @@ import type { Span } from "@/content/rich";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: content.meta.pages.home.title,
+  // No `title` here on purpose: the home page inherits the layout default
+  // ("<brand> - <descriptor>"). Setting it to an empty string suppresses both
+  // <title> and og:title, which is what used to happen.
   description: content.meta.pages.home.description,
 };
 
