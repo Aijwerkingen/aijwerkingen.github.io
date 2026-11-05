@@ -40,42 +40,53 @@ export default function HomePage() {
       <section className="relative isolate overflow-hidden border-b border-line bg-canvas">
         <HeroTrace />
 
-        <div className="mx-auto max-w-3xl px-4 pt-6 pb-24 text-center sm:pt-8">
-          <aside className="notice mx-auto max-w-2xl border-line bg-surface text-left text-ink-soft">
+        <div className="mx-auto max-w-5xl px-4 pt-4 pb-16 text-center sm:pt-5">
+          <aside className="notice border-line bg-surface py-2.5 text-left text-ink-soft">
             <CrisisHelpline variant="notice" />
           </aside>
 
-          <h1 className="font-display mt-12 text-4xl leading-[1.1] font-extrabold tracking-tight text-balance sm:text-5xl">
+          <h1 className="font-display mx-auto mt-7 max-w-2xl text-3xl leading-[1.1] font-extrabold tracking-tight text-balance sm:text-4xl">
             {hero.title}
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-left sm:text-justify text-ink-soft sm:text-lg">
+          <p className="mx-auto mt-4 max-w-3xl text-lg leading-snug text-balance text-ink-soft">
             <RichLine spans={hero.body} />
           </p>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-left sm:text-justify text-ink-soft">
-            {hero.detail}
-          </p>
 
-          <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
-            {hero.ctas.map((cta, i) => (
-              <Link
-                key={cta.href}
-                href={cta.href}
-                className={i === 0 ? "btn-primary" : "btn-secondary"}
-              >
-                {cta.label}
-              </Link>
-            ))}
+          {/* The call to action: invitation, buttons and reassurances grouped in
+              a softly tinted panel so the next step stands out from the intro. */}
+          <div className="mt-5 rounded-3xl border border-accent-line bg-accent-soft px-6 py-5">
+            <p className="text-left text-base leading-normal text-ink">
+              {hero.invite}
+            </p>
+
+            <div className="mt-5 flex flex-col items-center gap-4">
+              <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+                {hero.ctas.map((cta, i) => (
+                  <Link
+                    key={cta.href}
+                    href={cta.href}
+                    className={i === 0 ? "btn-primary" : "btn-secondary"}
+                  >
+                    {cta.label}
+                  </Link>
+                ))}
+              </div>
+
+              <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-ink-soft">
+                {hero.chips.map((item) => (
+                  <li key={item} className="flex items-center gap-2">
+                    <CheckDot />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-ink-soft">
-            {hero.chips.map((item) => (
-              <li key={item} className="flex items-center gap-2">
-                <CheckDot />
-                {item}
-              </li>
-            ))}
-          </ul>
+          <p className="mx-auto mt-6 max-w-4xl text-base leading-normal text-left sm:text-justify text-ink-soft">
+            {hero.detail}
+          </p>
         </div>
       </section>
 
@@ -139,7 +150,7 @@ function HeroTrace() {
       viewBox="0 0 1200 120"
       preserveAspectRatio="none"
       aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-28 w-full text-accent opacity-25"
+      className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-20 w-full text-accent opacity-25"
     >
       <path
         d="M0 72h286l12-30 15 58 13-46 9 18h146l14-26 12 44 11-32 8 14h150l13-34 15 60 12-48 10 22h180l12-24 11 40 10-30 8 12h254"
