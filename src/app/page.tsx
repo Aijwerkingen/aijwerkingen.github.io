@@ -63,6 +63,25 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="border-y border-line bg-canvas">
+        <div className="mx-auto max-w-5xl px-4 py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">{how.eyebrow}</p>
+          </div>
+
+          <ol className="mt-12 grid gap-6 sm:grid-cols-3">
+            {how.steps.map((step, i) => (
+              <Step
+                key={step.title}
+                n={i + 1}
+                icon={howIcons[i]}
+                title={step.title}
+              />
+            ))}
+          </ol>
+        </div>
+      </section>
+
       <section className="border-b border-line">
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 px-4 py-8">
           <p className="eyebrow">{partnersLabel}</p>
@@ -87,25 +106,6 @@ export default function HomePage() {
               body={card.body}
             />
           ))}
-        </div>
-      </section>
-
-      <section className="border-y border-line bg-canvas">
-        <div className="mx-auto max-w-5xl px-4 py-20">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="eyebrow">{how.eyebrow}</p>
-          </div>
-
-          <ol className="mt-12 grid gap-6 sm:grid-cols-3">
-            {how.steps.map((step, i) => (
-              <Step
-                key={step.title}
-                n={i + 1}
-                icon={howIcons[i]}
-                title={step.title}
-              />
-            ))}
-          </ol>
         </div>
       </section>
     </>
