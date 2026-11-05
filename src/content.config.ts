@@ -180,14 +180,7 @@ export const content = {
       ] as Span[],
       detail:
         "We collect insights into experiences that may be, or may later turn out to be, harmful - including chatbot interactions, deepfake content, social media algorithms, AI surveillance, automated decision-making, and job displacement.",
-      invite:
-        "You are invited to report your own experience or to report on behalf of someone else. Submissions take a few minutes. All reports are encrypted and handled to high privacy standards; no name or account is required.",
-      ctas: [CTA_REPORT, { label: "Common questions", href: "/faq" }],
-      chips: [
-        "No account needed",
-        "You can stop at any point",
-        "Your words are enough",
-      ],
+      cta: CTA_REPORT,
     },
     partnersLabel: "Developed with",
     whatWeDo: {
@@ -223,7 +216,7 @@ export const content = {
           title:
             "Describe when and how the AI technology affected you.",
         },
-        { title: "Indicate symptoms you experience" },
+        { title: "Indicate adverse effects you experience" },
       ],
     },
   },

@@ -193,7 +193,9 @@ export const siteConfig = {
 
   /**
    * Partner institutions shown as logos on the home page and /about. Logos are the
-   * institutions' own artwork (public/partners/), displayed unmodified on a white tile.
+   * institutions' own artwork (public/partners/), displayed unmodified on a white
+   * tile. UvA is shown in the black-and-white variant, which is the form UvA's own
+   * corporate identity requires for partner/sponsor use.
    */
   partners: [
     {
@@ -207,7 +209,7 @@ export const siteConfig = {
       name: "University of Amsterdam",
       url: "https://www.uva.nl/en",
       logo: "/partners/uva.svg",
-      width: 383,
+      width: 381,
       height: 42,
     },
   ],

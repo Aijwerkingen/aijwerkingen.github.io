@@ -2,9 +2,10 @@ import { siteConfig } from "@/site.config";
 
 /**
  * Partner institution logos. Each sits on a white tile so the institutions'
- * multi-colour artwork stays legible in dark mode and is never recoloured.
- * Plain links in a div (not a list) so `.prose-doc` list styling on /about
- * can't add bullets.
+ * artwork stays legible in dark mode and is never recoloured - UvA is supplied
+ * in its black-and-white variant (the form UvA's brand rules require for
+ * partner/sponsor use). Plain links in a div (not a list) so `.prose-doc` list
+ * styling on /about can't add bullets.
  */
 export function PartnerLogos({ className = "" }: { className?: string }) {
   return (
