@@ -2,10 +2,10 @@
 // Every SEO/AEO artifact (titles, meta, canonical, JSON-LD, sitemap, robots.txt,
 // llms.txt) must derive from this file. See TECHNICAL_SPEC.md §5.1 (ADR-008).
 //
-// STATUS: placeholder identity + placeholder domain (D1, D9 - spec §22, both open).
-// canonicalUrl points at the GitHub Pages deploy, which stays noindex (ADR-010)
-// until a final domain is chosen. Swapping either value later is a one-file edit —
-// see TECHNICAL_SPEC.md §0.1 / §5.2 and the "▶ RESUME HERE" block in CHANGELOG.md.
+// STATUS: identity and domain are settled (D1, D9 - spec §22). The default brand
+// is AI Impact Registry on aiimpactregistry.org; AISafetyWatch remains available as
+// a preview variant. Swapping either value is a one-file edit - see
+// TECHNICAL_SPEC.md §0.1 / §5.2 and the "▶ RESUME HERE" block in CHANGELOG.md.
 
 /** Colour-way of the icon set. Only the accent colour differs; neutrals are shared. */
 export const brandThemes = ["warm", "teal"] as const;
@@ -16,7 +16,7 @@ export const brandThemeLabels: Record<BrandTheme, string> = {
   teal: "Teal",
 };
 
-type BrandVariant = {
+export type BrandVariant = {
   /** Directory name under `public/brand/<key>/<theme>/`. */
   key: string;
   name: string;
@@ -32,10 +32,24 @@ type BrandVariant = {
    * The lockup sets exactly one half of the wordmark in the accent colour and
    * the other in ink - `accent` says which half. Mirrors the supplied artwork.
    */
-  wordmark: { lead: string; tail: string; accent: "lead" | "tail" };
+  wordmark: {
+    lead: string;
+    tail: string;
+    accent: "lead" | "tail";
+    /** Render a space between lead and tail (multi-word names). */
+    space?: boolean;
+  };
 };
 
 export const brandVariants = {
+  aiimpactregistry: {
+    key: "aiimpactregistry",
+    name: "AI Impact Registry",
+    legalName: "", // TODO(D11/NAP): set once the operating entity is registered.
+    tagline:
+      "The global reporting platform for psychological effects of AI technology.",
+    wordmark: { lead: "AI", tail: "Impact Registry", accent: "lead", space: true },
+  },
   aisafetywatch: {
     key: "aisafetywatch",
     name: "AISafetyWatch",
@@ -44,28 +58,12 @@ export const brandVariants = {
       "The global reporting platform for psychological effects of AI technology.",
     wordmark: { lead: "AI", tail: "SafetyWatch", accent: "lead" },
   },
-  aijwerkingen: {
-    key: "aijwerkingen",
-    name: "AIjwerkingen",
-    legalName: "",
-    tagline:
-      "The global reporting platform for psychological effects of AI technology.",
-    wordmark: { lead: "AI", tail: "jwerkingen", accent: "lead" },
-  },
-  adverseai: {
-    key: "adverseai",
-    name: "AdverseAI",
-    legalName: "", // TODO(D11/NAP): set once the operating entity is registered.
-    tagline:
-      "The global reporting platform for psychological effects of AI technology.",
-    wordmark: { lead: "Adverse", tail: "AI", accent: "tail" },
-  },
 } as const satisfies Record<string, BrandVariant>;
 
 export type BrandKey = keyof typeof brandVariants;
 
 /** Build-time identity. Everything server-rendered (metadata, JSON-LD) uses these. */
-export const defaultBrandKey: BrandKey = "aisafetywatch";
+export const defaultBrandKey: BrandKey = "aiimpactregistry";
 export const defaultBrandTheme: BrandTheme = "warm";
 
 const defaultBrand = brandVariants[defaultBrandKey];
@@ -88,9 +86,10 @@ export const siteConfig = {
   name: defaultBrand.name,
   shortName: defaultBrand.name,
   tagline: defaultBrand.tagline,
-  // D9 resolved: the production domain. .info/.net 301-redirect here (zone-level
-  // Cloudflare Redirect Rules), so this stays the single canonical host.
-  canonicalUrl: "https://aisafetywatch.com",
+  // D9 resolved: the production domain. The legacy aisafetywatch.com / .info /
+  // .net hosts 301-redirect here (zone-level Cloudflare Redirect Rules), so this
+  // stays the single canonical host.
+  canonicalUrl: "https://aiimpactregistry.org",
   defaultLocale: "en",
   locales: ["en"],
   // D11: an icon set now exists, so `logo` is a real asset rather than a TODO.
@@ -167,6 +166,32 @@ export const siteConfig = {
   },
 
   /**
+   * Partner institutions shown as logos on the home page and /about. Logos are the
+   * institutions' own artwork (public/partners/), displayed unmodified on a white tile.
+   */
+  partners: [
+    {
+      name: "Amsterdam UMC",
+      url: "https://www.amsterdamumc.org/en/",
+      logo: "/partners/amsterdam-umc.svg",
+      width: 524,
+      height: 87,
+    },
+    {
+      name: "University of Amsterdam",
+      url: "https://www.uva.nl/en",
+      logo: "/partners/uva.svg",
+      width: 383,
+      height: 42,
+    },
+  ],
+  /** UvA research priority area this project belongs to (linked on /about). */
+  researchPriorityArea: {
+    name: "Shaping Interfaces Between Science and the Public",
+    url: "https://www.uva.nl/en/research/research-at-the-uva/research-priority-areas/research-priority-areas.html",
+  },
+
+  /**
    * Report-form embed (Qualtrics) postMessage handshake.
    *
    * The survey's own script posts `{ sender, event }` to the parent window when
@@ -185,7 +210,7 @@ export const siteConfig = {
     url: "https://uva.fra1.qualtrics.com/jfe/form/SV_9XnaWyi3KkasT2e",
   },
 
-  // ADR-010 satisfied: the final domain (aisafetywatch.com) is live and
+  // ADR-010 satisfied: the final domain (aiimpactregistry.org) is live and
   // confirmed, so the site opens to crawlers. Legal pages stay noindex
   // independently via `legal.approved` until DPO sign-off.
   indexable: true,

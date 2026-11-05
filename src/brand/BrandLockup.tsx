@@ -15,11 +15,12 @@ export function BrandName() {
  */
 export function BrandWordmark({ className = "" }: { className?: string }) {
   const { variant } = useBrand();
-  const { lead, tail, accent } = variant.wordmark;
+  const { lead, tail, accent, space } = variant.wordmark;
 
   return (
     <span className={`font-display font-extrabold tracking-tight ${className}`}>
       <span className={accent === "lead" ? "text-accent" : "text-ink"}>{lead}</span>
+      {space ? " " : null}
       <span className={accent === "tail" ? "text-accent" : "text-ink"}>{tail}</span>
     </span>
   );

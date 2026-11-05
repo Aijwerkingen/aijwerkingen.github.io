@@ -6,6 +6,14 @@
 > the entire site and popped a browser username prompt (that work shipped as
 > PR #38 and was reverted by PR #39). **Do not reintroduce a site-wide gate.**
 
+> **Update - build flag (read this first).** The gate is now switched by the
+> build-time flag `NEXT_PUBLIC_REPORT_GATE`. Only `ReportGate` with the flag set to
+> `"1"` fetches `/api/report-access` or shows the password form; without it (the
+> production build) `/report` renders only the placeholder. The flag is set solely in
+> `.github/workflows/deploy.yml` (staging -> `aisafetywatch-internal`). Where the
+> steps below describe `ReportGate` calling the endpoint "on load", read that as
+> "when the flag is on". See the README section "Report gate (staging only)".
+
 ---
 
 ## 0. Context

@@ -3,7 +3,7 @@ published: true
 title: "Launching soon: a place to report AI side effects"
 description: "A public reporting platform for effects people notice during or after using AI tools and social media. High privacy standards, no account needed. Launching soon."
 date: 2026-08-12
-author: "AISafetyWatch team"
+author: "AI Impact Registry team"
 tags: ["reporting", "ai-safety", "launch"]
 ---
 

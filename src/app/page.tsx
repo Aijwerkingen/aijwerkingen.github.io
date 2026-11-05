@@ -2,19 +2,29 @@ import Link from "next/link";
 import {
   ChatIcon,
   NoteIcon,
+  PulseIcon,
   ShieldIcon,
 } from "@/components/Icons";
 import { content } from "@/content.config";
+import { PartnerLogos } from "@/components/PartnerLogos";
 import { RichLine } from "@/content/RichText";
 import type { Span } from "@/content/rich";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: content.meta.pages.home.title,
+  // No `title` here on purpose: the home page inherits the layout default
+  // ("<brand> - <descriptor>"). Setting it to an empty string suppresses both
+  // <title> and og:title, which is what used to happen.
   description: content.meta.pages.home.description,
 };
 
-const { hero, whatWeDo, how } = content.home;
+const { hero, whatWeDo, how, partnersLabel } = content.home;
+
+const cardIcons = [
+  <PulseIcon key="pulse" className="size-5" />,
+  <ShieldIcon key="shield" className="size-5" />,
+  <NoteIcon key="note" className="size-5" />,
+];
 
 // Icons are presentation, not copy, so they stay here and zip with the config text.
 const howIcons = [
@@ -34,8 +44,11 @@ export default function HomePage() {
             {hero.title}
           </h1>
 
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-ink-soft">
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-pretty text-ink-soft sm:text-lg">
             <RichLine spans={hero.body} />
+          </p>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-pretty text-ink-soft">
+            {hero.detail}
           </p>
 
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
@@ -61,6 +74,13 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="border-b border-line">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 px-4 py-8">
+          <p className="eyebrow">{partnersLabel}</p>
+          <PartnerLogos />
+        </div>
+      </section>
+
       <section className="mx-auto max-w-5xl px-4 py-20">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow">{whatWeDo.eyebrow}</p>
@@ -70,9 +90,10 @@ export default function HomePage() {
         </div>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-3">
-          {whatWeDo.cards.map((card) => (
+          {whatWeDo.cards.map((card, i) => (
             <InfoCard
               key={typeof card.title === "string" ? card.title : card.title.join("")}
+              icon={cardIcons[i]}
               title={card.title}
               body={card.body}
             />
@@ -151,9 +172,11 @@ function CheckDot() {
 }
 
 function InfoCard({
+  icon,
   title,
   body,
 }: {
+  icon: React.ReactNode;
   title: string | readonly Span[];
   body: string | readonly Span[];
 }) {
@@ -162,8 +185,11 @@ function InfoCard({
 
   return (
     <article className="flex max-h-[27rem] min-h-[22rem] flex-col rounded-2xl border border-line bg-surface px-7 py-6 shadow-sm">
-      <h3 className="font-display text-xl font-bold leading-tight text-ink">{renderCopy(title)}</h3>
-      <div className="mt-5 min-h-0 overflow-y-auto pr-2 text-base leading-relaxed text-ink-soft [scrollbar-color:var(--line)_transparent]">
+      <span className="flex size-10 items-center justify-center rounded-xl bg-accent-soft text-accent-strong">
+        {icon}
+      </span>
+      <h3 className="font-display mt-4 text-xl font-bold leading-tight text-ink">{renderCopy(title)}</h3>
+      <div className="mt-4 min-h-0 overflow-y-auto pr-2 text-base leading-relaxed text-ink-soft [scrollbar-color:var(--line)_transparent]">
         <p>{renderCopy(body)}</p>
       </div>
     </article>
