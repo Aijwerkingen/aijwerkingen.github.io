@@ -83,14 +83,14 @@ export const defaultBrandMode: BrandMode = "dark";
  * free equivalents or look-alikes. The first entry is the default.
  */
 export const fontOptions = [
-  { key: "nunito", label: "Nunito", note: "Default. Rounded; close to Amsterdam UMC's Museo Sans Rounded." },
-  { key: "maven", label: "Maven + Open Sans", note: "Maven Pro headings, Open Sans body - the pairing used by lareb.nl." },
+  { key: "maven", label: "Maven + Open Sans", note: "Default. Maven Pro headings, Open Sans body - the pairing used by lareb.nl." },
+  { key: "nunito", label: "Nunito", note: "Rounded; close to Amsterdam UMC's Museo Sans Rounded." },
   { key: "source", label: "Source Serif + Sans", note: "Serif headings, Source Sans body - in the spirit of uva.nl (Utopia + Source Sans Pro)." },
   { key: "noto", label: "Noto Sans", note: "Free stand-in for Rijksoverheid Sans (ind.nl, Belastingdienst)." },
   { key: "system", label: "System (Arial)", note: "Arial / Helvetica, no font download - as on ggz.nl." },
 ] as const;
 export type FontKey = (typeof fontOptions)[number]["key"];
-export const defaultFontKey: FontKey = "nunito";
+export const defaultFontKey: FontKey = "maven";
 
 const defaultBrand = brandVariants[defaultBrandKey];
 
