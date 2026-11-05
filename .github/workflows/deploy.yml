@@ -19,6 +19,9 @@ jobs:
         env:
           # Staging only: enables the /report password gate (see ReportGate.tsx).
           NEXT_PUBLIC_REPORT_GATE: "1"
+          # Staging only: enables the brand preview panel (see
+          # src/admin/panel-enabled.ts). Production's build has neither.
+          NEXT_PUBLIC_BRAND_PANEL: "1"
       - name: Deploy to Cloudflare Pages (internal)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

@@ -85,6 +85,15 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-11-05 - Phase 5 - Hermes - Brand preview panel is staging-only; production defaults to dark + Maven Pro/Open Sans
+
+- **New build flag `NEXT_PUBLIC_BRAND_PANEL`** (`src/admin/panel-enabled.ts`), mirroring the existing `NEXT_PUBLIC_REPORT_GATE` mechanism. `.github/workflows/deploy.yml` sets it to `"1"` on the staging build only; the production build (Cloudflare git integration, no such variable) compiles the panel out. `src/app/layout.tsx` guards the single `<AdminDrawer />` call site.
+- With the flag off, `src/brand/brand-state.ts` also refuses any localStorage override: `readStorage()`, the `storage` event listener, `setBrandState()` and `brandPrePaintScript()` all short-circuit, so production cannot be re-branded from devtools - the `site.config.ts` defaults are the only brand on record.
+- **Production typeface defaults** changed to Maven Pro + Open Sans: `defaultFontKey` `"nunito"` -> `"maven"`, and the preloaded next/font pair is now Maven Pro (display) + Open Sans (sans). Nunito/Nunito Sans became preview-only options (`preload: false`, `--font-opt-nunito` / `--font-opt-nunito-sans`). `globals.css`: the now-redundant `html[data-font="maven"]` rule is removed (maven is the base pair) and `html[data-font="nunito"]` replaces it.
+- Dark appearance was already the default (`defaultBrandMode = "dark"`) and is unchanged.
+- Verified both ways: prod-like `npm run build` emits no panel markup, no `brand-preview` pre-paint script, `data-mode="dark"`, and base `--font-brand-display: "Maven Pro"` / `--font-brand-sans: "Open Sans"`; staging-like `NEXT_PUBLIC_BRAND_PANEL=1 npm run build` emits the panel and the pre-paint script.
+- `.env.example` documents the new flag. No change to `/report` or the report gate.
+
 ### 2026-11-05 - Phase 5 - Hermes - Home hero: single report CTA, no tinted panel, fewer background colours
 
 - `src/app/page.tsx` + `src/content.config.ts`: the hero call to action is now a single `Report your experience` button sitting on the page background. Removed the tinted `bg-accent-soft` panel, the invite paragraph, the three reassurance chips and the secondary `Common questions` button (owner feedback: keep it simple; with no text there is no reason to highlight the panel).

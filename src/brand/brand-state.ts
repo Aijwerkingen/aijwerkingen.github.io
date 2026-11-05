@@ -20,6 +20,7 @@ import {
   type BrandTheme,
   type FontKey,
 } from "@/site.config";
+import { brandPanelEnabled } from "@/admin/panel-enabled";
 
 export type BrandState = {
   brand: BrandKey;
@@ -76,6 +77,9 @@ function parseBrandState(raw: string | null): BrandState {
 }
 
 function readStorage(): BrandState {
+  // Production builds the panel out, so a stored preview must not be honoured
+  // there - the site.config.ts defaults are the only brand on record.
+  if (!brandPanelEnabled) return defaultBrandState;
   try {
     return parseBrandState(window.localStorage.getItem(BRAND_STORAGE_KEY));
   } catch {
@@ -90,7 +94,7 @@ const listeners = new Set<() => void>();
 // this module-level variable and is only reassigned when it actually changes.
 let snapshot: BrandState = defaultBrandState;
 
-if (typeof window !== "undefined") {
+if (typeof window !== "undefined" && brandPanelEnabled) {
   // Module init runs before hydration, so the first client-side getSnapshot()
   // already reflects storage and React reconciles in a single pass instead of
   // reporting a mismatch against the server-rendered default.
@@ -137,6 +141,7 @@ export function getServerBrandSnapshot(): BrandState {
 }
 
 export function setBrandState(patch: Partial<BrandState>): void {
+  if (!brandPanelEnabled) return;
   commit({ ...snapshot, ...patch }, { persist: true });
 }
 
@@ -156,9 +161,12 @@ export function resetBrandState(): void {
  * literal, both to keep brand strings out of app code (ADR-008) and so adding a
  * variant to site.config.ts needs no change here.
  *
- * Public visitors have no stored value, so this is a no-op read for them.
+ * Public visitors have no stored value, so this is a no-op read for them. On a
+ * production build the panel does not exist at all, so the script is not emitted
+ * (the <html> attributes from the build-time defaults are already correct).
  */
 export function brandPrePaintScript(): string {
+  if (!brandPanelEnabled) return "";
   const keys = JSON.stringify(Object.keys(brandVariants));
   const themes = JSON.stringify(brandThemes);
   const modes = JSON.stringify(brandModes);

@@ -116,10 +116,11 @@ html[data-mode="dark"] .btn-primary:hover {
 /* Brand-preview font picker. Deliberately NOT in a cascade layer: the next/font
    class rules that set --font-brand-* are unlayered, and unlayered styles beat
    layered ones regardless of specificity. `html[data-font]` then wins on
-   specificity. The default ("nunito") needs no rule. */
-html[data-font="maven"] {
-  --font-brand-display: var(--font-opt-maven);
-  --font-brand-sans: var(--font-opt-opensans);
+   specificity. The default ("maven") is what the base --font-brand-* already
+   points at, so it needs no rule. */
+html[data-font="nunito"] {
+  --font-brand-display: var(--font-opt-nunito);
+  --font-brand-sans: var(--font-opt-nunito-sans);
 }
 html[data-font="source"] {
   --font-brand-display: var(--font-opt-source-serif);
