@@ -176,8 +176,10 @@ export const content = {
       title: "The global registry for possible adverse effects of AI tools",
       body: [
         brand,
-        " is inspired by pharmacovigilance research and tracks possible adverse effects that individuals attribute to AI tools. We collect insights into experiences that may be, or may later turn out to be, harmful - including chatbot interactions, deepfake content, social media algorithms, AI surveillance, automated decision-making, and job displacement. You are invited to report your own experience or to report on behalf of someone else. Submissions take a few minutes. All reports are encrypted and handled to high privacy standards; no name or account is required.",
+        " is inspired by pharmacovigilance research and tracks possible adverse effects that individuals attribute to AI tools. We collect insights into experiences that may be, or may later turn out to be, harmful - including chatbot interactions, deepfake content, social media algorithms, AI surveillance, automated decision-making, and job displacement.",
       ] as Span[],
+      detail:
+        "You are invited to report your own experience or to report on behalf of someone else. Submissions take a few minutes. All reports are encrypted and handled to high privacy standards; no name or account is required.",
       ctas: [CTA_REPORT, { label: "Common questions", href: "/faq" }],
       chips: [
         "No account needed",

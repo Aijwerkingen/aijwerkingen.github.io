@@ -181,7 +181,7 @@ export const siteConfig = {
       name: "University of Amsterdam",
       url: "https://www.uva.nl/en",
       logo: "/partners/uva.svg",
-      width: 425,
+      width: 383,
       height: 42,
     },
   ],

@@ -44,8 +44,11 @@ export default function HomePage() {
             {hero.title}
           </h1>
 
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-ink-soft">
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-pretty text-ink-soft sm:text-lg">
             <RichLine spans={hero.body} />
+          </p>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-pretty text-ink-soft">
+            {hero.detail}
           </p>
 
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
