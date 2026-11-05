@@ -81,12 +81,15 @@ export function ScreenIcon({ className }: IconProps) {
   );
 }
 
-/** An eye: the effects the person perceived in themselves. */
-export function EyeIcon({ className }: IconProps) {
+/**
+ * A heart: the effects are psychological, so the icon carries feeling rather
+ * than observation. Drawn as one outline because anything with facial detail
+ * (eyes, a mouth) turns to mush at the 20px render size.
+ */
+export function HeartIcon({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
-      <path d="M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12z" />
-      <circle cx="12" cy="12" r="3" />
+      <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
     </svg>
   );
 }
