@@ -56,3 +56,42 @@ export function NoteIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+/** A chip: the AI technology the person is asked to pick. */
+export function ChipIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <rect x="7" y="7" width="10" height="10" rx="2" />
+      <rect x="10.4" y="10.4" width="3.2" height="3.2" rx="0.8" />
+      <path d="M10 7V4M14 7V4M10 20v-3M14 20v-3M7 10H4M7 14H4M20 10h-3M20 14h-3" />
+    </svg>
+  );
+}
+
+/**
+ * A screen: where and how the person was using the tool. Deliberately a plain
+ * monitor - a cursor arrow closed up into a blob at the 20px render size.
+ */
+export function ScreenIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <rect x="3" y="4.5" width="18" height="12" rx="2" />
+      <path d="M12 16.5V20M8.5 20h7" />
+    </svg>
+  );
+}
+
+/**
+ * A circled exclamation: something worth flagging was experienced. Chosen over a
+ * pulse/ECG because that signal already appears in the "What we do" card (it is
+ * the brand mark), and two of them on one page read as a mistake.
+ */
+export function AlertIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7.4v5.4" />
+      <circle cx="12" cy="16.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}

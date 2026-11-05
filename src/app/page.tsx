@@ -1,13 +1,14 @@
 import Link from "next/link";
 import {
-  ChatIcon,
+  ChipIcon,
+  AlertIcon,
   NoteIcon,
   PulseIcon,
+  ScreenIcon,
   ShieldIcon,
 } from "@/components/Icons";
 import { content } from "@/content.config";
 import { PartnerLogos } from "@/components/PartnerLogos";
-import { CrisisHelpline } from "@/components/CrisisHelpline";
 import { RichLine } from "@/content/RichText";
 import type { Span } from "@/content/rich";
 import type { Metadata } from "next";
@@ -28,24 +29,21 @@ const cardIcons = [
 ];
 
 // Icons are presentation, not copy, so they stay here and zip with the config text.
+// Step icons follow the step's subject: the technology, the usage, the effects.
 const howIcons = [
-  <ChatIcon key="chat" className="size-5" />,
-  <NoteIcon key="note" className="size-5" />,
-  <ShieldIcon key="shield" className="size-5" />,
+  <ChipIcon key="chip" className="size-5" />,
+  <ScreenIcon key="screen" className="size-5" />,
+  <AlertIcon key="alert" className="size-5" />,
 ];
 
 export default function HomePage() {
   return (
     <>
-      <section className="relative isolate overflow-hidden border-b border-line bg-canvas">
+      <section className="relative isolate overflow-hidden border-b border-line">
         <HeroTrace />
 
-        <div className="mx-auto max-w-5xl px-4 pt-4 pb-16 text-center sm:pt-5">
-          <aside className="notice border-line bg-surface py-2.5 text-left text-ink-soft">
-            <CrisisHelpline variant="notice" />
-          </aside>
-
-          <h1 className="font-display mx-auto mt-7 max-w-2xl text-3xl leading-[1.1] font-extrabold tracking-tight text-balance sm:text-4xl">
+        <div className="mx-auto max-w-5xl px-4 pt-10 pb-16 text-center sm:pt-12">
+          <h1 className="font-display mx-auto max-w-2xl text-3xl leading-[1.1] font-extrabold tracking-tight text-balance sm:text-4xl">
             {hero.title}
           </h1>
 
@@ -53,40 +51,37 @@ export default function HomePage() {
             <RichLine spans={hero.body} />
           </p>
 
-          {/* The call to action: invitation, buttons and reassurances grouped in
-              a softly tinted panel so the next step stands out from the intro. */}
-          <div className="mt-5 rounded-3xl border border-accent-line bg-accent-soft px-6 py-5">
-            <p className="text-left text-base leading-normal text-ink">
-              {hero.invite}
-            </p>
-
-            <div className="mt-5 flex flex-col items-center gap-4">
-              <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-                {hero.ctas.map((cta, i) => (
-                  <Link
-                    key={cta.href}
-                    href={cta.href}
-                    className={i === 0 ? "btn-primary" : "btn-secondary"}
-                  >
-                    {cta.label}
-                  </Link>
-                ))}
-              </div>
-
-              <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-ink-soft">
-                {hero.chips.map((item) => (
-                  <li key={item} className="flex items-center gap-2">
-                    <CheckDot />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* The call to action: a single primary button, deliberately bare so
+              the next step is the only thing competing for attention - no
+              tinted panel, no extra copy, no competing buttons. */}
+          <div className="mt-6">
+            <Link href={hero.cta.href} className="btn-primary">
+              {hero.cta.label}
+            </Link>
           </div>
 
           <p className="mx-auto mt-6 max-w-4xl text-base leading-normal text-left sm:text-justify text-ink-soft">
             {hero.detail}
           </p>
+        </div>
+      </section>
+
+      <section className="border-y border-line bg-canvas">
+        <div className="mx-auto max-w-5xl px-4 py-10">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">{how.eyebrow}</p>
+          </div>
+
+          <ol className="mt-7 grid gap-6 sm:grid-cols-3">
+            {how.steps.map((step, i) => (
+              <Step
+                key={step.title}
+                n={i + 1}
+                icon={howIcons[i]}
+                title={step.title}
+              />
+            ))}
+          </ol>
         </div>
       </section>
 
@@ -114,25 +109,6 @@ export default function HomePage() {
               body={card.body}
             />
           ))}
-        </div>
-      </section>
-
-      <section className="border-y border-line bg-canvas">
-        <div className="mx-auto max-w-5xl px-4 py-20">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="eyebrow">{how.eyebrow}</p>
-          </div>
-
-          <ol className="mt-12 grid gap-6 sm:grid-cols-3">
-            {how.steps.map((step, i) => (
-              <Step
-                key={step.title}
-                n={i + 1}
-                icon={howIcons[i]}
-                title={step.title}
-              />
-            ))}
-          </ol>
         </div>
       </section>
     </>
@@ -164,26 +140,6 @@ function HeroTrace() {
         pathLength="1"
       />
     </svg>
-  );
-}
-
-function CheckDot() {
-  return (
-    <span
-      aria-hidden="true"
-      className="flex size-4 items-center justify-center rounded-full bg-accent-line"
-    >
-      <svg viewBox="0 0 12 12" className="size-2.5 text-accent-strong">
-        <path
-          d="M2.5 6.2l2.3 2.3 4.7-5"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </span>
   );
 }
 

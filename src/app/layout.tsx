@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
-import { Nunito, Nunito_Sans } from "next/font/google";
+import {
+  Maven_Pro,
+  Noto_Sans,
+  Nunito,
+  Nunito_Sans,
+  Open_Sans,
+  Source_Sans_3,
+  Source_Serif_4,
+} from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 import {
   brandAsset,
   defaultBrandKey,
+  defaultBrandMode,
   defaultBrandTheme,
   siteConfig,
 } from "@/site.config";
@@ -12,26 +21,76 @@ import { brandPrePaintScript } from "@/brand/brand-state";
 import { BrandProvider } from "@/brand/BrandProvider";
 import { BrandLockup, BrandName } from "@/brand/BrandLockup";
 import { AdminDrawer } from "@/admin/AdminDrawer";
+import { brandPanelEnabled } from "@/admin/panel-enabled";
 import { CrisisHelpline } from "@/components/CrisisHelpline";
 import { content } from "@/content.config";
 
-// Matches the supplied lockup artwork: Nunito for the wordmark and headings,
-// Nunito Sans for running text. next/font self-hosts both at build time, so no
-// third-party request is made at runtime - which also keeps the CSP below free
-// of a font-src exception.
-const display = Nunito({
+// Default typeface pair, used by production: Maven Pro for the wordmark and
+// headings, Open Sans for running text. next/font self-hosts both at build time,
+// so no third-party request is made at runtime - which also keeps the CSP below
+// free of a font-src exception.
+const display = Maven_Pro({
   subsets: ["latin"],
   weight: ["700", "800"],
   variable: "--font-brand-display",
   display: "swap",
 });
 
-const sans = Nunito_Sans({
+const sans = Open_Sans({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
   variable: "--font-brand-sans",
   display: "swap",
 });
+
+// Alternative typefaces for the brand preview panel's Font picker. Self-hosted
+// like the default; `preload: false` means a browser only fetches a family once
+// html[data-font] actually selects it (rules in globals.css) - so on production,
+// where nothing ever selects one, they cost no download.
+const optNunito = Nunito({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-opt-nunito",
+  display: "swap",
+  preload: false,
+});
+const optNunitoSans = Nunito_Sans({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-opt-nunito-sans",
+  display: "swap",
+  preload: false,
+});
+const optSourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-opt-source-serif",
+  display: "swap",
+  preload: false,
+});
+const optSourceSans = Source_Sans_3({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-opt-source-sans",
+  display: "swap",
+  preload: false,
+});
+const optNoto = Noto_Sans({
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "800"],
+  variable: "--font-opt-noto",
+  display: "swap",
+  preload: false,
+});
+const optionFontVars = [
+  optNunito,
+  optNunitoSans,
+  optSourceSerif,
+  optSourceSans,
+  optNoto,
+]
+  .map((f) => f.variable)
+  .join(" ");
 
 const iconDir = (file: string) =>
   brandAsset(defaultBrandKey, defaultBrandTheme, file);
@@ -139,7 +198,8 @@ export default function RootLayout({
     // data-brand-theme onto this element before React hydrates.
     <html
       lang={siteConfig.defaultLocale}
-      className={`h-full antialiased ${display.variable} ${sans.variable}`}
+      data-mode={defaultBrandMode}
+      className={`h-full antialiased ${display.variable} ${sans.variable} ${optionFontVars}`}
       suppressHydrationWarning
     >
       <head>
@@ -244,9 +304,12 @@ export default function RootLayout({
             </div>
           </footer>
 
-          {/* TEMPORARY: the brand preview drawer's only entry point. Delete this
-              line and src/admin/ to remove it entirely - see AdminDrawer.tsx. */}
-          <AdminDrawer />
+          {/* Brand preview drawer's only entry point, and staging-only: the
+              staging deploy sets NEXT_PUBLIC_BRAND_PANEL=1, which production's
+              build does not, so on aiimpactregistry.org this whole panel is
+              compiled out. Same mechanism as the /report gate. See
+              src/admin/panel-enabled.ts. */}
+          {brandPanelEnabled && <AdminDrawer />}
         </BrandProvider>
       </body>
     </html>

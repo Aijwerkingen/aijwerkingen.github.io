@@ -66,6 +66,32 @@ export type BrandKey = keyof typeof brandVariants;
 export const defaultBrandKey: BrandKey = "aiimpactregistry";
 export const defaultBrandTheme: BrandTheme = "warm";
 
+/** Light/dark appearance. Dark is the site default; light is the preview toggle. */
+export const brandModes = ["dark", "light"] as const;
+export type BrandMode = (typeof brandModes)[number];
+export const brandModeLabels: Record<BrandMode, string> = {
+  dark: "Dark",
+  light: "Light",
+};
+export const defaultBrandMode: BrandMode = "dark";
+
+/**
+ * Typeface options for the brand preview panel. Each key maps to a CSS rule in
+ * globals.css (`html[data-font="<key>"]`) that points --font-brand-display /
+ * --font-brand-sans at the matching next/font load in layout.tsx. The "official"
+ * Dutch fonts (RO Sans, Museo Sans Rounded, Utopia) are licensed, so these are
+ * free equivalents or look-alikes. The first entry is the default.
+ */
+export const fontOptions = [
+  { key: "maven", label: "Maven + Open Sans", note: "Default. Maven Pro headings, Open Sans body - the pairing used by lareb.nl." },
+  { key: "nunito", label: "Nunito", note: "Rounded; close to Amsterdam UMC's Museo Sans Rounded." },
+  { key: "source", label: "Source Serif + Sans", note: "Serif headings, Source Sans body - in the spirit of uva.nl (Utopia + Source Sans Pro)." },
+  { key: "noto", label: "Noto Sans", note: "Free stand-in for Rijksoverheid Sans (ind.nl, Belastingdienst)." },
+  { key: "system", label: "System (Arial)", note: "Arial / Helvetica, no font download - as on ggz.nl." },
+] as const;
+export type FontKey = (typeof fontOptions)[number]["key"];
+export const defaultFontKey: FontKey = "maven";
+
 const defaultBrand = brandVariants[defaultBrandKey];
 
 /**
@@ -167,7 +193,9 @@ export const siteConfig = {
 
   /**
    * Partner institutions shown as logos on the home page and /about. Logos are the
-   * institutions' own artwork (public/partners/), displayed unmodified on a white tile.
+   * institutions' own artwork (public/partners/), displayed unmodified on a white
+   * tile. UvA is shown in the black-and-white variant, which is the form UvA's own
+   * corporate identity requires for partner/sponsor use.
    */
   partners: [
     {
@@ -181,7 +209,7 @@ export const siteConfig = {
       name: "University of Amsterdam",
       url: "https://www.uva.nl/en",
       logo: "/partners/uva.svg",
-      width: 383,
+      width: 381,
       height: 42,
     },
   ],

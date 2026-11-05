@@ -1,14 +1,20 @@
 "use client";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TEMPORARY - brand preview panel (D1 naming + D11 colour-way, spec §22).
+// Brand preview panel (D1 naming + D11 colour-way, spec §22).
 //
-// REMOVING THIS: delete this `src/admin/` directory and the single
+// STAGING ONLY. `NEXT_PUBLIC_BRAND_PANEL` (src/admin/panel-enabled.ts) is set by
+// .github/workflows/deploy.yml and by nothing else, so production compiles this
+// panel - and any localStorage override of the brand - out entirely. The layout
+// guards the single `<AdminDrawer />` call site.
+//
+// REMOVING THIS: delete this `src/admin/` directory and the guarded
 // `<AdminDrawer />` line in src/app/layout.tsx. Nothing else imports it. The
 // site then renders the site.config.ts default brand everywhere, because
 // `useBrand()` falls back to a static default when no override is ever written
-// (see src/brand/BrandProvider.tsx). Once the naming decision is locked, that
-// deletion plus setting `defaultBrandKey`/`defaultBrandTheme` is the whole job.
+// (see src/brand/BrandProvider.tsx). Deleting the panel plus setting
+// `defaultBrandKey`/`defaultBrandTheme`/`defaultFontKey`/`defaultBrandMode` in
+// site.config.ts is the whole job.
 //
 // Scope: this previews *rendered* brand only. Titles, JSON-LD, canonical URLs,
 // the sitemap and OG images are generated at build time from site.config.ts and
@@ -18,20 +24,28 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import {
+  brandModeLabels,
+  brandModes,
   brandThemeLabels,
   brandThemes,
   brandVariants,
   defaultBrandKey,
+  defaultBrandMode,
   defaultBrandTheme,
+  defaultFontKey,
+  fontOptions,
   type BrandKey,
+  type BrandMode,
   type BrandTheme,
+  type FontKey,
 } from "@/site.config";
 import { useBrand } from "@/brand/BrandProvider";
 import { BrandLockup } from "@/brand/BrandLockup";
 
 export function AdminDrawer() {
   const [open, setOpen] = useState(false);
-  const { brand, theme, setBrand, setTheme, reset } = useBrand();
+  const { brand, theme, font, mode, setBrand, setTheme, setFont, setMode, reset } =
+    useBrand();
   const panelRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<HTMLButtonElement>(null);
   const titleId = useId();
@@ -55,7 +69,10 @@ export function AdminDrawer() {
   }
 
   const isDefault =
-    brand === defaultBrandKey && theme === defaultBrandTheme;
+    brand === defaultBrandKey &&
+    theme === defaultBrandTheme &&
+    font === defaultFontKey &&
+    mode === defaultBrandMode;
 
   return (
     <>
@@ -154,6 +171,33 @@ export function AdminDrawer() {
               onChange={setTheme}
               name="brand-theme"
             />
+          </Field>
+
+          <Field label="Appearance">
+            <Segmented
+              options={brandModes.map((value) => ({
+                value: value as BrandMode,
+                label: brandModeLabels[value],
+              }))}
+              value={mode}
+              onChange={setMode}
+              name="brand-mode"
+            />
+          </Field>
+
+          <Field label="Font">
+            <Segmented
+              options={fontOptions.map((o) => ({
+                value: o.key as FontKey,
+                label: o.label,
+              }))}
+              value={font}
+              onChange={setFont}
+              name="brand-font"
+            />
+            <p className="mt-2 text-xs leading-relaxed text-ink-soft">
+              {fontOptions.find((o) => o.key === font)?.note}
+            </p>
           </Field>
 
           <button
