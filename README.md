@@ -1,8 +1,8 @@
-# AIImpactRegistry
+# AI Impact Registry
 
 A public-facing **survey & data-collection website** for reporting perceived adverse effects of conversational AI tools and digital/social media - a modern, secure, discoverable site whose core action is "report a side effect". See `TECHNICAL_SPEC.md` §1 for the full scope and §22 (D1) for the naming decision.
 
-> **AIImpactRegistry** is the public brand name. The production domain is `aiimpactregistry.org`
+> **AI Impact Registry** is the public brand name. The production domain is `aiimpactregistry.org`
 > (set in `src/site.config.ts`). `AISafetyWatch` remains available as a preview variant in the
 > brand drawer. The repo folder name (`aijwerkingen.github.io`) is kept as-is.
 
@@ -38,7 +38,7 @@ so the two cannot drift apart.
 
 The site ships with a **temporary brand-preview drawer** (small handle on the right edge)
 for trying alternative names and colour-ways without a rebuild. It defaults to
-**AIImpactRegistry + warm**, matching `defaultBrandKey` / `defaultBrandTheme` in
+**AI Impact Registry + warm**, matching `defaultBrandKey` / `defaultBrandTheme` in
 `site.config.ts`.
 
 > **To remove it:** delete `src/admin/` and the single `<AdminDrawer />` line in
@@ -50,7 +50,7 @@ the OG image and the favicon are generated at build time and intentionally keep 
 default name, so crawler-visible identity stays single-sourced.
 
 ## Name & domain (settled)
-All brand identity lives in **one file, `src/site.config.ts`** (spec §5.1) - name, domain, logo, NAP. Every SEO artifact (titles, meta, canonical, JSON-LD, sitemap, `robots.txt`, `llms.txt`) derives from it, so changing either is a **one-file edit**, not a codebase hunt. Both are now settled: **AIImpactRegistry** on **aiimpactregistry.org** (spec §5.2, criterion AC-DOMAIN).
+All brand identity lives in **one file, `src/site.config.ts`** (spec §5.1) - name, domain, logo, NAP. Every SEO artifact (titles, meta, canonical, JSON-LD, sitemap, `robots.txt`, `llms.txt`) derives from it, so changing either is a **one-file edit**, not a codebase hunt. Both are now settled: **AI Impact Registry** on **aiimpactregistry.org** (spec §5.2, criterion AC-DOMAIN).
 
 ## First step / resuming later
 - **Starting fresh:** begin **Phase 0** (spec §20) - scaffold the SSR app + CI, create `site.config.ts`, write the ADR files, initialise environments, then update `CHANGELOG.md`.
