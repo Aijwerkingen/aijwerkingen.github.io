@@ -65,7 +65,8 @@ export const content = {
       "Global reporting center for the psychological effects of AI technology.",
     pages: {
       home: {
-        title: "",
+        // Intentionally no `title`: the home page inherits the layout default
+        // ("<brand> - <descriptor>"). An empty string here suppresses <title>.
         description:
           "Global reporting center for the psychological effects of AI technology. Report any subjective experience you have after any AI exposure or interaction.",
       },
