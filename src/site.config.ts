@@ -3,7 +3,7 @@
 // llms.txt) must derive from this file. See TECHNICAL_SPEC.md §5.1 (ADR-008).
 //
 // STATUS: identity and domain are settled (D1, D9 - spec §22). The default brand
-// is AIImpactRegistry on aiimpactregistry.org; AISafetyWatch remains available as
+// is AI Impact Registry on aiimpactregistry.org; AISafetyWatch remains available as
 // a preview variant. Swapping either value is a one-file edit - see
 // TECHNICAL_SPEC.md §0.1 / §5.2 and the "▶ RESUME HERE" block in CHANGELOG.md.
 
@@ -44,7 +44,7 @@ export type BrandVariant = {
 export const brandVariants = {
   aiimpactregistry: {
     key: "aiimpactregistry",
-    name: "AIImpactRegistry",
+    name: "AI Impact Registry",
     legalName: "", // TODO(D11/NAP): set once the operating entity is registered.
     tagline:
       "The global reporting platform for psychological effects of AI technology.",
