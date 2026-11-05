@@ -1,14 +1,20 @@
 "use client";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TEMPORARY - brand preview panel (D1 naming + D11 colour-way, spec §22).
+// Brand preview panel (D1 naming + D11 colour-way, spec §22).
 //
-// REMOVING THIS: delete this `src/admin/` directory and the single
+// STAGING ONLY. `NEXT_PUBLIC_BRAND_PANEL` (src/admin/panel-enabled.ts) is set by
+// .github/workflows/deploy.yml and by nothing else, so production compiles this
+// panel - and any localStorage override of the brand - out entirely. The layout
+// guards the single `<AdminDrawer />` call site.
+//
+// REMOVING THIS: delete this `src/admin/` directory and the guarded
 // `<AdminDrawer />` line in src/app/layout.tsx. Nothing else imports it. The
 // site then renders the site.config.ts default brand everywhere, because
 // `useBrand()` falls back to a static default when no override is ever written
-// (see src/brand/BrandProvider.tsx). Once the naming decision is locked, that
-// deletion plus setting `defaultBrandKey`/`defaultBrandTheme` is the whole job.
+// (see src/brand/BrandProvider.tsx). Deleting the panel plus setting
+// `defaultBrandKey`/`defaultBrandTheme`/`defaultFontKey`/`defaultBrandMode` in
+// site.config.ts is the whole job.
 //
 // Scope: this previews *rendered* brand only. Titles, JSON-LD, canonical URLs,
 // the sitemap and OG images are generated at build time from site.config.ts and
