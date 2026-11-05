@@ -49,6 +49,32 @@ It previews **rendered brand only**. Page titles, JSON-LD, canonical URLs, the s
 the OG image and the favicon are generated at build time and intentionally keep the
 default name, so crawler-visible identity stays single-sourced.
 
+## Report gate (staging only)
+
+`/report` has an optional password gate in front of the Qualtrics survey. It exists
+only on the internal staging deploy; production shows the plain "The reporting form
+launches soon" placeholder.
+
+- **Flag:** `NEXT_PUBLIC_REPORT_GATE`, a *build-time* value inlined by Next.js. When
+  `"1"`, `src/app/report/ReportGate.tsx` fetches `/api/report-access` and shows the
+  password form. When unset, it does neither - the placeholder only. The gate code
+  stays in the bundle but is unreachable.
+- **Where it is set:** only in `.github/workflows/deploy.yml` (the `npm run build`
+  step), which deploys `staging` to the Cloudflare Pages project
+  `aisafetywatch-internal`. Do **not** set it for `main` / production.
+- **Survey URL and password:** the Pages Function `functions/api/report-access.js`
+  reads `INTERNAL_PASSWORD` and `QUALTRICS_SURVEY_URL` from the Cloudflare project's
+  secrets and returns the URL only after the password check. Only
+  `aisafetywatch-internal` has them. **Never add them to the production project.**
+  With `INTERNAL_PASSWORD` unset, POST returns 503 and GET returns 401.
+- **Verify after merging to `main`:** `/report` shows only the placeholder with no
+  password box; `GET /api/report-access` returns 404; no survey URL in the HTML (the
+  CSP `frame-src https://*.qualtrics.com` is expected).
+- **Not gated:** the Qualtrics contact form (`siteConfig.contactEmbed.url`) is public
+  by design and shows on `/contact` in every environment.
+
+Background and setup commands: `docs/INTERNAL_AUTH_PLAN.md`.
+
 ## Name & domain (settled)
 All brand identity lives in **one file, `src/site.config.ts`** (spec §5.1) - name, domain, logo, NAP. Every SEO artifact (titles, meta, canonical, JSON-LD, sitemap, `robots.txt`, `llms.txt`) derives from it, so changing either is a **one-file edit**, not a codebase hunt. Both are now settled: **AI Impact Registry** on **aiimpactregistry.org** (spec §5.2, criterion AC-DOMAIN).
 
