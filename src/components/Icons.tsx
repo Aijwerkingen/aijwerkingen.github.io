@@ -56,3 +56,24 @@ export function NoteIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+/** A chip: the AI technology the person is asked to pick. */
+export function ChipIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <rect x="7" y="7" width="10" height="10" rx="2" />
+      <rect x="10.4" y="10.4" width="3.2" height="3.2" rx="0.8" />
+      <path d="M10 7V4M14 7V4M10 20v-3M14 20v-3M7 10H4M7 14H4M20 10h-3M20 14h-3" />
+    </svg>
+  );
+}
+
+/** An eye: the effects the person perceived in themselves. */
+export function EyeIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}

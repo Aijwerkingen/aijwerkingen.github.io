@@ -1,6 +1,8 @@
 import Link from "next/link";
 import {
-  ChatIcon,
+  ChipIcon,
+  ClockIcon,
+  EyeIcon,
   NoteIcon,
   PulseIcon,
   ShieldIcon,
@@ -27,10 +29,11 @@ const cardIcons = [
 ];
 
 // Icons are presentation, not copy, so they stay here and zip with the config text.
+// Step icons follow the step's subject: the technology, the occasion, the effects.
 const howIcons = [
-  <ChatIcon key="chat" className="size-5" />,
-  <NoteIcon key="note" className="size-5" />,
-  <ShieldIcon key="shield" className="size-5" />,
+  <ChipIcon key="chip" className="size-5" />,
+  <ClockIcon key="clock" className="size-5" />,
+  <EyeIcon key="eye" className="size-5" />,
 ];
 
 export default function HomePage() {

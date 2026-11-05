@@ -91,6 +91,7 @@ anything is indexed. This work is scheduled in **Phase 5**.
 - Hero section no longer sets `bg-canvas`, so it inherits the body surface - the hero and the "What we do" section now share one background and are separated by a hairline border instead of a colour band (owner feedback: too many background colours).
 - Removed the crisis-helpline notice panel from the top of the home page (`CrisisHelpline` import dropped); hero padding increased so the heading sits at the top. The helpline remains in the site footer.
 - `public/partners/uva.svg`: the UvA partner logo is now the black-and-white variant (official artwork from UvA's own logo sprite, sourced via Wikimedia Commons), replacing the UvA-red `#BC0031` version. UvA's corporate identity requires the black-and-white form for partner/sponsor placements. `site.config.ts` width hint 383 -> 381 to match the artwork viewBox.
+- `How it works` step icons re-picked to match each step's subject: 1 = chip (the AI technology), 2 = clock (when it happened, was a chat bubble/note), 3 = eye (the effects perceived). New `ChipIcon` and `EyeIcon` in `components/Icons.tsx`; `ChatIcon` no longer used on the home page (it stays in the icon set).
 - Home section order changed: the "How it works" section now sits directly under the hero call to action and before the partner logos (was last, after "What we do"). Order is now hero -> How it works -> partners -> What we do.
 - Copy-only + layout; no change to `/report` or the report gate.
 
