@@ -37,7 +37,7 @@ const howIcons = [
 export default function HomePage() {
   return (
     <>
-      <section className="relative isolate overflow-hidden border-b border-line bg-canvas">
+      <section className="relative isolate overflow-hidden border-b border-line">
         <HeroTrace />
 
         <div className="mx-auto max-w-5xl px-4 pt-4 pb-16 text-center sm:pt-5">
@@ -53,35 +53,13 @@ export default function HomePage() {
             <RichLine spans={hero.body} />
           </p>
 
-          {/* The call to action: invitation, buttons and reassurances grouped in
-              a softly tinted panel so the next step stands out from the intro. */}
-          <div className="mt-5 rounded-3xl border border-accent-line bg-accent-soft px-6 py-5">
-            <p className="text-left text-base leading-normal text-ink">
-              {hero.invite}
-            </p>
-
-            <div className="mt-5 flex flex-col items-center gap-4">
-              <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-                {hero.ctas.map((cta, i) => (
-                  <Link
-                    key={cta.href}
-                    href={cta.href}
-                    className={i === 0 ? "btn-primary" : "btn-secondary"}
-                  >
-                    {cta.label}
-                  </Link>
-                ))}
-              </div>
-
-              <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-ink-soft">
-                {hero.chips.map((item) => (
-                  <li key={item} className="flex items-center gap-2">
-                    <CheckDot />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* The call to action: a single primary button, deliberately bare so
+              the next step is the only thing competing for attention - no
+              tinted panel, no extra copy, no competing buttons. */}
+          <div className="mt-6">
+            <Link href={hero.cta.href} className="btn-primary">
+              {hero.cta.label}
+            </Link>
           </div>
 
           <p className="mx-auto mt-6 max-w-4xl text-base leading-normal text-left sm:text-justify text-ink-soft">
@@ -164,26 +142,6 @@ function HeroTrace() {
         pathLength="1"
       />
     </svg>
-  );
-}
-
-function CheckDot() {
-  return (
-    <span
-      aria-hidden="true"
-      className="flex size-4 items-center justify-center rounded-full bg-accent-line"
-    >
-      <svg viewBox="0 0 12 12" className="size-2.5 text-accent-strong">
-        <path
-          d="M2.5 6.2l2.3 2.3 4.7-5"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </span>
   );
 }
 
