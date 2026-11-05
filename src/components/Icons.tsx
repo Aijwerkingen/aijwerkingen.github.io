@@ -82,14 +82,18 @@ export function ScreenIcon({ className }: IconProps) {
 }
 
 /**
- * A heart: the effects are psychological, so the icon carries feeling rather
- * than observation. Drawn as one outline because anything with facial detail
- * (eyes, a mouth) turns to mush at the 20px render size.
+ * A face with a downturned mouth: the effects are psychological, so the icon
+ * carries feeling rather than observation. Eyes are filled dots and the mouth is
+ * one bezier - at 20px a stroked outline for either turns into a smudge, and the
+ * features need vertical room between them or the whole thing reads as a blob.
  */
-export function HeartIcon({ className }: IconProps) {
+export function FaceIcon({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
-      <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="9.3" cy="10.3" r="1" fill="currentColor" stroke="none" />
+      <circle cx="14.7" cy="10.3" r="1" fill="currentColor" stroke="none" />
+      <path d="M8.5 16.6q3.5-3.1 7 0" />
     </svg>
   );
 }
