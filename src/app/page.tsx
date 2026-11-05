@@ -1,10 +1,10 @@
 import Link from "next/link";
 import {
   ChipIcon,
-  ClockIcon,
   EyeIcon,
   NoteIcon,
   PulseIcon,
+  ScreenIcon,
   ShieldIcon,
 } from "@/components/Icons";
 import { content } from "@/content.config";
@@ -29,10 +29,10 @@ const cardIcons = [
 ];
 
 // Icons are presentation, not copy, so they stay here and zip with the config text.
-// Step icons follow the step's subject: the technology, the occasion, the effects.
+// Step icons follow the step's subject: the technology, the usage, the effects.
 const howIcons = [
   <ChipIcon key="chip" className="size-5" />,
-  <ClockIcon key="clock" className="size-5" />,
+  <ScreenIcon key="screen" className="size-5" />,
   <EyeIcon key="eye" className="size-5" />,
 ];
 

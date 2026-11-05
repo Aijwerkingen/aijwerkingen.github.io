@@ -68,6 +68,19 @@ export function ChipIcon({ className }: IconProps) {
   );
 }
 
+/**
+ * A screen: where and how the person was using the tool. Deliberately a plain
+ * monitor - a cursor arrow closed up into a blob at the 20px render size.
+ */
+export function ScreenIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <rect x="3" y="4.5" width="18" height="12" rx="2" />
+      <path d="M12 16.5V20M8.5 20h7" />
+    </svg>
+  );
+}
+
 /** An eye: the effects the person perceived in themselves. */
 export function EyeIcon({ className }: IconProps) {
   return (
