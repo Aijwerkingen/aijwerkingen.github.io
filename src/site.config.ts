@@ -32,7 +32,13 @@ export type BrandVariant = {
    * The lockup sets exactly one half of the wordmark in the accent colour and
    * the other in ink - `accent` says which half. Mirrors the supplied artwork.
    */
-  wordmark: { lead: string; tail: string; accent: "lead" | "tail" };
+  wordmark: {
+    lead: string;
+    tail: string;
+    accent: "lead" | "tail";
+    /** Render a space between lead and tail (multi-word names). */
+    space?: boolean;
+  };
 };
 
 export const brandVariants = {
@@ -42,7 +48,7 @@ export const brandVariants = {
     legalName: "", // TODO(D11/NAP): set once the operating entity is registered.
     tagline:
       "The global reporting platform for psychological effects of AI technology.",
-    wordmark: { lead: "AI", tail: "ImpactRegistry", accent: "lead" },
+    wordmark: { lead: "AI", tail: "Impact Registry", accent: "lead", space: true },
   },
   aisafetywatch: {
     key: "aisafetywatch",
