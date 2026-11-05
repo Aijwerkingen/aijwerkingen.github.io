@@ -62,13 +62,13 @@ export const content = {
     /** Brand-agnostic descriptor: home <title> and OG image alt are "<brand> - <this>". */
     descriptor: "Global reporting center for the psychological effects of AI technology",
     defaultDescription:
-      "Global reporting center for the psychological effects of AI technology.",
+      "Global reporting center for the psychological effects of AI technology. It records possible adverse effects of AI tools, including ones that only emerge later.",
     pages: {
       home: {
         // Intentionally no `title`: the home page inherits the layout default
         // ("<brand> - <descriptor>"). An empty string here suppresses <title>.
         description:
-          "Global reporting center for the psychological effects of AI technology. Report any subjective experience you have after any AI exposure or interaction.",
+          "Global reporting center for the psychological effects of AI technology. Report any subjective experience you have after any AI exposure or interaction. It records possible adverse effects of AI tools, including ones that only emerge later.",
       },
       about: {
         title: "About",
@@ -78,17 +78,17 @@ export const content = {
       howItWorks: {
         title: "How reporting works",
         description:
-          "What happens when you report a psychological effect of AI: what you're asked, what we store, and what your report contributes to.",
+          "What happens when you report a psychological effect of AI: what you're asked, what we store, and what your report contributes to. Effects that seem fine at first can still be reported.",
       },
       faq: {
         title: "FAQ",
         description:
-          "Answers to common questions about reporting experiences of psychological effects after AI exposure or interaction: what to report, privacy, what happens next, and who can report.",
+          "Answers to common questions about reporting experiences of psychological effects after AI exposure or interaction: what to report, privacy, what happens next, and who can report. Includes effects that seemed fine at first but may prove adverse later.",
       },
       blog: {
         title: "Blog",
         description:
-          "Relevant articles and updates on the global reporting center for the psychological effects of AI technology.",
+          "Relevant articles and updates on the global reporting center for the psychological effects of AI technology. Includes work on possible adverse effects of AI tools.",
       },
       report: {
         title: "Report your experience",
