@@ -55,7 +55,7 @@ export type PostFrontmatter = {
   date: string;
   /** ISO date of the last substantive edit. Feeds `dateModified`. */
   updated?: string;
-  /** Display name of the author, e.g. "AISafetyWatch team". */
+  /** Display name of the author, e.g. "AIImpactRegistry team". */
   author?: string;
   tags?: string[];
   /**

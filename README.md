@@ -1,10 +1,10 @@
-# AISafetyWatch
+# AIImpactRegistry
 
 A public-facing **survey & data-collection website** for reporting perceived adverse effects of conversational AI tools and digital/social media - a modern, secure, discoverable site whose core action is "report a side effect". See `TECHNICAL_SPEC.md` §1 for the full scope and §22 (D1) for the naming decision.
 
-> **AISafetyWatch** is the public brand name. The production domain is `aisafetywatch.com`
-> (set in `src/site.config.ts`). The GitHub Pages deploy (`aijwerkingen.github.io`) serves
-> as the deploy host; the folder name is kept as-is.
+> **AIImpactRegistry** is the public brand name. The production domain is `aiimpactregistry.org`
+> (set in `src/site.config.ts`). `AISafetyWatch` remains available as a preview variant in the
+> brand drawer. The repo folder name (`aijwerkingen.github.io`) is kept as-is.
 
 ## Read these in order
 1. **`TECHNICAL_SPEC.md`** - the full technical specification. Start here.
@@ -30,7 +30,7 @@ Switching between them is **one config value (`SURVEY_PROVIDER`) + a redeploy** 
 ## Brand assets & the temporary preview drawer
 
 The icon set lives in **`public/brand/<brand>/<theme>/`** - a matrix of name
-(`aisafetywatch`, `aijwerkingen`, `adverseai`) × colour-way (`warm`, `teal`). `public/` is copied verbatim
+(`aiimpactregistry`, `aisafetywatch`) × colour-way (`warm`, `teal`). `public/` is copied verbatim
 into the static export, so these need no bundler step; paths are built by `brandAsset()`
 in `src/site.config.ts` rather than written by hand, which keeps brand literals in that
 one file (ADR-008). The UI palette in `src/app/globals.css` is sampled from this artwork,
@@ -38,7 +38,7 @@ so the two cannot drift apart.
 
 The site ships with a **temporary brand-preview drawer** (small handle on the right edge)
 for trying alternative names and colour-ways without a rebuild. It defaults to
-**AISafetyWatch + warm**, matching `defaultBrandKey` / `defaultBrandTheme` in
+**AIImpactRegistry + warm**, matching `defaultBrandKey` / `defaultBrandTheme` in
 `site.config.ts`.
 
 > **To remove it:** delete `src/admin/` and the single `<AdminDrawer />` line in
@@ -49,12 +49,12 @@ It previews **rendered brand only**. Page titles, JSON-LD, canonical URLs, the s
 the OG image and the favicon are generated at build time and intentionally keep the
 default name, so crawler-visible identity stays single-sourced.
 
-## Name & domain are configurable (decide later)
-All brand identity lives in **one file, `src/site.config.ts`** (spec §5.1) - name, domain, logo, NAP. Every SEO artifact (titles, meta, canonical, JSON-LD, sitemap, `robots.txt`, `llms.txt`) derives from it, so picking the final name and buying the final domain later is a **one-file edit**, not a codebase hunt. The **name** can float at zero SEO cost; the **domain** must be final before anything is indexed (spec §5.2, criterion AC-DOMAIN).
+## Name & domain (settled)
+All brand identity lives in **one file, `src/site.config.ts`** (spec §5.1) - name, domain, logo, NAP. Every SEO artifact (titles, meta, canonical, JSON-LD, sitemap, `robots.txt`, `llms.txt`) derives from it, so changing either is a **one-file edit**, not a codebase hunt. Both are now settled: **AIImpactRegistry** on **aiimpactregistry.org** (spec §5.2, criterion AC-DOMAIN).
 
 ## First step / resuming later
 - **Starting fresh:** begin **Phase 0** (spec §20) - scaffold the SSR app + CI, create `site.config.ts`, write the ADR files, initialise environments, then update `CHANGELOG.md`.
-- **Resuming after you've picked the final name & domain:** open `CHANGELOG.md` and follow the **▶ RESUME HERE** block at the top (mirrored in spec §0.1). In short: edit `site.config.ts`, set `NEXT_PUBLIC_SITE_URL`, verify the domain in Search Console, then flip production to indexable.
+- **Resuming:** open `CHANGELOG.md` and follow the **▶ RESUME HERE** block at the top (mirrored in spec §0.1). The name and domain are settled; the remaining launch work is the Phase 4 compliance gates.
 
 ## Local development
 
