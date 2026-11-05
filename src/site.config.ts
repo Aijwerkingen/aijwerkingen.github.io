@@ -98,8 +98,8 @@ export const siteConfig = {
   // name suggests - OG consumers pre-allocate from these, so they must be true.
   ogImage: {
     url: brandAsset(defaultBrandKey, defaultBrandTheme, "opengraph-1200x630.png"),
-    width: 1088,
-    height: 632,
+    width: 1200,
+    height: 630,
   },
   /** Favicon files with their actual dimensions (also not what the names imply). */
   favicons: [
