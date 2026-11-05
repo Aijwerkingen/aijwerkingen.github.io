@@ -64,12 +64,12 @@ export default function HomePage() {
       </section>
 
       <section className="border-y border-line bg-canvas">
-        <div className="mx-auto max-w-5xl px-4 py-20">
+        <div className="mx-auto max-w-5xl px-4 py-10">
           <div className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">{how.eyebrow}</p>
           </div>
 
-          <ol className="mt-12 grid gap-6 sm:grid-cols-3">
+          <ol className="mt-7 grid gap-6 sm:grid-cols-3">
             {how.steps.map((step, i) => (
               <Step
                 key={step.title}
