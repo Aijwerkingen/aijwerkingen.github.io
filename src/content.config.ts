@@ -108,7 +108,7 @@ export const content = {
       privacy: {
         title: "Privacy notice",
         description:
-          "What we collect when you report an experience linked to an AI tool or social media platform, why, how long we keep it, and your rights.",
+          "What we collect when you report an experience linked to an AI tool or system, why, how long we keep it, and your rights.",
       },
       terms: {
         title: "Terms & disclaimer",
@@ -173,10 +173,10 @@ export const content = {
   /* ── Home ─────────────────────────────────────────────────────────────────── */
   home: {
     hero: {
-      title: "Has an AI tool or social media affected how you feel?",
+      title: "The global registry for possible adverse effects of AI tools",
       body: [
         brand,
-        " lets you report any way it affected how you felt, thought, or behaved during or after using a conversational AI tool, app, or social media platform - in a few minutes, whether it happened to you or someone you support. Your report helps spot patterns earlier.",
+        " is inspired by pharmacovigilance research and tracks possible adverse effects that individuals attribute to AI tools. We collect insights into experiences that may be, or may later turn out to be, harmful - including chatbot interactions, deepfake content, social media algorithms, AI surveillance, automated decision-making, and job displacement. You are invited to report your own experience or to report on behalf of someone else. Submissions take a few minutes. All reports are encrypted and handled to high privacy standards; no name or account is required.",
       ] as Span[],
       ctas: [CTA_REPORT, { label: "Common questions", href: "/faq" }],
       chips: [
@@ -185,6 +185,7 @@ export const content = {
         "Your words are enough",
       ],
     },
+    partnersLabel: "Developed with",
     whatWeDo: {
       eyebrow: "What we do",
       title: "A report becomes part of a wider picture",
@@ -275,13 +276,13 @@ export const content = {
       title: "Why this exists",
       intro: [
         brand,
-        " collects reports of effects that people notice during or after using conversational AI tools and social media, so that patterns can be studied rather than guessed at.",
+        " collects reports of possible adverse effects that people attribute to AI tools - from chatbots and social media algorithms to deepfakes, AI surveillance, automated decision-making, and job displacement - so that patterns can be studied rather than guessed at. An effect may feel helpful at first and only prove harmful later, which is why we ask for experiences, not proof.",
       ] as Span[],
     },
     body: [
       h2("The problem"),
       p(
-        "When a medicine causes an unexpected effect, there is somewhere to report it, and those reports accumulate into evidence. When a conversational AI tool or a social media platform affects someone - leaving them more anxious, more isolated, worse about their body, or unable to stop - there is usually nowhere for that to go. It stays a private experience, and nothing aggregates.",
+        "When a medicine causes an unexpected effect, there is somewhere to report it, and those reports accumulate into evidence. When an AI tool or system affects someone - a chatbot, a social media algorithm, an automated decision - leaving them more anxious, more isolated, worse about their body, or unable to stop - there is usually nowhere for that to go. It stays a private experience, and nothing aggregates.",
       ),
       p(
         "That absence is the gap this platform addresses. Not by treating digital tools as if they were drugs, but by taking seriously that the psychological effects linked to their use are real, is reportable, and becomes legible once enough people describe it.",
@@ -303,6 +304,19 @@ export const content = {
         "It is also not a support service, a complaints channel to the companies involved, or a route to individual advice. Reporting here will not get you a clinical opinion about your own situation - if you need one, speak to a health professional.",
       ),
     ] as Block[],
+    partners: {
+      heading: "Who is behind this",
+      body: [
+        p(
+          "This platform is developed by researchers at Amsterdam UMC and the University of Amsterdam. It is part of the research priority area ",
+          a(
+            siteConfig.researchPriorityArea.name,
+            siteConfig.researchPriorityArea.url,
+          ),
+          " at the University of Amsterdam, which brings together research on how science and the public connect.",
+        ),
+      ] as Block[],
+    },
     // Rendered only when the research provenance block is filled in.
     governance: {
       heading: "Governance",
@@ -327,7 +341,7 @@ export const content = {
       eyebrow: "Report",
       title: "Report your experience",
       intro:
-        "Tell us how using an AI tool or social media left you feeling. This takes a few minutes. You don’t need an account, you don’t need proof, and you can stop at any point.",
+        "Tell us how an AI tool or system has affected you. This takes a few minutes. You don’t need an account, you don’t need proof, and you can stop at any point.",
     },
     chips: [
       "High privacy standards",
@@ -373,7 +387,7 @@ export const content = {
       eyebrow: "Questions",
       title: "Frequently asked questions",
       intro: [
-        "Short, direct answers about reporting experiences linked to AI tools and social media with ",
+        "Short, direct answers about reporting experiences linked to AI tools and systems with ",
         brand,
         ". Still unsure about something? ",
         a("Start a report", "/report"),
@@ -383,11 +397,11 @@ export const content = {
     items: [
       {
         q: "What should I report?",
-        a: "Anything you felt that seems linked to using a conversational AI tool, app, or social media platform - during use or afterwards. An effect on your mood, anxiety, sleep, how you feel about yourself, or something you can't quite put a name to. Mild or strong, helpful or unsettling. You don't need proof of a link; noticing it is enough. If you're unsure whether it qualifies, report it anyway and let it be assessed.",
+        a: "Anything you felt, noticed or experienced that seems linked to an AI tool or system - chatbots, social media algorithms, deepfakes, AI surveillance, automated decision-making, job displacement - during use or afterwards, including effects that seemed fine or helpful at first. An effect on your mood, anxiety, sleep, how you feel about yourself, or something you can't quite put a name to. Mild or strong, helpful or unsettling. You don't need proof of a link; noticing it is enough. If you're unsure whether it qualifies, report it anyway and let it be assessed.",
       },
       {
         q: "Which tools and platforms can I report?",
-        a: "Any conversational AI tool (chatbots, AI companions, assistants) or digital/social media platform. It helps to include as much detail as you have - the app or platform name, and roughly when it happened - but an approximate name or description is enough to start a report.",
+        a: "Any AI tool or system: chatbots, AI companions and assistants, deepfake content, social media algorithms, AI surveillance, automated decision-making, or AI-driven job displacement. It helps to include as much detail as you have - the app or platform name, and roughly when it happened - but an approximate name or description is enough to start a report.",
       },
       {
         q: "What if I don't know which app was involved?",
@@ -569,7 +583,7 @@ export const content = {
       ),
       h2("Why we collect it"),
       p(
-        "To monitor for patterns of psychological effects associated with conversational AI tools and social media, and to study them. Reports are analysed in aggregate. An individual report is not assessed as a clinical case and does not produce advice, a diagnosis, or a response to you.",
+        "To monitor for patterns of possible adverse effects associated with AI tools and systems, and to study them. Reports are analysed in aggregate. An individual report is not assessed as a clinical case and does not produce advice, a diagnosis, or a response to you.",
       ),
       h2("Our lawful basis"),
       p(
@@ -585,7 +599,7 @@ export const content = {
       p(
         "The report form is provided by " +
           fillIn.dataProcessor +
-          ", which stores responses on our behalf as a data processor under a written agreement. We do not sell your data, and we do not share it for advertising.",
+          ", which stores responses on our behalf as a data processor under a written agreement. All reports are encrypted. We do not sell your data, and we do not share it for advertising.",
       ),
       h2("Where your data is stored"),
       p(
@@ -772,8 +786,9 @@ export const content = {
   /* ── llms.txt (AI-assistant hand-hold, emitted at build) ───────────────────── */
   llms: {
     summary: [
-      "is a public service for reporting perceived psychological",
-      "effects of conversational AI tools and digital/social media. Anyone",
+      "is a public service for reporting possible adverse",
+      "effects of AI tools and systems (chatbots, social media, deepfakes,",
+      "AI surveillance, automated decision-making). Anyone",
       "affected — and parents, carers, and professionals supporting someone",
       "else — can submit reports to help identify patterns. This is not",
       "a crisis or emergency service; in an emergency, contact your local",
@@ -785,7 +800,7 @@ export const content = {
       ["/how-it-works", "How reporting works", "step-by-step of what happens to a report."],
       ["/about", "About us", "who we are, our mission, and governance."],
       ["/faq", "FAQ", "common questions with direct answers."],
-      ["/blog", "Blog", "Articles, in the public interest, on the psychological effects of AI tools and social media, and what the reports reveal."],
+      ["/blog", "Blog", "Articles, in the public interest, on the possible adverse effects of AI tools, and what the reports reveal."],
       ["/helplines", "Crisis helplines", "immediate support lines — this site is not itself a crisis service."],
       ["/contact", "Contact", "how to reach us (not for emergencies)."],
     ] as Array<[string, string, string]>,
@@ -795,7 +810,7 @@ export const content = {
       ["/terms", "Terms & disclaimer", "not a crisis service; emergency guidance."],
     ] as Array<[string, string, string]>,
     keyFacts: [
-      "Purpose: collect perceived psychological-effect reports about conversational AI tools and digital/social media platforms, from the public and professionals.",
+      "Purpose: collect reports of possible adverse effects of AI tools and systems, from the public and professionals.",
       "Audience: people affected, plus the parents, carers, and professionals supporting them.",
       "Reports are handled to high privacy standards; no account or name is required.",
       "Not a diagnosis, treatment, crisis, or moderation-enforcement service.",

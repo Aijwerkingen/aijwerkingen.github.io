@@ -3,8 +3,9 @@ import { siteConfig } from "@/site.config";
 import { content } from "@/content.config";
 import { Prose, RichLine } from "@/content/RichText";
 import { DocBody, DocHeader, ProvenanceList } from "@/components/DocPage";
+import { PartnerLogos } from "@/components/PartnerLogos";
 
-const { header, body, governance, questions } = content.about;
+const { header, body, partners, governance, questions } = content.about;
 
 export const metadata: Metadata = {
   title: content.meta.pages.about.title,
@@ -45,6 +46,10 @@ export default function AboutPage() {
 
       <DocBody>
         <Prose blocks={body} />
+
+        <h2>{partners.heading}</h2>
+        <Prose blocks={partners.body} />
+        <PartnerLogos className="not-prose my-6 justify-start" />
 
         {/* Renders only once site.config.ts `research` is filled in. Until the
             formal details and authorisations land, this section is absent

@@ -166,6 +166,32 @@ export const siteConfig = {
   },
 
   /**
+   * Partner institutions shown as logos on the home page and /about. Logos are the
+   * institutions' own artwork (public/partners/), displayed unmodified on a white tile.
+   */
+  partners: [
+    {
+      name: "Amsterdam UMC",
+      url: "https://www.amsterdamumc.org/en/",
+      logo: "/partners/amsterdam-umc.svg",
+      width: 524,
+      height: 87,
+    },
+    {
+      name: "University of Amsterdam",
+      url: "https://www.uva.nl/en",
+      logo: "/partners/uva.svg",
+      width: 425,
+      height: 42,
+    },
+  ],
+  /** UvA research priority area this project belongs to (linked on /about). */
+  researchPriorityArea: {
+    name: "Shaping Interfaces Between Science and the Public",
+    url: "https://www.uva.nl/en/research/research-at-the-uva/research-priority-areas/research-priority-areas.html",
+  },
+
+  /**
    * Report-form embed (Qualtrics) postMessage handshake.
    *
    * The survey's own script posts `{ sender, event }` to the parent window when
