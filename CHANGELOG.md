@@ -85,6 +85,18 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-11-05 - Phase 5 - Hermes - Domain move to aiimpactregistry.org; default brand is AIImpactRegistry
+
+- `src/site.config.ts`: `canonicalUrl` -> `https://aiimpactregistry.org`; `brandVariants` reduced to `aiimpactregistry` (new default) + `aisafetywatch`; `aijwerkingen` and `adverseai` removed. `BrandVariant` is now exported and `BrandProvider` types `variant` as that contract - the const-asserted config had narrowed `accent` to `"lead"` once the only `"tail"` variant was removed, which broke `BrandLockup`'s comparison.
+- `public/brand/aiimpactregistry/{warm,teal}/`: new asset set. Icon/favicon/appicon files are name-agnostic and copied from the AISafetyWatch set; `opengraph-1200x630.png` regenerated per theme (wordmark + tagline redrawn in Nunito, artwork/background untouched). `public/brand/aijwerkingen` and `public/brand/adverseai` deleted.
+- Brand preview drawer now offers exactly two names: AIImpactRegistry (default) and AISafetyWatch.
+- README, `.env.example` (`NEXT_PUBLIC_SITE_URL`) and the `blog.ts` doc comment updated.
+- **Report gating unchanged:** `NEXT_PUBLIC_REPORT_GATE` is still set only by staging's `deploy.yml`; the prod build env has no flag, so `/report` stays the placeholder. Verified in the local build: placeholder present, no password form, no survey URL.
+- **Acceptance criteria progress:**
+  - [x] Canonical, OG, JSON-LD, sitemap, `robots.txt` and `llms.txt` all derive the new domain.
+  - [ ] Cloudflare custom domains (`aiimpactregistry.org` -> `aisafetywatch`, `internal.aiimpactregistry.org` -> `aisafetywatch-internal`) and the legacy-host 301s are applied outside the repo.
+- **Blockers / risks:** P0 gates (D3/D4, EU residency) remain open. Pre-existing and unrelated: the static export emits no `<title>` element on any page (live prod has the same), so page titles are missing for crawlers.
+
 ### 2026-09-22 - Phase 1 - Hermes
 - **Status change:** Phase 1 in_progress → in_progress
 - **What changed:** Updated all brand taglines and the AISafetyWatch SEO/meta copy for the home, How it works, FAQ, Blog, and Report pages on the staging branch.

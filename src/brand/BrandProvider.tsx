@@ -13,6 +13,7 @@ import {
   brandVariants,
   type BrandKey,
   type BrandTheme,
+  type BrandVariant,
 } from "@/site.config";
 import {
   defaultBrandState,
@@ -25,7 +26,7 @@ import {
 } from "./brand-state";
 
 type BrandContextValue = BrandState & {
-  variant: (typeof brandVariants)[BrandKey];
+  variant: BrandVariant;
   /** Resolves a file name against the active (brand, theme) icon directory. */
   asset: (file: string) => string;
   setBrand: (brand: BrandKey) => void;
