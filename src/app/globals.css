@@ -52,6 +52,42 @@
   --accent-line: #bfe1d7;
 }
 
+/* Dark appearance (default). Only the neutral and notice tokens change; the
+ * accent fills (--accent) stay as sampled from the artwork. Link/accent text
+ * (--accent-strong) is lightened so it keeps contrast on the dark surfaces.
+ * Tagged html[data-mode] for specificity over the :root defaults above. */
+html[data-mode="dark"] {
+  color-scheme: dark;
+  --c-ink: #e9f0ec;
+  --c-ink-soft: #a3b2aa;
+  --c-line: #2b3b34;
+  --c-line-soft: #1d2a24;
+  --c-canvas: #0d1914;
+  --c-surface: #131f19;
+  --c-inverse: #050a08;
+
+  --c-notice: #f0cb90;
+  --c-notice-soft: #261e12;
+  --c-notice-line: #4a3a20;
+}
+html[data-mode="dark"],
+html[data-mode="dark"][data-brand-theme="warm"] {
+  --accent-strong: #e0807a;
+  --accent-soft: #261817;
+  --accent-line: #573130;
+}
+html[data-mode="dark"][data-brand-theme="teal"] {
+  --accent-strong: #4cc59b;
+  --accent-soft: #0f241d;
+  --accent-line: #1f4a3b;
+}
+/* White button text on the lightened accent-strong would fail contrast, so the
+ * primary button's hover just brightens its fill in dark mode. */
+html[data-mode="dark"] .btn-primary:hover {
+  background-color: var(--accent);
+  filter: brightness(1.15);
+}
+
 /* `inline` is what makes runtime theming work: utilities compile to
  * `var(--accent)` rather than a baked hex, so flipping `data-brand-theme` on
  * <html> restyles the whole page with no re-render and no flash. */
@@ -75,6 +111,27 @@
 
   --font-display: var(--font-brand-display), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-brand-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Brand-preview font picker. Deliberately NOT in a cascade layer: the next/font
+   class rules that set --font-brand-* are unlayered, and unlayered styles beat
+   layered ones regardless of specificity. `html[data-font]` then wins on
+   specificity. The default ("nunito") needs no rule. */
+html[data-font="maven"] {
+  --font-brand-display: var(--font-opt-maven);
+  --font-brand-sans: var(--font-opt-opensans);
+}
+html[data-font="source"] {
+  --font-brand-display: var(--font-opt-source-serif);
+  --font-brand-sans: var(--font-opt-source-sans);
+}
+html[data-font="noto"] {
+  --font-brand-display: var(--font-opt-noto);
+  --font-brand-sans: var(--font-opt-noto);
+}
+html[data-font="system"] {
+  --font-brand-display: Arial, Helvetica;
+  --font-brand-sans: Arial, Helvetica;
 }
 
 @layer base {

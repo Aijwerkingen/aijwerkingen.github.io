@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
-import { Nunito, Nunito_Sans } from "next/font/google";
+import {
+  Maven_Pro,
+  Noto_Sans,
+  Nunito,
+  Nunito_Sans,
+  Open_Sans,
+  Source_Sans_3,
+  Source_Serif_4,
+} from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 import {
   brandAsset,
   defaultBrandKey,
+  defaultBrandMode,
   defaultBrandTheme,
   siteConfig,
 } from "@/site.config";
@@ -32,6 +41,54 @@ const sans = Nunito_Sans({
   variable: "--font-brand-sans",
   display: "swap",
 });
+
+// Alternative typefaces for the brand preview panel's Font picker. Self-hosted
+// like the default; `preload: false` means a browser only fetches a family once
+// html[data-font] actually selects it (rules in globals.css).
+const optMavenDisplay = Maven_Pro({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-opt-maven",
+  display: "swap",
+  preload: false,
+});
+const optOpenSans = Open_Sans({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-opt-opensans",
+  display: "swap",
+  preload: false,
+});
+const optSourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-opt-source-serif",
+  display: "swap",
+  preload: false,
+});
+const optSourceSans = Source_Sans_3({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-opt-source-sans",
+  display: "swap",
+  preload: false,
+});
+const optNoto = Noto_Sans({
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "800"],
+  variable: "--font-opt-noto",
+  display: "swap",
+  preload: false,
+});
+const optionFontVars = [
+  optMavenDisplay,
+  optOpenSans,
+  optSourceSerif,
+  optSourceSans,
+  optNoto,
+]
+  .map((f) => f.variable)
+  .join(" ");
 
 const iconDir = (file: string) =>
   brandAsset(defaultBrandKey, defaultBrandTheme, file);
@@ -139,7 +196,8 @@ export default function RootLayout({
     // data-brand-theme onto this element before React hydrates.
     <html
       lang={siteConfig.defaultLocale}
-      className={`h-full antialiased ${display.variable} ${sans.variable}`}
+      data-mode={defaultBrandMode}
+      className={`h-full antialiased ${display.variable} ${sans.variable} ${optionFontVars}`}
       suppressHydrationWarning
     >
       <head>

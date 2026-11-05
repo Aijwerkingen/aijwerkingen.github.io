@@ -18,20 +18,28 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import {
+  brandModeLabels,
+  brandModes,
   brandThemeLabels,
   brandThemes,
   brandVariants,
   defaultBrandKey,
+  defaultBrandMode,
   defaultBrandTheme,
+  defaultFontKey,
+  fontOptions,
   type BrandKey,
+  type BrandMode,
   type BrandTheme,
+  type FontKey,
 } from "@/site.config";
 import { useBrand } from "@/brand/BrandProvider";
 import { BrandLockup } from "@/brand/BrandLockup";
 
 export function AdminDrawer() {
   const [open, setOpen] = useState(false);
-  const { brand, theme, setBrand, setTheme, reset } = useBrand();
+  const { brand, theme, font, mode, setBrand, setTheme, setFont, setMode, reset } =
+    useBrand();
   const panelRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<HTMLButtonElement>(null);
   const titleId = useId();
@@ -55,7 +63,10 @@ export function AdminDrawer() {
   }
 
   const isDefault =
-    brand === defaultBrandKey && theme === defaultBrandTheme;
+    brand === defaultBrandKey &&
+    theme === defaultBrandTheme &&
+    font === defaultFontKey &&
+    mode === defaultBrandMode;
 
   return (
     <>
@@ -154,6 +165,33 @@ export function AdminDrawer() {
               onChange={setTheme}
               name="brand-theme"
             />
+          </Field>
+
+          <Field label="Appearance">
+            <Segmented
+              options={brandModes.map((value) => ({
+                value: value as BrandMode,
+                label: brandModeLabels[value],
+              }))}
+              value={mode}
+              onChange={setMode}
+              name="brand-mode"
+            />
+          </Field>
+
+          <Field label="Font">
+            <Segmented
+              options={fontOptions.map((o) => ({
+                value: o.key as FontKey,
+                label: o.label,
+              }))}
+              value={font}
+              onChange={setFont}
+              name="brand-font"
+            />
+            <p className="mt-2 text-xs leading-relaxed text-ink-soft">
+              {fontOptions.find((o) => o.key === font)?.note}
+            </p>
           </Field>
 
           <button

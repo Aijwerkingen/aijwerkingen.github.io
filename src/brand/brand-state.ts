@@ -7,21 +7,34 @@
 // (see `brandPrePaintScript`); the store half no-ops when there is no `window`.
 
 import {
+  brandModes,
   brandThemes,
   brandVariants,
   defaultBrandKey,
+  defaultBrandMode,
   defaultBrandTheme,
+  defaultFontKey,
+  fontOptions,
   type BrandKey,
+  type BrandMode,
   type BrandTheme,
+  type FontKey,
 } from "@/site.config";
 
-export type BrandState = { brand: BrandKey; theme: BrandTheme };
+export type BrandState = {
+  brand: BrandKey;
+  theme: BrandTheme;
+  font: FontKey;
+  mode: BrandMode;
+};
 
 export const BRAND_STORAGE_KEY = "brand-preview";
 
 export const defaultBrandState: BrandState = {
   brand: defaultBrandKey,
   theme: defaultBrandTheme,
+  font: defaultFontKey,
+  mode: defaultBrandMode,
 };
 
 function isBrandKey(value: unknown): value is BrandKey {
@@ -34,16 +47,28 @@ function isBrandTheme(value: unknown): value is BrandTheme {
   );
 }
 
+function isBrandMode(value: unknown): value is BrandMode {
+  return (
+    typeof value === "string" && (brandModes as readonly string[]).includes(value)
+  );
+}
+
+function isFontKey(value: unknown): value is FontKey {
+  return typeof value === "string" && fontOptions.some((o) => o.key === value);
+}
+
 /** Anything unrecognised falls back to the default - never trust stored JSON. */
 function parseBrandState(raw: string | null): BrandState {
   if (!raw) return defaultBrandState;
   try {
     const parsed: unknown = JSON.parse(raw);
     if (typeof parsed !== "object" || parsed === null) return defaultBrandState;
-    const { brand, theme } = parsed as Record<string, unknown>;
+    const { brand, theme, font, mode } = parsed as Record<string, unknown>;
     return {
       brand: isBrandKey(brand) ? brand : defaultBrandState.brand,
       theme: isBrandTheme(theme) ? theme : defaultBrandState.theme,
+      font: isFontKey(font) ? font : defaultBrandState.font,
+      mode: isBrandMode(mode) ? mode : defaultBrandState.mode,
     };
   } catch {
     return defaultBrandState;
@@ -78,7 +103,13 @@ if (typeof window !== "undefined") {
 }
 
 function commit(next: BrandState, { persist }: { persist: boolean }) {
-  if (next.brand === snapshot.brand && next.theme === snapshot.theme) return;
+  if (
+    next.brand === snapshot.brand &&
+    next.theme === snapshot.theme &&
+    next.font === snapshot.font &&
+    next.mode === snapshot.mode
+  )
+    return;
   snapshot = next;
   if (persist) {
     try {
@@ -130,7 +161,9 @@ export function resetBrandState(): void {
 export function brandPrePaintScript(): string {
   const keys = JSON.stringify(Object.keys(brandVariants));
   const themes = JSON.stringify(brandThemes);
+  const modes = JSON.stringify(brandModes);
+  const fonts = JSON.stringify(fontOptions.map((o) => o.key));
   return `(function(){try{var v=JSON.parse(localStorage.getItem(${JSON.stringify(
     BRAND_STORAGE_KEY,
-  )})||"{}");var d=document.documentElement;if(${keys}.indexOf(v.brand)>-1)d.dataset.brand=v.brand;if(${themes}.indexOf(v.theme)>-1)d.dataset.brandTheme=v.theme;}catch(e){}})();`;
+  )})||"{}");var d=document.documentElement;if(${keys}.indexOf(v.brand)>-1)d.dataset.brand=v.brand;if(${themes}.indexOf(v.theme)>-1)d.dataset.brandTheme=v.theme;if(${fonts}.indexOf(v.font)>-1)d.dataset.font=v.font;if(${modes}.indexOf(v.mode)>-1)d.dataset.mode=v.mode;}catch(e){}})();`;
 }

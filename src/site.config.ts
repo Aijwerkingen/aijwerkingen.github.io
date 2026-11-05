@@ -66,6 +66,32 @@ export type BrandKey = keyof typeof brandVariants;
 export const defaultBrandKey: BrandKey = "aiimpactregistry";
 export const defaultBrandTheme: BrandTheme = "warm";
 
+/** Light/dark appearance. Dark is the site default; light is the preview toggle. */
+export const brandModes = ["dark", "light"] as const;
+export type BrandMode = (typeof brandModes)[number];
+export const brandModeLabels: Record<BrandMode, string> = {
+  dark: "Dark",
+  light: "Light",
+};
+export const defaultBrandMode: BrandMode = "dark";
+
+/**
+ * Typeface options for the brand preview panel. Each key maps to a CSS rule in
+ * globals.css (`html[data-font="<key>"]`) that points --font-brand-display /
+ * --font-brand-sans at the matching next/font load in layout.tsx. The "official"
+ * Dutch fonts (RO Sans, Museo Sans Rounded, Utopia) are licensed, so these are
+ * free equivalents or look-alikes. The first entry is the default.
+ */
+export const fontOptions = [
+  { key: "nunito", label: "Nunito", note: "Default. Rounded; close to Amsterdam UMC's Museo Sans Rounded." },
+  { key: "maven", label: "Maven + Open Sans", note: "Maven Pro headings, Open Sans body - the pairing used by lareb.nl." },
+  { key: "source", label: "Source Serif + Sans", note: "Serif headings, Source Sans body - in the spirit of uva.nl (Utopia + Source Sans Pro)." },
+  { key: "noto", label: "Noto Sans", note: "Free stand-in for Rijksoverheid Sans (ind.nl, Belastingdienst)." },
+  { key: "system", label: "System (Arial)", note: "Arial / Helvetica, no font download - as on ggz.nl." },
+] as const;
+export type FontKey = (typeof fontOptions)[number]["key"];
+export const defaultFontKey: FontKey = "nunito";
+
 const defaultBrand = brandVariants[defaultBrandKey];
 
 /**

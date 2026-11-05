@@ -12,8 +12,10 @@ import {
   brandAsset,
   brandVariants,
   type BrandKey,
+  type BrandMode,
   type BrandTheme,
   type BrandVariant,
+  type FontKey,
 } from "@/site.config";
 import {
   defaultBrandState,
@@ -31,6 +33,8 @@ type BrandContextValue = BrandState & {
   asset: (file: string) => string;
   setBrand: (brand: BrandKey) => void;
   setTheme: (theme: BrandTheme) => void;
+  setFont: (font: FontKey) => void;
+  setMode: (mode: BrandMode) => void;
   reset: () => void;
 };
 
@@ -48,6 +52,8 @@ const staticBrand: BrandContextValue = {
   asset: (file) => brandAsset(defaultBrandState.brand, defaultBrandState.theme, file),
   setBrand: () => {},
   setTheme: () => {},
+  setFont: () => {},
+  setMode: () => {},
   reset: () => {},
 };
 
@@ -64,6 +70,8 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
 
   const setBrand = useCallback((brand: BrandKey) => setBrandState({ brand }), []);
   const setTheme = useCallback((theme: BrandTheme) => setBrandState({ theme }), []);
+  const setFont = useCallback((font: FontKey) => setBrandState({ font }), []);
+  const setMode = useCallback((mode: BrandMode) => setBrandState({ mode }), []);
   const reset = useCallback(() => resetBrandState(), []);
 
   useEffect(() => {
@@ -72,6 +80,10 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
     // Drives every accent token in globals.css. These two attributes are the
     // whole runtime surface - <html> is not React-owned, so stamping it is safe.
     root.dataset.brandTheme = state.theme;
+    // Picks the typeface pair (rules in globals.css).
+    root.dataset.font = state.font;
+    // Light/dark neutrals (rules in globals.css).
+    root.dataset.mode = state.mode;
   }, [state]);
 
   // NB: the favicon links are deliberately left alone. They are emitted by the
@@ -87,9 +99,11 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
       asset: (file) => brandAsset(state.brand, state.theme, file),
       setBrand,
       setTheme,
+      setFont,
+      setMode,
       reset,
     }),
-    [state, setBrand, setTheme, reset],
+    [state, setBrand, setTheme, setFont, setMode, reset],
   );
 
   return <BrandContext value={value}>{children}</BrandContext>;
