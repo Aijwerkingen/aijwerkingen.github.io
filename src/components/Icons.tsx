@@ -82,18 +82,16 @@ export function ScreenIcon({ className }: IconProps) {
 }
 
 /**
- * A face with a downturned mouth: the effects are psychological, so the icon
- * carries feeling rather than observation. Eyes are filled dots and the mouth is
- * one bezier - at 20px a stroked outline for either turns into a smudge, and the
- * features need vertical room between them or the whole thing reads as a blob.
+ * A circled exclamation: something worth flagging was experienced. Chosen over a
+ * pulse/ECG because that signal already appears in the "What we do" card (it is
+ * the brand mark), and two of them on one page read as a mistake.
  */
-export function FaceIcon({ className }: IconProps) {
+export function AlertIcon({ className }: IconProps) {
   return (
     <svg {...base} className={className}>
       <circle cx="12" cy="12" r="9" />
-      <circle cx="9.3" cy="10.3" r="1" fill="currentColor" stroke="none" />
-      <circle cx="14.7" cy="10.3" r="1" fill="currentColor" stroke="none" />
-      <path d="M8.5 16.6q3.5-3.1 7 0" />
+      <path d="M12 7.4v5.4" />
+      <circle cx="12" cy="16.5" r="1" fill="currentColor" stroke="none" />
     </svg>
   );
 }

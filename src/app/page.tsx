@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {
   ChipIcon,
-  FaceIcon,
+  AlertIcon,
   NoteIcon,
   PulseIcon,
   ScreenIcon,
@@ -33,7 +33,7 @@ const cardIcons = [
 const howIcons = [
   <ChipIcon key="chip" className="size-5" />,
   <ScreenIcon key="screen" className="size-5" />,
-  <FaceIcon key="face" className="size-5" />,
+  <AlertIcon key="alert" className="size-5" />,
 ];
 
 export default function HomePage() {
