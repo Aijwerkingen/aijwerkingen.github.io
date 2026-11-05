@@ -216,7 +216,7 @@ export const content = {
           title:
             "Describe when and how the AI technology affected you.",
         },
-        { title: "Indicate symptoms you experience" },
+        { title: "Indicate adverse effects you experience" },
       ],
     },
   },
