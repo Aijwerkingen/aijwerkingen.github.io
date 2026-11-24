@@ -85,6 +85,16 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-11-05 - Phase 5 - Hermes - Temporary pilot switch: serve /report publicly (DISABLE_PRODUCTION_GATE)
+
+- New **`DISABLE_PRODUCTION_GATE`** Pages environment variable (not a build flag, not `NEXT_PUBLIC_`): when a Pages project sets it to `"1"` **and** has `QUALTRICS_SURVEY_URL`, `functions/api/report-access.js` returns the survey URL to anyone, so `/report` is public with no password. Unset, or `"0"`, is the normal gated behaviour - so deleting the variable restores the gate with no other change.
+- It sits **server-side on purpose**. A `NEXT_PUBLIC_*` build/flag version was tried first and dropped: the survey URL then lands in the JS bundle even with the flag off, which makes a restored gate cosmetic - anyone could read the URL out of the JS and go straight to the form. Checked: with the flag unset the URL appears nowhere in `out/`.
+- `ReportGate.tsx` now always asks the edge function on load (previously only when `NEXT_PUBLIC_REPORT_GATE` was set). The function decides: 200 = show the survey, 401 = locked. What a locked visitor sees is unchanged - the password form on staging (`NEXT_PUBLIC_REPORT_GATE`), the plain "launches soon" placeholder on production.
+- Nothing else moves. The gate, the edge function, the `INTERNAL_PASSWORD` / `QUALTRICS_SURVEY_URL` secrets, the placeholder copy and `/faq` all stay exactly as they were. This is a pilot release, not a gate removal - the earlier teardown on this branch was reverted.
+- To enable for the pilot: on the Cloudflare **production** project (`aisafetywatch`) set `QUALTRICS_SURVEY_URL` (same value as staging) and `DISABLE_PRODUCTION_GATE=1`, then redeploy. Staging is unaffected.
+- Gate status: P0-2 resolved (the form is the UvA EU Frankfurt `fra1` instance). P0-1 (D3 Qualtrics DPA / EU storage, D4 DPIA + Art. 9 basis) still stands for real submissions; per the owner this is a pilot, so `/faq` copy is deliberately unchanged.
+- Verified: prod-like build (no flags) -> placeholder, no iframe, no password field, survey URL absent from `out/`; staging-like build (`NEXT_PUBLIC_REPORT_GATE=1`) -> unchanged, password path still shipped, URL still absent. Function logic exercised directly: flag + URL -> 200 with the URL; flag without URL -> 401 (fails closed); flag `"0"` -> 401; password configured and no cookie -> 401.
+
 ### 2026-11-05 - Phase 5 - Hermes - Brand preview panel is staging-only; production defaults to dark + Maven Pro/Open Sans
 
 - **New build flag `NEXT_PUBLIC_BRAND_PANEL`** (`src/admin/panel-enabled.ts`), mirroring the existing `NEXT_PUBLIC_REPORT_GATE` mechanism. `.github/workflows/deploy.yml` sets it to `"1"` on the staging build only; the production build (Cloudflare git integration, no such variable) compiles the panel out. `src/app/layout.tsx` guards the single `<AdminDrawer />` call site.

@@ -17,6 +17,15 @@ export async function onRequestGet(context) {
   if (token && cookieValue(request, COOKIE) === token) {
     return json({ url: env.QUALTRICS_SURVEY_URL });
   }
+  // TEMPORARY pilot switch (owner, 2026-11): serves the survey with no password
+  // while the pilot runs. It is checked HERE rather than in the client on
+  // purpose - the survey URL must never reach the static bundle, or restoring
+  // the gate later would be cosmetic (anyone could read the URL out of the JS
+  // and go straight to the form). Unset this variable on the Pages project to
+  // restore the gate. Needs QUALTRICS_SURVEY_URL set on that project too.
+  if (env.DISABLE_PRODUCTION_GATE === "1" && env.QUALTRICS_SURVEY_URL) {
+    return json({ url: env.QUALTRICS_SURVEY_URL });
+  }
   return json({ error: "locked" }, 401);
 }
 

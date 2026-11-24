@@ -126,6 +126,16 @@ medicine, under an explicit anonymity promise, into an unmanaged sample survey.
 
 **Do not** push this repo until at least (1) is in place.
 
+**Update (2026-11-05):** a **temporary pilot switch** now exists. `DISABLE_PRODUCTION_GATE`
+(a Pages environment variable on the production project, see `.env.example` and
+`functions/api/report-access.js`) makes `/report` serve the survey with no password when it
+is `"1"` and `QUALTRICS_SURVEY_URL` is set; deleting the variable restores the gate. The
+gate code, the edge function and the secrets are all still in place - this is a pilot
+release, not a gate removal. Owner decision: `/faq` copy is deliberately left unchanged for
+the pilot (so item (4) above stays as a known divergence), and D3 / D4 remain owner-tracked
+legal items for real submissions. P0-2 (US datacenter) is resolved - the form is the UvA EU
+Frankfurt `fra1` instance.
+
 ### P0-2. The embedded Qualtrics survey is hosted in a non-EU datacenter, contradicting ADR-006
 
 **File:** `src/app/report/page.tsx:13-14`
