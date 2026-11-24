@@ -31,3 +31,23 @@ work around it by reindexing or reconfiguring codegraph yourself.
 codegraph will report no index even though one exists, because it's looking in the wrong
 place. Open this repo directly as its own project root for codegraph to attach
 (`PENDING-FIXES.md` P3-3).
+
+## Surveys: where the sources and the live link live
+
+Two different things, and mixing them up has already caused a production incident once:
+
+- **Survey content versions** are checked in under `survey-doc/<YYYY-MM-DD>/` - the Qualtrics
+  `.qsf` export plus a readable markdown export (`AIImpactRegistry-survey-content.md`). The
+  markdown's `Source:` line names the Qualtrics survey it was exported from. Helper scripts
+  (`qsf_to_text.py`, `merge_text_edits.py`) live in `survey-doc/`.
+- **The live survey link is NOT in this repo.** It lives only in the Cloudflare Pages project
+  environment (`QUALTRICS_SURVEY_URL`), and it changes whenever the survey is re-created in
+  Qualtrics - so a URL written into a doc, config or comment goes stale silently. Never take a
+  survey URL from repo code or docs. Read the live value from the running site instead:
+  `curl https://aiimpactregistry.org/api/report-access` (returns `{"url":"..."}`, or 401 while a
+  gate is closed). A survey's page title also identifies it - the current form is titled
+  "AI Impact Registry".
+
+`/report` embeds that URL through `functions/api/report-access.js` + `src/app/report/ReportGate.tsx`;
+the Level-2 password gate on it is bypassed for the production pilot by the Pages variable
+`DISABLE_PRODUCTION_GATE` (delete the variable to restore the gate). See `PENDING-FIXES.md` P0-1/P0-2.

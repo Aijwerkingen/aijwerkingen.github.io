@@ -164,6 +164,14 @@ Mode B"). Until resolved, don't embed any survey that a real person could reach.
 region), served via the `QUALTRICS_SURVEY_URL` env var rather than the hardcoded value
 above. This satisfies the EU-datacenter requirement; the residency go/no-go is met.
 
+**Update (2026-11-24):** the survey link changed again, and this repo no longer records it
+anywhere. The live value lives only in the Cloudflare Pages project env and changes whenever the
+survey is re-created in Qualtrics. Read it from the project, or from a running site:
+`curl https://aiimpactregistry.org/api/report-access`. Survey *content* versions live in
+`survey-doc/<YYYY-MM-DD>/`. The URL quoted above is kept only as the historical record of what was
+configured then - never copy it into a config. (It was copied into production once, on 2026-11-24,
+because it was the only value findable in the repo.)
+
 ### P0-3. `.qualtrics` plaintext backup codes still sitting in the workspace
 
 **File:** `../.qualtrics` (parent workspace, outside the repo - correctly gitignored, never committed)

@@ -349,9 +349,10 @@ printf '%s' "$QUALTRICS_SURVEY_URL" | \
   npx wrangler@latest pages secret put QUALTRICS_SURVEY_URL --project-name="$PROJECT"
 ```
 
-`QUALTRICS_SURVEY_URL` value = the real survey link. Current value:
-`https://uva.fra1.qualtrics.com/jfe/form/SV_1zdQGq7PaFsv2Jg` (UvA EU / Frankfurt
-instance).
+`QUALTRICS_SURVEY_URL` value = the real survey link. It is **not** recorded in this repo - it lives
+only in the Pages project env and changes whenever the survey is re-created in Qualtrics. Read the
+live value from a running site: `curl https://<host>/api/report-access` (survey content versions are
+in `survey-doc/<YYYY-MM-DD>/`).
 
 > Dashboard fallback: project → Settings → Variables and Secrets → add **encrypted**
 > `INTERNAL_PASSWORD` and `QUALTRICS_SURVEY_URL` (Production). Secrets apply on the next
