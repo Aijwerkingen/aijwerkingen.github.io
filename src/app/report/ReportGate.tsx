@@ -27,7 +27,12 @@ export function ReportGate() {
   const qualtricsOrigin = useRef<string>("");
 
   useEffect(() => {
-    if (!gateEnabled) return;
+    // Always ask the edge function when the page loads. It returns the survey URL
+    // when this visitor is allowed to see it - a valid unlock cookie, or the
+    // temporary pilot switch (DISABLE_PRODUCTION_GATE) set on the Pages project.
+    // A 401 means locked; what happens next depends on the build: staging shows
+    // the password form (NEXT_PUBLIC_REPORT_GATE), production shows the plain
+    // placeholder.
     let alive = true;
     fetch("/api/report-access", { credentials: "same-origin" })
       .then((r) => (r.ok ? r.json() : Promise.reject(r)))
