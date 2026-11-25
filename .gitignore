@@ -36,6 +36,10 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 !.env.example
+# wrangler local-dev secrets (functions/*) - holds a real GITHUB_TOKEN locally
+.dev.vars*
+# wrangler local cache (wrangler pages dev)
+.wrangler/
 
 # vercel
 .vercel
