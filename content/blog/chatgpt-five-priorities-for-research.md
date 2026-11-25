@@ -3,6 +3,7 @@ published: false
 title: "Before the guidelines: five priorities for ChatGPT in research"
 description: "In early 2023, a group of scientists wrote five priorities for using ChatGPT in research - the seed of today's living guidelines and official EU policy. Here's what they said, and why it still matters."
 date: 2026-08-07
+updated: 2026-11-25
 author: "AI Impact Registry team"
 tags: ["research", "guidelines", "history"]
 ---
@@ -43,4 +44,4 @@ This site comes from the same team - and the same conviction that oversight of A
 
 ## Sources
 
-- van Dis, Bollen, Zuidema, van Rooij & Bockting - *ChatGPT: five priorities for research*, Nature 614, 224–226 (2023) · [DOI](https://doi.org/10.1038/d41586-023-00288-7) · [full text (CC BY)](https://pure.amsterdamumc.nl/ws/files/139807637/Chatgpt.pdf)
+- van Dis, Bollen, Zuidema, van Rooij &amp; Bockting - *ChatGPT: five priorities for research*, Nature 614, 224–226 (2023) · [DOI](https://doi.org/10.1038/d41586-023-00288-7) · [full text (CC BY)](https://pure.amsterdamumc.nl/ws/files/139807637/Chatgpt.pdf)
