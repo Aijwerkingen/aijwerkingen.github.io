@@ -48,3 +48,5 @@ Reports like yours are read across many experiences at once - which is how a
 pattern that no single person could see on their own starts to become visible.
 
 [Report your experience →](/report)
+
+(concurrent edit on the base branch)
