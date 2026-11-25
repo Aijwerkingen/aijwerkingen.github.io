@@ -40,6 +40,7 @@ import {
 import {
   assemble,
   firstDifference,
+  replaceFrontmatter,
   split,
   squash,
   tidy,
@@ -286,12 +287,24 @@ export function BlogEditor({
     return sameBody(body, current) ? body : current;
   }, [editor, body]);
 
+  /** The frontmatter as it was loaded, to tell an edited file from an untouched one. */
+  const initialFrontmatter = useMemo(
+    () => (initialFile ? split(initialFile).frontmatter : ""),
+    [initialFile],
+  );
+
   /** The file as it stands, with `updated:` moved only if something really changed. */
   const fileNow = useCallback(() => {
-    const raw = tidy(assemble(frontmatter, bodyOut()));
-    if (!initialFile || raw === initialFile) return raw;
-    return tidy(assemble(withUpdated(frontmatter, todayUtc()), bodyOut()));
-  }, [frontmatter, bodyOut, initialFile]);
+    const nextBody = bodyOut();
+    if (!initialFile) return tidy(assemble(frontmatter, nextBody));
+    if (nextBody === body && frontmatter === initialFrontmatter) return initialFile;
+
+    const nextFrontmatter = withUpdated(frontmatter, todayUtc());
+    // Body untouched (a details-only edit, or nothing but the title): keep the
+    // original text and separators, so the diff is the frontmatter lines alone.
+    if (nextBody === body) return tidy(replaceFrontmatter(initialFile, nextFrontmatter));
+    return tidy(assemble(nextFrontmatter, nextBody));
+  }, [frontmatter, initialFrontmatter, body, bodyOut, initialFile]);
 
   const details = useMemo(() => readDetails(frontmatter), [frontmatter]);
   const dirty = initialFile !== null && stage !== "done" && (fileNow() !== initialFile || pending.size > 0);
@@ -328,7 +341,20 @@ export function BlogEditor({
 
   function chooseImage(result: ImageResult) {
     keepPending(result);
-    editor?.chain().focus().setImage({ src: result.path, alt: result.alt }).run();
+    // An image can be selected (clicking one selects it). "Add" must then insert
+    // *after* it - replacing is what the toolbar's "Replace" is for, and without
+    // this, adding two images in a row silently produced one.
+    const { selection } = editor?.state ?? {};
+    if (editor && selection instanceof NodeSelection) {
+      editor
+        .chain()
+        .focus()
+        .setTextSelection(selection.to)
+        .setImage({ src: result.path, alt: result.alt })
+        .run();
+    } else {
+      editor?.chain().focus().setImage({ src: result.path, alt: result.alt }).run();
+    }
     setDialog(null);
   }
 

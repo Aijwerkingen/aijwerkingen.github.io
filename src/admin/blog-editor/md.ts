@@ -23,6 +23,21 @@ export function assemble(frontmatter: string, body: string): string {
   return `---\n${frontmatter}\n---\n\n${body}`;
 }
 
+/**
+ * Replaces the frontmatter inside a whole file, leaving every other byte - the
+ * blank line after the fence, the body text - exactly as it was.
+ *
+ * This is what keeps a details-only edit a two-line diff: `assemble` would
+ * rebuild the separator, and `split` hands back a body that still carries one of
+ * its newlines, so round-tripping through the two would add a blank line.
+ */
+export function replaceFrontmatter(raw: string, frontmatter: string): string {
+  const match = raw.match(FRONTMATTER);
+  if (!match || !match[1]) return assemble(frontmatter, match ? match[2] : raw);
+  const start = (match.index ?? 0) + match[0].indexOf(match[1]);
+  return raw.slice(0, start) + frontmatter + raw.slice(start + match[1].length);
+}
+
 /** Exactly one trailing newline. */
 export function tidy(markdown: string): string {
   return markdown.replace(/\s+$/, "") + "\n";

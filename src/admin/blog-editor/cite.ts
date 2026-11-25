@@ -154,15 +154,32 @@ function findSourcesHeading(doc: Editor["state"]["doc"]): number | null {
 }
 
 /**
- * True when this DOI or PMID already appears in the Sources list (or anywhere,
- * when the post has no Sources heading yet).
+ * True when this DOI or PMID is already in the Sources list (or anywhere, when
+ * the post has no Sources heading yet).
+ *
+ * The DOI lives in the entry's link *href*, not in its text, so the text alone is
+ * not enough - an entry written as `· [DOI](https://doi.org/…)` has no DOI
+ * anywhere in the words. Both are checked.
  */
 export function alreadyListed(editor: Editor, cite: CiteData): boolean {
   const doc = editor.state.doc;
-  const heading = findSourcesHeading(doc);
-  const from = heading ?? 0;
   const needles = [cite.doi, cite.pmid].filter(Boolean) as string[];
   if (needles.length === 0) return false;
+  const from = findSourcesHeading(doc) ?? 0;
+
+  let found = false;
+  doc.nodesBetween(from, doc.content.size, (node) => {
+    if (found) return false;
+    if (node.isText) {
+      const href = node.marks.find((mark) => mark.type.name === "link")?.attrs.href;
+      const haystack = `${node.text ?? ""} ${typeof href === "string" ? href : ""}`;
+      if (needles.some((needle) => haystack.includes(needle))) found = true;
+    }
+    return true;
+  });
+  if (found) return true;
+
+  // A DOI pasted as plain text rather than linked, and PMID-only entries.
   const text = doc.textBetween(from, doc.content.size, " ", " ");
   return needles.some((needle) => text.includes(needle));
 }
