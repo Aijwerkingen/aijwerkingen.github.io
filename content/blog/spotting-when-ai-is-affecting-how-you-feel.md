@@ -3,6 +3,7 @@ published: false
 title: "Spotting when an AI tool is affecting how you feel"
 description: "The early signs that a chatbot, app, or social feed is wearing on your wellbeing - and the small step you can take next."
 date: 2026-08-07
+updated: 2026-11-25
 author: "AI Impact Registry team"
 tags: ["guides", "wellbeing"]
 ---
@@ -25,13 +26,13 @@ what this kind of reporting is for.
 ## Early signs worth noticing
 
 - **Afterwards, not during.** You feel flat, anxious, or worse about yourself
-  once you put the phone down - even if using it felt fine.
+once you put the phone down - even if using it felt fine.
 - **The clock disagrees with you.** You sit down for five minutes and look up an
-  hour later, more often than you'd like.
+hour later, more often than you'd like.
 - **It follows you.** A conversation or a post keeps replaying in your head when
-  you're trying to do something else, or trying to sleep.
+you're trying to do something else, or trying to sleep.
 - **You feel smaller.** More self-critical, more compared-against, less sure of
-  yourself than before you opened it.
+yourself than before you opened it.
 
 None of these is a diagnosis. Any one of them, mild or strong, is worth paying
 attention to.
