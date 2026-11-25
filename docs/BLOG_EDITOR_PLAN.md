@@ -7,6 +7,10 @@ section 4 in order. Do not skip the acceptance checks in section 6.
 done by the repo owner before the save step can be tested end to end. You can build
 and test everything up to "Save" without it.
 
+**Phase 2 - preview, images, links and sources:** `docs/BLOG_EDITOR_PHASE2_PLAN.md`
+(the Source tab is gone; details are form fields, and the safety net is an
+HTML-equivalence check).
+
 ---
 
 ## Update - implemented (2026-11-25)
