@@ -48,6 +48,8 @@ Two different things, and mixing them up has already caused a production inciden
   gate is closed). A survey's page title also identifies it - the current form is titled
   "AI Impact Registry".
 
-`/report` embeds that URL through `functions/api/report-access.js` + `src/app/report/ReportGate.tsx`;
-the Level-2 password gate on it is bypassed for the production pilot by the Pages variable
-`DISABLE_PRODUCTION_GATE` (delete the variable to restore the gate). See `PENDING-FIXES.md` P0-1/P0-2.
+`/report` embeds that URL through `functions/api/report-access.js` + `src/app/report/ReportGate.tsx`.
+The Level-2 password gate is bypassed on a project by the Pages variable `DISABLE_PRODUCTION_GATE`
+(together with `QUALTRICS_SURVEY_URL`); it was used for the 2026-11-24 production pilot and is now
+unset everywhere, so **staging is password-gated and production serves no survey at all**. See
+`PENDING-FIXES.md` P0-1/P0-2.
