@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getPublishedSlugs, tagSlug } from "@/lib/blog";
 import { siteConfig } from "@/site.config";
+import { blogEditorEnabled } from "@/admin/blog-editor-enabled";
+import { EditPostButton } from "@/admin/blog-editor/EditPostButton";
 import { formatDate } from "../format";
 
 // Static export needs the full list of slugs up front - there is no server to
@@ -99,6 +101,15 @@ export default async function BlogPostPage({ params }: Params) {
               {post.title}
             </h1>
 
+            {/* Staging only, same guard as the Edit button below: with
+                BLOG_INCLUDE_DRAFTS=1 this build also renders hidden posts, and
+                this says plainly that production does not show them yet. */}
+            {blogEditorEnabled && (post.published === false || post.draft === true) && (
+              <p className="mt-3 inline-block rounded-full border border-accent-line bg-accent-soft px-3 py-1 text-xs font-semibold text-ink">
+                Draft - not on production
+              </p>
+            )}
+
             <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-soft">
               <time dateTime={post.date}>{formatDate(post.date)}</time>
               <span aria-hidden="true">·</span>
@@ -109,6 +120,12 @@ export default async function BlogPostPage({ params }: Params) {
                   <span>{post.author}</span>
                 </>
               )}
+              {/* Staging only. The flag switches the button off, and
+                  next.config.ts additionally aliases this import to a no-op stub
+                  when the flag is unset, so production never carries the editor
+                  or its Tiptap chunk at all - see next.config.ts and
+                  docs/BLOG_EDITOR_PLAN.md section 6.2. */}
+              {blogEditorEnabled && <EditPostButton slug={slug} />}
             </div>
           </div>
         </header>
