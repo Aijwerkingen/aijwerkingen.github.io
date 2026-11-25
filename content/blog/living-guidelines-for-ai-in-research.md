@@ -3,6 +3,7 @@ published: false
 title: "The rules for AI in research are now official - and designed to keep changing"
 description: "The 'living guidelines' approach - scientists keeping oversight of generative AI in research - is now official European guidance. Here's what it says, and why it matters."
 date: 2026-08-07
+updated: 2026-11-25
 author: "AI Impact Registry team"
 tags: ["research", "policy", "guidelines"]
 ---
@@ -41,15 +42,15 @@ The guidelines speak to researchers, research organisations, and research
 funders. The core recommendations are strikingly plain:
 
 - **You stay responsible.** AI systems are neither authors nor co-authors;
-  researchers remain accountable for the integrity of what they produce, even
-  when a tool helped.
+researchers remain accountable for the integrity of what they produce, even
+when a tool helped.
 - **Be transparent.** If generative AI substantially shaped the work, say so -
-  in the methods, per your discipline's norms.
+in the methods, per your discipline's norms.
 - **Mind the limits.** Bias, sycophantic answers, invented citations and
-  black-box reasoning are named explicitly as things to check for, not to trust
-  through.
+black-box reasoning are named explicitly as things to check for, not to trust
+through.
 - **Protect what's sensitive.** Don't upload unpublished work or personal data
-  into tools that might train on it.
+into tools that might train on it.
 
 None of this is about banning the tools. It's about keeping the human in charge -
 which is exactly the point the Nature comment made, now with the weight of
@@ -68,6 +69,6 @@ that the technology isn't done changing - and neither are we.
 
 ## Sources
 
-- Bockting, van Dis, van Rooij, Zuidema & Bollen - *Living guidelines for generative AI: why scientists must oversee its use*, Nature 622, 693–696 (2023) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/37857895/) · [Nature](https://doi.org/10.1038/d41586-023-03266-1)
+- Bockting, van Dis, van Rooij, Zuidema &amp; Bollen - *Living guidelines for generative AI: why scientists must oversee its use*, Nature 622, 693–696 (2023) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/37857895/) · [Nature](https://doi.org/10.1038/d41586-023-03266-1)
 - European Commission, DG Research and Innovation - *Living guidelines on the responsible use of generative AI in research* (ERA Forum stakeholders' document, 3rd ed., May 2026) · [PDF](https://research-and-innovation.ec.europa.eu/document/download/2b6cf7e5-36ac-41cb-aab5-0d32050143dc_en?filename=ec_rtd_ai-guidelines.pdf)
 - van Dis et al. - *ChatGPT: five priorities for research*, Nature 614, 224–226 (2023) · [DOI](https://doi.org/10.1038/d41586-023-00288-7)
