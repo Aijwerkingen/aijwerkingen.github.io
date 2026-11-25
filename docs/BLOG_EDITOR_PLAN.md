@@ -38,9 +38,20 @@ order; these are the deviations, all of them forced by what the codebase actuall
    resolve time (deviation 1). An intermediate design that made the button itself lazy was dropped:
    it removed the button from the pre-rendered HTML, which check 3 requires.
 
-Checks 7, 8 and 9 need the throwaway `blog-editor-test` base branch from section 5 (a real token
-and real writes), so they are held for the owner's go-ahead. Checks 1-6 and 10 pass; the evidence
-is in the pull request.
+Checks 1-10 all ran. 7, 8 and 9 used the throwaway `blog-editor-test` base branch from section 5
+(real token, real writes) once the owner approved pushing it; 1-6 and 10 ran locally with
+`wrangler pages dev`. The full output, the round-trip results per post, and the test artefacts left
+behind are all in the pull request. Section 3.4 records the env vars as now set.
+
+Two results worth knowing before merging:
+
+- **Three of the five posts are not lossless through the visual editor** and the round-trip banner
+  fires on exactly those three: `chatgpt-five-priorities-for-research` has `&` rewritten to `&amp;`
+  (a real content corruption in the visual path), and two posts lose the two-space continuation
+  indent of wrapped lines inside list items. The Source tab avoids both.
+- **The harness, not the app, was the hard part**: Playwright's `keyboard.type()` scrambles input
+  into the 2.5 KB controlled Source textarea because it outruns React's per-keystroke re-render.
+  Drive it with a native value setter plus an `input` event instead.
 
 ---
 
@@ -180,6 +191,16 @@ already lives**:
 | `GITHUB_REPO` | Text | `Aijwerkingen/aijwerkingen.github.io` |
 | `GITHUB_BASE_BRANCH` | Text | `staging` |
 | `BLOG_EDITOR_ENABLED` | Text | `1` |
+
+> **Done (2026-11-25, agent).** All four are set on `aisafetywatch-internal` in the
+> `production` environment (the one whose production branch is `staging`, i.e. where
+> `INTERNAL_PASSWORD` and `QUALTRICS_SURVEY_URL` already live). They are stored as
+> **secrets**, not Text: each was written individually with `wrangler pages secret
+> put`, which avoids a project-level PATCH that can drop the values of secrets it is
+> not given. The endpoint reads them as plain strings either way; the only cost is
+> that their values are masked in the API and dashboard, which is already true of
+> `INTERNAL_PASSWORD`. `INTERNAL_PASSWORD` and `QUALTRICS_SURVEY_URL` verified intact
+> afterwards, and the production project still carries `NODE_VERSION` only.
 
 `INTERNAL_PASSWORD` is already set there; nothing to change.
 
