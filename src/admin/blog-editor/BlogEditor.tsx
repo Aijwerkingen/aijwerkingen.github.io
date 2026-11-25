@@ -299,6 +299,19 @@ export function BlogEditor({
     onDirtyChange(dirty);
   }, [dirty, onDirtyChange]);
 
+  // The post is shown inside a replica of the published page, so it contains real
+  // links (the tag chips and "All posts"). A stray click would navigate away and
+  // take the unsaved edit with it, so the browser is asked to confirm instead.
+  useEffect(() => {
+    if (!dirty) return;
+    function onBeforeUnload(event: BeforeUnloadEvent) {
+      event.preventDefault();
+      event.returnValue = "";
+    }
+    window.addEventListener("beforeunload", onBeforeUnload);
+    return () => window.removeEventListener("beforeunload", onBeforeUnload);
+  }, [dirty]);
+
   const setField = useCallback((key: string, valueYaml: string | null, afterKey?: string) => {
     setFrontmatter((current) =>
       valueYaml === null ? withoutField(current, key) : withField(current, key, valueYaml, afterKey),
