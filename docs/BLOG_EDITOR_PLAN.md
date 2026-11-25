@@ -9,6 +9,41 @@ and test everything up to "Save" without it.
 
 ---
 
+## Update - implemented (2026-11-25)
+
+Implemented on `session/blog-editor` off `staging`. Everything in section 4 was followed in
+order; these are the deviations, all of them forced by what the codebase actually does:
+
+1. **Production exclusion needs more than the build flag (affects section 6.2).** Steps 1 and 5
+   assume `NEXT_PUBLIC_BLOG_EDITOR` alone keeps the editor out of production. On this codebase it
+   does not: an ES import registers the module in the graph before any flag can be folded.
+   Measured - with step 5's static import the production build emitted the editor *and* a 524 KB
+   Tiptap chunk (`out/_next/static/chunks/2f98b2ytlu0qm.js`, 53 `ProseMirror` hits) although
+   nothing rendered it; a conditional `dynamic()` in the Server Component changed nothing; a
+   conditional `dynamic()` inside a Client Component still emitted both chunks. Deleting the
+   reference entirely made `out/` clean, which proves check 2 is satisfiable - just not by a flag.
+   So `next.config.ts` now *also* aliases `@/admin/blog-editor/EditPostButton` to the no-op
+   `src/admin/blog-editor/disabled.tsx` when the flag is unset. The flag remains the switch that
+   turns the feature on for staging.
+2. **`updated:` is rewritten only when something else changed (step 4.3).** Auto-setting it on
+   every save would make check 7's `no-changes` answer unreachable, because the submitted file
+   would always differ from the stored one. With the guard a no-op save is byte-identical, the
+   endpoint answers 422, and `dateModified` stops claiming edits that never happened.
+3. **The name comes from a `readStoredName()` lazy initialiser, not a localStorage
+   `useEffect` (step 4.5).** React 19's `react-hooks/set-state-in-effect` rule rejects the effect
+   form and lint is a CI gate.
+4. **`.gitignore` gained `.dev.vars*` (section 5).** It was not covered - only `.env*` was - so the
+   local file holding a real token would have been committable.
+5. **The page imports the button statically, as step 5 shows**, and the exclusion happens at
+   resolve time (deviation 1). An intermediate design that made the button itself lazy was dropped:
+   it removed the button from the pre-rendered HTML, which check 3 requires.
+
+Checks 7, 8 and 9 need the throwaway `blog-editor-test` base branch from section 5 (a real token
+and real writes), so they are held for the owner's go-ahead. Checks 1-6 and 10 pass; the evidence
+is in the pull request.
+
+---
+
 ## 1. Goal - exact behaviour
 
 On **`internal.<domain>`** (the `staging` deploy) only:
