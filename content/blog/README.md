@@ -21,6 +21,27 @@ is no separate CMS or database.
 > `src/site.config.ts`. Posts inherit that switch — they go live for search and
 > answer engines at the same moment the rest of the site does.
 
+## Editing a post on internal
+
+On the internal staging site every post page has an **Edit post** button. It asks for
+the team password (the same one as `/report`), then opens the post in a rich editor:
+frontmatter stays raw text above the body, and a **Source** tab shows the whole file as
+plain text for anything the visual editor can't represent.
+
+Saving publishes nothing. It creates a `blog-edit/<slug>-<timestamp>` branch and opens a
+pull request into `staging`, carrying your name and your one-line "what changed". A
+human merges it, internal rebuilds, and the post then reaches production through the
+usual `staging` → `main` PR.
+
+Two things worth knowing:
+
+- Only **existing** posts can be edited from the browser. Creating, renaming or deleting
+  a post is still a normal commit.
+- `updated:` is set to today automatically, but only when the text actually changed - a
+  save that changes nothing stays byte-identical and is refused as "Nothing changed."
+
+Design and setup: `docs/BLOG_EDITOR_PLAN.md`.
+
 ## Frontmatter
 
 ```markdown
