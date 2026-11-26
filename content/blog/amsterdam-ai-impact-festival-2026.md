@@ -3,6 +3,9 @@ published: false
 title: "The AI Impact Registry at the AI Impact Festival"
 description: "At the second AI Impact Festival in Amsterdam, a register for mental health problems people suspect are linked to AI was part of the conversation. What was discussed, and what comes next."
 date: 2026-11-25
+updated: 2026-11-26
+image: /blog/amsterdam-ai-impact-festival-2026/cover-c2e8396f.webp
+imageAlt: "An orange chart, used as the cover"
 author: "AI Impact Registry team"
 tags: ["events", "reporting", "ai-safety"]
 ---
@@ -25,4 +28,10 @@ Two things follow from taking that seriously. Reports have to be collected from 
 
 The register is in development, and the reporting form is launching soon. It will live [here](/report). We are working with researchers on how reports are read, how they are stored, and what they can and cannot be used to claim.
 
-If you have noticed something in yourself, or in someone you are close to, that you suspect is connected to an AI tool, that is exactly the kind of experience the register is for. When it opens, it will take a few minutes to add.
+If you have noticed something in yourself, or in someone you are close to, that you suspect is connected to an  Added while checking the phase-2 image flow.
+
+![A blue test chart](/blog/amsterdam-ai-impact-festival-2026/photo1-01f30c7e.webp)
+
+![A test photo that carries camera metadata](/blog/amsterdam-ai-impact-festival-2026/gps-4b6a4ef5.webp)
+
+AI tool, that is exactly the kind of experience the register is for. When it opens, it will take a few minutes to add.
