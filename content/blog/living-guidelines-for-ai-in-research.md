@@ -1,8 +1,9 @@
 ---
 published: false
-title: "The rules for AI in research are now official - and designed to keep changing"
+title: "The rules for AI in research are now official - and designed to keep changing unlock check"
 description: "The 'living guidelines' approach - scientists keeping oversight of generative AI in research - is now official European guidance. Here's what it says, and why it matters."
 date: 2026-08-07
+updated: 2026-11-26
 author: "AI Impact Registry team"
 tags: ["research", "policy", "guidelines"]
 ---
