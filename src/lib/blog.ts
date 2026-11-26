@@ -17,14 +17,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { load as yamlLoad } from "js-yaml";
-import { marked } from "marked";
-import { gfmHeadingId } from "marked-gfm-heading-id";
-
-// GFM + auto heading IDs. The IDs give every ## / ### a stable anchor, which is
-// what lets answer engines (and readers) deep-link to a specific passage - a
-// small but real AEO/GEO win. Configured once at module load.
-marked.use(gfmHeadingId());
-marked.setOptions({ gfm: true, breaks: false });
+// Rendering and reading time are shared with the internal editor, so its Preview
+// cannot drift from what this build produces. See src/lib/markdown.ts.
+import { renderMarkdown } from "@/lib/markdown";
+import { readingMinutes } from "@/lib/reading-time";
+import { tagSlug } from "@/lib/tags";
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
@@ -96,11 +93,6 @@ function readPostFile(slug: string): { data: PostFrontmatter; content: string } 
   return { data: data as PostFrontmatter, content };
 }
 
-function readingMinutes(markdown: string): number {
-  const words = markdown.trim().split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / 200));
-}
-
 /** All `.md` slugs on disk (no draft filtering, no ordering). */
 function allSlugs(): string[] {
   if (!fs.existsSync(BLOG_DIR)) return [];
@@ -161,23 +153,13 @@ export function getPostBySlug(slug: string): Post | null {
     ...data,
     slug,
     readingMinutes: readingMinutes(content),
-    html: marked.parse(content) as string,
+    html: renderMarkdown(content),
   };
 }
 
-/**
- * URL-safe form of a tag, e.g. "Well-being 101" -> "well-being-101". Tags are
- * authored freely in frontmatter, so the display text and the slug are kept
- * distinct: the slug is what appears in `/blog/tags/<slug>`, the display text is
- * what the reader sees.
- */
-export function tagSlug(tag: string): string {
-  return tag
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
+// Lives in src/lib/tags.ts so the client editor can import it without pulling
+// `node:fs` (above) into the browser bundle. Re-exported for existing imports.
+export { tagSlug };
 
 /** All distinct tags across published posts, alphabetical (display text). */
 export function getAllTags(): string[] {

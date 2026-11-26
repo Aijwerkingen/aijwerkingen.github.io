@@ -1,8 +1,19 @@
-name: Deploy staging to Cloudflare (internal)
+# Deploys the `internal` branch to the internal site (internal.aiimpactregistry.org).
+#
+# Branch model:
+#   feature branch -> `staging`   : integration, no deploy
+#   `staging` -> `internal`       : this workflow deploys the internal site
+#   `main`                        : production, deployed by Cloudflare's own Git
+#                                   integration (project `aisafetywatch`)
+#
+# `staging` deliberately no longer triggers a deploy, so feature branches can be
+# merged there without publishing anything. Merging `staging` into `internal` is
+# the step that publishes.
+name: Deploy internal to Cloudflare Pages
 
 on:
   push:
-    branches: [staging]
+    branches: [internal]
   workflow_dispatch:
 
 jobs:
@@ -17,11 +28,17 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          # Staging only: enables the /report password gate (see ReportGate.tsx).
+          # Internal only: enables the /report password gate (see ReportGate.tsx).
           NEXT_PUBLIC_REPORT_GATE: "1"
-          # Staging only: enables the brand preview panel (see
+          # Internal only: enables the brand preview panel (see
           # src/admin/panel-enabled.ts). Production's build has neither.
           NEXT_PUBLIC_BRAND_PANEL: "1"
+          # Internal only: the "Edit post" button + Tiptap editor on blog posts
+          # (see src/admin/blog-editor-enabled.ts and docs/BLOG_EDITOR_PLAN.md).
+          NEXT_PUBLIC_BLOG_EDITOR: "1"
+          # Internal only: build `published: false` posts too, so they can be
+          # reviewed and edited on internal before going live.
+          BLOG_INCLUDE_DRAFTS: "1"
       - name: Deploy to Cloudflare Pages (internal)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -29,4 +46,4 @@ jobs:
         run: >
           npx wrangler@latest pages deploy out
           --project-name=aisafetywatch-internal
-          --branch=staging
+          --branch=internal

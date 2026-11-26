@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getPublishedSlugs, tagSlug } from "@/lib/blog";
+import { getPostBySlug, getPublishedSlugs } from "@/lib/blog";
 import { siteConfig } from "@/site.config";
-import { formatDate } from "../format";
+import { blogEditorEnabled } from "@/admin/blog-editor-enabled";
+import { EditPostButton } from "@/admin/blog-editor/EditPostButton";
+import { PostView } from "../PostView";
 
 // Static export needs the full list of slugs up front - there is no server to
 // render an unknown one on demand.
@@ -78,6 +79,27 @@ export default async function BlogPostPage({ params }: Params) {
     keywords: post.tags?.join(", "),
   };
 
+  // Staging only, both slots: `blogEditorEnabled` is the NEXT_PUBLIC_BLOG_EDITOR
+  // build flag, which only .github/workflows/deploy.yml sets. With
+  // BLOG_INCLUDE_DRAFTS=1 this build also renders hidden posts, so the notice
+  // says plainly that production does not show them yet. The Edit button's import
+  // is aliased to a no-op stub when the flag is unset (next.config.ts), so
+  // production carries neither the button nor Tiptap - see
+  // docs/BLOG_EDITOR_PLAN.md section 6.2.
+  // `: false` rather than `: null` in both slots below, deliberately: the RSC
+  // payload distinguishes the two, so `null` would change the bytes of the built
+  // HTML compared with the inline `{flag && ...}` these slots replaced. Both
+  // render nothing; only `false` keeps the production output byte-identical
+  // (acceptance check 2).
+  const draftNotice =
+    blogEditorEnabled && (post.published === false || post.draft === true) ? (
+      <p className="mt-3 inline-block rounded-full border border-accent-line bg-accent-soft px-3 py-1 text-xs font-semibold text-ink">
+        Draft - not on production
+      </p>
+    ) : (
+      false
+    );
+
   return (
     <>
       <script
@@ -85,68 +107,18 @@ export default async function BlogPostPage({ params }: Params) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <article>
-        <header className="border-b border-line bg-canvas">
-          <div className="mx-auto max-w-3xl px-4 py-14">
-            <Link
-              href="/blog"
-              className="text-sm font-semibold text-ink-soft transition-colors hover:text-ink"
-            >
-              ← All posts
-            </Link>
-
-            <h1 className="font-display mt-4 text-4xl font-extrabold tracking-tight text-balance">
-              {post.title}
-            </h1>
-
-            <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-soft">
-              <time dateTime={post.date}>{formatDate(post.date)}</time>
-              <span aria-hidden="true">·</span>
-              <span>{post.readingMinutes} min read</span>
-              {post.author && (
-                <>
-                  <span aria-hidden="true">·</span>
-                  <span>{post.author}</span>
-                </>
-              )}
-            </div>
-          </div>
-        </header>
-
-        <div className="mx-auto max-w-3xl px-4 py-12">
-          {post.image && (
-            // Static export has no image optimizer (next.config
-            // `images.unoptimized`), so a plain <img> is the honest primitive.
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={post.image}
-              alt={post.imageAlt ?? ""}
-              className="mb-10 w-full rounded-2xl border border-line"
-            />
-          )}
-
-          {/* Trusted, in-repo Markdown rendered to HTML at build time. */}
-          <div
-            className="prose-doc"
-            dangerouslySetInnerHTML={{ __html: post.html }}
-          />
-
-          {post.tags && post.tags.length > 0 && (
-            <ul className="mt-12 flex flex-wrap gap-2 border-t border-line pt-8">
-              {post.tags.map((tag) => (
-                <li key={tag}>
-                  <Link
-                    href={`/blog/tags/${tagSlug(tag)}`}
-                    className="inline-block rounded-full border border-line px-3 py-1 text-xs font-semibold text-ink-soft transition-colors hover:border-accent-line hover:text-ink"
-                  >
-                    {tag}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </article>
+      <PostView
+        title={post.title}
+        date={post.date}
+        readingMinutes={post.readingMinutes}
+        author={post.author}
+        image={post.image}
+        imageAlt={post.imageAlt}
+        tags={post.tags}
+        bodyHtml={post.html}
+        notice={draftNotice}
+        headerExtra={blogEditorEnabled ? <EditPostButton slug={slug} /> : false}
+      />
     </>
   );
 }

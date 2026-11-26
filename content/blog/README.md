@@ -21,6 +21,46 @@ is no separate CMS or database.
 > `src/site.config.ts`. Posts inherit that switch — they go live for search and
 > answer engines at the same moment the rest of the site does.
 
+## Editing on internal
+
+On the internal staging site every post page has an **Edit post** button. It asks for the
+team password (the same one as `/report`), then opens the post laid out exactly as it is
+published, with a toolbar. Nothing in the editor mentions Markdown or YAML.
+
+What an editor can do without touching a file:
+
+- Change the **title, short summary, tags and cover image** in a form above the post.
+- Edit the text as it looks, switching between **Edit** and **Preview**. Preview renders
+  through the same renderer the build uses, so it matches the published page.
+- **Add image**: pick a file and describe it. The image is scaled to at most 1600 px,
+  re-encoded to WebP (JPEG where the browser cannot), and stripped of camera metadata
+  before it is sent. It is named after the hash of its own contents and stored under
+  `public/blog/<slug>/`, so nothing is ever overwritten.
+- **Link**: select text, then add a web address. Only `https://`, `http://`, `mailto:` and
+  site-relative paths such as `/report` are accepted; you can type `example.org` and
+  `https://` is added.
+- **Add source**: paste a DOI or a PubMed link and get the entry in the house style,
+  appended to the post's `## Sources` list, optionally linked to the text you selected.
+
+Saving publishes nothing. It creates one commit on a `blog-edit/<slug>-<timestamp>` branch
+and opens a pull request into `staging`, carrying your name and your one-line "what
+changed". A human merges it, internal rebuilds, and the post then reaches production
+through the usual `staging` → `main` PR.
+
+Three things worth knowing:
+
+- Only **existing** posts can be edited from the browser. Creating, renaming or deleting a
+  post is still a normal commit.
+- A post whose formatting the editor cannot preserve opens **read-only**, with a note to ask
+  the web team. The test compares the *rendered* HTML before and after, so a change that
+  renders identically - such as `&` becoming `&amp;` on the way through the editor - is not
+  a problem.
+- `updated:` is set to today automatically, but only when something actually changed; a
+  details-only edit leaves the body text untouched.
+
+Design and setup: `docs/BLOG_EDITOR_PLAN.md`, plus `docs/BLOG_EDITOR_PHASE2_PLAN.md` for
+preview, images, links and sources.
+
 ## Frontmatter
 
 ```markdown

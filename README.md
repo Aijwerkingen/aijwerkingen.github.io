@@ -75,6 +75,34 @@ launches soon" placeholder.
 
 Background and setup commands: `docs/INTERNAL_AUTH_PLAN.md`.
 
+## Blog editor (staging only)
+
+Every post page on the internal deploy carries an **Edit post** button that opens a
+Tiptap editor for that post's Markdown. Saving does **not** write to `staging`: it
+creates a `blog-edit/<slug>-<timestamp>` branch and opens a **pull request into
+`staging`**. A human merges it, which redeploys internal; publishing to production is
+then the usual `staging` → `main` PR. Full design: `docs/BLOG_EDITOR_PLAN.md`.
+
+- **Flags:** `NEXT_PUBLIC_BLOG_EDITOR` (the button and editor) and
+  `BLOG_INCLUDE_DRAFTS` (build `published: false` posts so they can be reviewed and
+  edited on internal). Both are set **only** in `.github/workflows/deploy.yml`.
+- **Auth:** the same `INTERNAL_PASSWORD` and `report_access` cookie as the report gate,
+  so unlocking either unlocks both for 12 hours. `functions/api/blog-edit.js` verifies
+  the cookie itself and deliberately ignores `DISABLE_PRODUCTION_GATE`.
+- **Pages secrets, `aisafetywatch-internal` only:** `GITHUB_TOKEN` (fine-grained PAT:
+  Contents read/write + Pull requests read/write on this repo), `GITHUB_REPO`
+  (`Aijwerkingen/aijwerkingen.github.io`), `GITHUB_BASE_BRANCH` (`staging`), and
+  `BLOG_EDITOR_ENABLED=1`. Env changes apply on the **next** deployment. **Never set
+  `GITHUB_TOKEN` or `BLOG_EDITOR_ENABLED` on the production project** - their absence is
+  what keeps the endpoint dead (it answers 404) there.
+- **Production carries none of it.** Unlike the report gate, a build flag alone is not
+  enough here: an ES import puts the editor and its ~524 KB Tiptap chunk in the module
+  graph before any flag can be folded. So `next.config.ts` *also* aliases the button
+  import to a no-op stub when the flag is unset. Measurements and the alternatives that
+  were tried are in `docs/BLOG_EDITOR_PLAN.md` (section 6.2 note).
+- **Verify after merging to `main`:** no Edit button on a post page, and
+  `grep -rlE "ProseMirror|tiptap|blog-edit|Edit post" out/` prints nothing.
+
 ## Name & domain (settled)
 All brand identity lives in **one file, `src/site.config.ts`** (spec §5.1) - name, domain, logo, NAP. Every SEO artifact (titles, meta, canonical, JSON-LD, sitemap, `robots.txt`, `llms.txt`) derives from it, so changing either is a **one-file edit**, not a codebase hunt. Both are now settled: **AI Impact Registry** on **aiimpactregistry.org** (spec §5.2, criterion AC-DOMAIN).
 

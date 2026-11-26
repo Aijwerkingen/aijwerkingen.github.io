@@ -39,6 +39,10 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "functions/**", // Cloudflare Pages Functions — not part of the Next app
+    // `wrangler pages dev` bundles the Functions into .wrangler/tmp while it
+    // runs; those generated files are not ours to lint, and without this
+    // `npm run lint` fails locally whenever a dev server has been started.
+    ".wrangler/**",
   ]),
 ]);
 
