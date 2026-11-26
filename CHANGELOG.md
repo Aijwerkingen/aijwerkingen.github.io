@@ -85,6 +85,34 @@ anything is indexed. This work is scheduled in **Phase 5**.
 
 ## Entries (newest at top)
 
+### 2026-11-26 - Phase 6 - Hermes - Blog editor phase 2: no source view, live preview, images, links and sources
+
+- **What changed:** the internal editor is now written for editors who are not developers. The **Source** tab and the raw frontmatter textarea are gone. The body is edited inside a replica of the published page (`src/app/blog/PostView.tsx`, shared with the build) with **Edit** and **Preview** tabs, and Preview renders through the same `renderMarkdown()` the build uses, so the two cannot drift. Post details are form fields (`PostDetails.tsx`) and only the changed field is rewritten, line by line, so untouched lines keep their exact formatting and a details-only edit leaves the body byte-identical. Images are picked, described, scaled and re-encoded **in the browser** (`images.ts`; WebP, JPEG when the browser cannot), stripped of EXIF/GPS, named after the SHA-256 of their own bytes under `public/blog/<slug>/`, previewed from a pending store - never a `data:` URL in the document - and committed by `functions/api/blog-edit.js` in a **single Git Data commit** (blobs → tree → commit → branch → PR), so the post can never reference an image that is not in its tree. Links get a real dialog (`LinkDialog.tsx`) restricted to https/http/mailto and site-relative paths, with Ctrl/Cmd+K. Sources take a DOI or PubMed link and come back in the house style (`cite.ts`, resolved through doi.org CSL-JSON and NCBI esummary, only those two hosts, from validated ids), appended to the post's `## Sources` list. The safety net that replaces the Source tab is an HTML-equivalence check on open: a post the editor cannot represent opens **read-only** with a request to ask the web team.
+- **Decisions:** the plan's section 3 decisions were treated as final (no Markdown, YAML or source view anywhere; every string plain language). Saving still creates one `blog-edit/<slug>-<timestamp>` branch and a PR into `staging`, never a direct write, and `updated:` still moves only when something really changed. Images are validated server-side before anything is fetched: inside the post's own directory, magic bytes matching the extension, hash-in-name matching the bytes, ≤ 10 images, ≤ 1.5 MB each (413), ≤ 12 MB together. Deviations from `docs/BLOG_EDITOR_PHASE2_PLAN.md` - eleven of them, including the `replaceFrontmatter()` helper that check 6 turned out to need - are listed in full at the top of that file.
+- **Bugs the acceptance checks found and fixed:** (1) `split()`/`assemble()` round-tripped a body with an extra blank line, so a details-only edit was not a minimal diff; (2) "Add image" *replaced* a selected image instead of inserting after it, so two images in a row produced one; (3) adding the same source twice slipped past the duplicate check, because a DOI lives in the entry's link `href` rather than its text; (4) unlocking after a 401 ran the load again, which the load effect skipped as "same file" - leaving the editor stuck on "Loading the post…" and, worse, resetting the frontmatter and discarding the edit.
+- **Acceptance criteria progress (`docs/BLOG_EDITOR_PHASE2_PLAN.md` section 7):** all 20 pass, output in the PR body.
+  - [x] 1. `tsc --noEmit`, `npm run lint`, `npm audit --audit-level=high` pass; production-shaped build greps `CLEAN`
+  - [x] 2. production blog HTML identical to `origin/staging` (build id and, after step 9, the stylesheet chunk name normalised; its content differs only by the new `.prose-doc img` rule)
+  - [x] 3. Preview body HTML equals the built page's `prose-doc`, for all 5 posts
+  - [x] 4. no "Source"/"Frontmatter"/"Markdown"/"alt"/`---`/YAML in the editor's chrome
+  - [x] 5. two images → `/blog/<slug>/…` paths in the submitted Markdown, no `data:image`
+  - [x] 6. details-only edit on a lossy post → diff is `-title`/`+title`/`+updated:` only, body byte-identical
+  - [x] 7. untouched post leaves "Send for review" disabled
+  - [x] 8. the raw-HTML fixture opens read-only ("ask the web team"), no tabs, no Send, no toolbar
+  - [x] 9. text + 2 inline images + a cover → **1 commit, 4 files**; after merging and building, all three render with their alt text and `og:image` is the cover
+  - [x] 10. the committed GPS JPEG has no EXIF and no GPS block (read back with PIL; `exiftool` is not on this box)
+  - [x] 11. all six bad-image shapes → 400 `bad-image`; a 1.6 MB image → 413
+  - [x] 12. `: " #` and `’` survive as valid YAML; block tags replaced cleanly; `date:` keeps its form
+  - [x] 13. pasting or dropping an image inserts no base64 (nothing is inserted)
+  - [x] 14. with WebP forced off: a `.jpg` is produced, the transparent PNG comes back white, and the server accepts it
+  - [x] 15. Ctrl+K, bare host → https, prefill, remove, `javascript:`/`data:` refused in dialog **and** on paste, paste over a selection links it
+  - [x] 16. all four input forms resolve to the same article, PubMed adds its link, arXiv resolves, bad input gets the friendly messages
+  - [x] 17. the three existing Sources entries regenerated - differences listed in the PR
+  - [x] 18. creates `## Sources`, appends to an existing list, duplicate refused, selected text linked, and the shape still opens in the editor
+  - [x] 19. no cookie → 401, SSRF/plain URLs → 400, only normalised fields returned, `BLOG_EDITOR_ENABLED` unset → 404
+  - [x] 20. 409 keeps the edit and submits nothing; 401 re-unlocks with the edit intact; non-ASCII survives verbatim; nothing under `/report` touched
+- **Blockers / risks:** the phase-2 branch is unmerged, so nothing is live on internal yet. Since PR #77 the internal site deploys from the `internal` branch, so this reaches internal when `staging` is merged into `internal`.
+
 ### 2026-11-25 - Phase 5 - Hermes - Staging-only in-place blog editor (Tiptap v3, PR-based)
 
 - **What changed:** the internal deploy can now edit an existing post in place. `/blog/<slug>` on staging carries an **Edit post** button (`src/admin/blog-editor/EditPostButton.tsx`) that unlocks with the same `INTERNAL_PASSWORD` / `report_access` cookie as `/report`, then opens `BlogEditor.tsx` - a Tiptap v3 editor with the frontmatter as a raw textarea, a formatting toolbar, and a **Source** tab holding the whole file. Saving calls the new `functions/api/blog-edit.js`, which creates a `blog-edit/<slug>-<timestamp>` branch, commits `content/blog/<slug>.md`, and opens a PR into `staging`. Nothing is ever written to `staging` or `main` directly, and only existing posts can be edited. New build flags `NEXT_PUBLIC_BLOG_EDITOR` and `BLOG_INCLUDE_DRAFTS`, set only in the staging `deploy.yml`; with drafts included, hidden posts render with a "Draft - not on production" pill.

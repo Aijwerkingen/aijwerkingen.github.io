@@ -1,3 +1,65 @@
+> **Update - implemented (2026-11-26).** Steps 1-10 implemented in the order given;
+> **all 20 acceptance checks in section 7 pass**, with the output in the PR body.
+> Deviations from this document, in full:
+>
+> 1. **Minimal diffs needed a helper the plan does not mention.** `split()` hands
+>    back a body that still carries the newline after the frontmatter fence and
+>    `assemble()` adds another, so round-tripping through the two grew the file by
+>    a blank line and a details-only edit was *not* a two-line diff.
+>    `replaceFrontmatter()` (in `md.ts`) now splices the edited frontmatter into
+>    the original file, leaving every other byte alone: check 6's diff is exactly
+>    `-title` / `+title` / `+updated:`, body byte-identical even on a lossy post.
+> 2. **`PostView` gained two props** (`notice`, `headerExtra`) so the draft pill and
+>    the Edit button stay exactly where the shipped code had them. Check 2 also
+>    forced `false` (not `null`) into empty slots - the RSC payload distinguishes
+>    them - and the build id in the HTML is random per build, so the literal `diff
+>    -r` in check 2 can never pass; the comparison normalises the build id and,
+>    after step 9, the stylesheet's chunk name, whose content differs by exactly
+>    the new `.prose-doc img` rule.
+> 3. **Three small modules exist for one reason: the editor is a client component
+>    and the build is not.** `tagSlug` moved out of `blog.ts` into a pure
+>    `src/lib/tags.ts` so `PostView` can be imported in the browser without pulling
+>    `node:fs` in; `links.ts` holds the URL rules the dialog and paste share;
+>    `pending.ts` is a module-level store of not-yet-committed images rather than a
+>    ref, because React 19 forbids reading a ref during render - which is what
+>    handing one to the Tiptap extension's `renderHTML` would amount to.
+> 4. **A single image over 1.5 MB answers 413, not 400.** Check 11 requires exactly
+>    that ("And with 413: a 1.6 MB image"); section 8a's wording put size in the
+>    400 bucket.
+> 5. **`date` is not a `Date` here.** This repo's js-yaml (5.5.0) returns a string,
+>    so `readDetails` handles both and `formatDate` is fed a string.
+> 6. **`beforeunload` guards unsaved work.** The body is edited inside a replica of
+>    the published page, which contains real links (tag chips, "All posts").
+>    Without the guard a stray click navigates away and takes the edit with it.
+> 7. **The 409 message changed wording.** Phase 1 told the editor to copy their text
+>    out of the Source tab; that tab no longer exists, so it now says to copy it
+>    somewhere safe and reload.
+> 8. **`.wrangler/**` added to eslint's ignores** - `wrangler pages dev` writes its
+>    bundled functions into `.wrangler/tmp`, and linting those generated files made
+>    `npm run lint` fail on an otherwise clean tree.
+> 9. **Check 4 was inspected in the DOM** rather than with `get_page_text`: a post's
+>    own prose legitimately contains words like "alt", so the check scopes to the
+>    editor's own chrome (header, details form, toolbar, submit row, dialogs).
+> 10. **Check 10 used PIL, not `exiftool`** (not installed on this box): write a GPS
+>     fixture, then read the committed file back.
+> 11. **Toolbar wording is unchanged from phase 1** (Bold, Italic, H2, H3, Bullets,
+>     Numbers, Quote, Link, Code, Table, Undo, Redo) plus **Add image** and
+>     **Add source**.
+>
+> **Four bugs the checks found and fixed** (all committed). The blank-line round
+> trip above. "Add image" replaced a *selected* image instead of inserting after it,
+> so adding two in a row produced one. Adding the same source twice slipped past the
+> duplicate check, because a DOI lives in the entry's link `href`, not in its text.
+> And the 401 re-unlock path: unlocking ran `check()` again, which the load effect
+> then skipped as "same file" - leaving the stage stuck on "Loading the post…" -
+> and would have re-set the frontmatter and discarded the edit; unlocking with a
+> post already loaded now returns straight to editing with the edit intact.
+>
+> Out of scope as listed, and untouched: `ci.yml`, the CSP, Cloudflare settings, new
+> env vars. One related change landed separately as PR #77: the internal site now
+> deploys from an `internal` branch, so merging into `staging` no longer publishes -
+> phase 2 arrives on internal when `staging` is merged into `internal`.
+
 # Plan: blog editor phase 2 - visual-only editing, true preview, images, links and sources
 
 **Audience:** a cold agent with no prior context. Read top to bottom, then implement
