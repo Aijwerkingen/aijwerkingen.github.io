@@ -74,9 +74,14 @@ You now have the two values the app needs:
 Set env vars (spec `.env.example`):
 ```
 SURVEY_PROVIDER="qualtrics"
-QUALTRICS_SURVEY_URL="https://uva.fra1.qualtrics.com/jfe/form/SV_1zdQGq7PaFsv2Jg"
+QUALTRICS_SURVEY_URL="<live form link - see the note below, never copy one from this repo>"
 QUALTRICS_ORIGIN="https://uva.fra1.qualtrics.com"
 ```
+> **The form link is not recorded in this repo.** It lives only in the Cloudflare Pages project
+> env and changes whenever the survey is re-created in Qualtrics (the link quoted here before
+> 2026-11-24 was already retired). Read the live value from a running site:
+> `curl https://aiimpactregistry.org/api/report-access`. Survey content versions are in
+> `survey-doc/<YYYY-MM-DD>/`.
 > Current instance: UvA's EU datacenter is served from `*.fra1.qualtrics.com`
 > (Frankfurt), not the `*.eu.qualtrics.com` brand form - both are EU regions.
 `SURVEY_PROVIDER="qualtrics"` selects Mode A; the `/report` page renders the Qualtrics provider (spec §8.1–8.2). Switching to Mode B later is just changing this value + redeploy.
