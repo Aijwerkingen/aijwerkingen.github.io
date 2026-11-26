@@ -1,33 +1,40 @@
 "use client";
 
-// Formatting toolbar for the blog editor. Inline code and the usual block
-// types; the table button inserts a 3x3 table (available because
-// @tiptap/extension-table is installed).
-// See docs/BLOG_EDITOR_PLAN.md step 4.
+// Formatting toolbar. Words, not symbols: the people using this have never heard
+// of Markdown (docs/BLOG_EDITOR_PHASE2_PLAN.md section 1).
+//
+// "Link" opens a dialog rather than window.prompt, and image and source actions
+// live here so everything an editor can insert is in one row.
 
 import type { Editor } from "@tiptap/react";
 
 const BUTTON =
   "cursor-pointer rounded-md border border-line px-2 py-1 text-xs font-semibold " +
-  "text-ink-soft transition-colors hover:bg-surface hover:text-ink";
+  "text-ink-soft transition-colors hover:bg-canvas hover:text-ink";
 
-export function Toolbar({ editor }: { editor: Editor | null }) {
+export function Toolbar({
+  editor,
+  onAddImage,
+  onDescribeImage,
+  onReplaceImage,
+  onRemoveImage,
+  onOpenLink,
+  onAddSource,
+}: {
+  editor: Editor | null;
+  onAddImage: () => void;
+  onDescribeImage: () => void;
+  onReplaceImage: () => void;
+  onRemoveImage: () => void;
+  onOpenLink: () => void;
+  onAddSource: () => void;
+}) {
   if (!editor) return null;
 
   const active = (name: string, attrs?: Record<string, unknown>) =>
-    editor.isActive(name, attrs) ? " bg-surface text-ink" : "";
+    editor.isActive(name, attrs) ? " bg-canvas text-ink" : "";
 
-  function setLink() {
-    if (!editor) return;
-    const previous = (editor.getAttributes("link").href as string | undefined) ?? "https://";
-    const url = window.prompt("Link URL", previous);
-    if (url === null) return;
-    if (url.trim() === "") {
-      editor.chain().focus().extendMarkRange("link").unsetLink().run();
-      return;
-    }
-    editor.chain().focus().extendMarkRange("link").setLink({ href: url.trim() }).run();
-  }
+  const onImage = editor.isActive("image");
 
   return (
     <div className="flex flex-wrap items-center gap-1 border-b border-line bg-surface px-3 py-2">
@@ -82,9 +89,20 @@ export function Toolbar({ editor }: { editor: Editor | null }) {
         Quote
       </button>
       <span className="mx-1 h-4 w-px bg-line" aria-hidden="true" />
-      <button type="button" onClick={setLink} className={BUTTON + active("link")}>
+      <button type="button" onClick={onOpenLink} className={BUTTON + active("link")}>
         Link
       </button>
+      <button
+        type="button"
+        onClick={onAddImage}
+        className={BUTTON + (onImage ? " bg-canvas text-ink" : "")}
+      >
+        Add image
+      </button>
+      <button type="button" onClick={onAddSource} className={BUTTON}>
+        Add source
+      </button>
+      <span className="mx-1 h-4 w-px bg-line" aria-hidden="true" />
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleCode().run()}
@@ -118,6 +136,21 @@ export function Toolbar({ editor }: { editor: Editor | null }) {
       >
         Redo
       </button>
+
+      {onImage && (
+        <>
+          <span className="mx-1 h-4 w-px bg-line" aria-hidden="true" />
+          <button type="button" onClick={onDescribeImage} className={BUTTON + " bg-canvas text-ink"}>
+            Describe
+          </button>
+          <button type="button" onClick={onReplaceImage} className={BUTTON}>
+            Replace
+          </button>
+          <button type="button" onClick={onRemoveImage} className={BUTTON}>
+            Remove
+          </button>
+        </>
+      )}
     </div>
   );
 }

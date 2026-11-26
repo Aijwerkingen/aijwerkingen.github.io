@@ -237,6 +237,13 @@ html[data-font="system"] {
   .prose-doc a {
     @apply text-accent-strong underline decoration-accent-line underline-offset-4;
   }
+
+  /* Inline images in a post. This is the only rule in this file that the phase-2
+     editor needed (docs/BLOG_EDITOR_PHASE2_PLAN.md step 9): images the editor
+     inserts must fit the column on the published page too. */
+  .prose-doc img {
+    @apply my-6 h-auto max-w-full rounded-xl border border-line;
+  }
 }
 
 /* The hero's ECG trace draws itself once on load, echoing the pulse line in the
