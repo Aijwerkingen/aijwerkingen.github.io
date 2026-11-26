@@ -263,6 +263,15 @@ export function BlogEditor({
         if (res.ok) {
           setPassword("");
           setNotice(null);
+          // A 401 while editing only means the cookie expired: the post and the sha
+          // we loaded are still valid, so the edit is kept and the editor goes
+          // straight back to it. Reloading here would discard it (and, because the
+          // loaded file would be unchanged, would leave the stage stuck on
+          // "Loading the post...").
+          if (initialFile !== null) {
+            setStage("editing");
+            return;
+          }
           setStage("checking");
           await check();
           return;
@@ -274,7 +283,7 @@ export function BlogEditor({
         setPasswordError("Couldn't reach the server.");
       }
     },
-    [password, check],
+    [password, check, initialFile],
   );
 
   /**
